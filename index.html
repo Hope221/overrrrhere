@@ -290,9 +290,12 @@ html[data-input="touch"] .pad-keys, html[data-input="pad"] .pad-keys { display: 
 .btn-a { background: var(--white); color: var(--ink); }
 .btn-a .g { width: 28px; height: 28px; border-radius: 999px; background: var(--ink); color: var(--white); display: grid; place-items: center; font-size: 12px; font-weight: 800; }
 
-.soon-chip { display: inline-flex; align-items: center; gap: 9px; height: 32px; padding: 0 14px 0 12px; margin: 0; border-radius: 999px; background: rgba(10,10,12,0.46); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); font-size: 14px; font-weight: 600; color: var(--white); white-space: nowrap; }
-.soon-chip::before { content: ''; width: 7px; height: 7px; flex: none; border-radius: 999px; background: var(--orange); animation: soonPulse 2.4s ease-out infinite; }
-@keyframes soonPulse { 0% { box-shadow: 0 0 0 0 rgba(255,90,31,0.55); } 70%, 100% { box-shadow: 0 0 0 7px rgba(255,90,31,0); } }
+.soon-chip { display: inline-flex; align-items: center; gap: 9px; height: 32px; padding: 0 14px 0 4px; margin: 0; border-radius: 999px; background: rgba(10,10,12,0.46); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); font-size: 14px; font-weight: 600; color: var(--white); white-space: nowrap; -webkit-user-select: none; user-select: none; -webkit-tap-highlight-color: transparent; }
+/* La petite manette du logo attend la sortie : elle suit des yeux, cligne, s'assoupit, sautille quand on la touche (script en bas) */
+.soon-face { position: relative; width: 24px; height: 24px; flex: none; }
+.soon-face svg { width: 100%; height: 100%; overflow: visible; transform-origin: 50% 100%; }
+.soon-p { position: absolute; left: 50%; top: 50%; z-index: 1; font: 800 16px/1 var(--f-brand); color: var(--orange); text-shadow: 0 1px 3px rgba(0,0,0,0.5); pointer-events: none; will-change: transform, opacity; }
+.soon-p.is-z { font: 800 11px/1 var(--f-brand); color: var(--white); }
 .btn-2 { padding: 0 20px 0 14px; background: rgba(255,255,255,0.08); color: var(--white); box-shadow: inset 0 0 0 1.5px rgba(255,255,255,0.32); }
 .btn-2:hover { background: rgba(255,255,255,0.14); }
 .btn-2 svg { width: 20px; height: 20px; }
@@ -615,7 +618,7 @@ html[data-input="keys"] .btn.is-focus, html[data-input="pad"] .btn.is-focus { bo
       </div>
 
       <div class="caption">
-        <p class="soon-chip">Coming soon to the App Store</p>
+        <p class="soon-chip"><span class="soon-face" aria-hidden="true"><svg viewBox="0 0 100 100" focusable="false"><rect width="100" height="100" rx="24" fill="#FF5A1F"/><g class="sf-body" transform="translate(50 53) scale(0.8) translate(-50 -51)"><path d="M20 34 C20 26 26 22 34 22 H66 C74 22 80 26 80 34 L86 64 C88 74 82 80 74 80 C68 80 64 76 61 70 L58 64 H42 L39 70 C36 76 32 80 26 80 C18 80 12 74 14 64 Z" fill="#FFFFFF"/><rect class="sf-eye" x="50.75" y="32.5" width="8.5" height="17" rx="4.25" fill="#FF5A1F"/><rect class="sf-eye" x="62.75" y="32.5" width="8.5" height="17" rx="4.25" fill="#FF5A1F"/><g class="sf-joy" visibility="hidden" fill="none" stroke="#FF5A1F" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"><path d="M50.5 45 Q55 35 59.5 45"/><path d="M62.5 45 Q67 35 71.5 45"/></g></g></svg></span>Coming soon to the App Store</p>
         <h1 class="h1">Your games, over <span class="o">here</span>.</h1>
         <p class="kw"><span>Xbox Series X|S · Xbox One</span><span class="kw-sep"> · </span><span>NES to Wii · Your own games</span></p>
       </div>
@@ -664,7 +667,7 @@ html[data-input="keys"] .btn.is-focus, html[data-input="pad"] .btn.is-focus { bo
 <section class="outro" id="outro" aria-labelledby="outro-title">
   <p class="outro-mark" aria-hidden="true">ove<span class="mark-r">r</span><span class="mark-r">r</span><span class="mark-r">r</span><span class="mark-r">r</span>here</p>
   <div class="outro-row">
-    <div class="outro-text"><p class="soon-chip">Coming soon to the App Store</p><h2 class="outro-lead" id="outro-title">Free.<br><span>No ads, no account, no tracking.</span></h2></div>
+    <div class="outro-text"><p class="soon-chip"><span class="soon-face" aria-hidden="true"><svg viewBox="0 0 100 100" focusable="false"><rect width="100" height="100" rx="24" fill="#FF5A1F"/><g class="sf-body" transform="translate(50 53) scale(0.8) translate(-50 -51)"><path d="M20 34 C20 26 26 22 34 22 H66 C74 22 80 26 80 34 L86 64 C88 74 82 80 74 80 C68 80 64 76 61 70 L58 64 H42 L39 70 C36 76 32 80 26 80 C18 80 12 74 14 64 Z" fill="#FFFFFF"/><rect class="sf-eye" x="50.75" y="32.5" width="8.5" height="17" rx="4.25" fill="#FF5A1F"/><rect class="sf-eye" x="62.75" y="32.5" width="8.5" height="17" rx="4.25" fill="#FF5A1F"/><g class="sf-joy" visibility="hidden" fill="none" stroke="#FF5A1F" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"><path d="M50.5 45 Q55 35 59.5 45"/><path d="M62.5 45 Q67 35 71.5 45"/></g></g></svg></span>Coming soon to the App Store</p><h2 class="outro-lead" id="outro-title">Free.<br><span>No ads, no account, no tracking.</span></h2></div>
     <div class="actions">
       <a class="btn btn-2" href="https://buymeacoffee.com/doctorhope__" target="_blank" rel="noopener" data-nav data-row="5"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 9h11v4.5A5.5 5.5 0 0 1 10.5 19h0A5.5 5.5 0 0 1 5 13.5z"/><path d="M16 10.5h1.25a2.25 2.25 0 0 1 0 4.5H16"/><path d="M8.5 3.5c-.6.8-.6 1.7 0 2.5M12 3.5c-.6.8-.6 1.7 0 2.5"/></svg>Buy me a coffee</a>
       <a class="btn btn-2" href="https://github.com/Hope221/overrrrhere" target="_blank" rel="noopener" data-nav data-row="5"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 7l-5 5 5 5M15 7l5 5-5 5"/></svg>Source code · GPL v3</a>
@@ -1580,6 +1583,175 @@ html[data-input="keys"] .btn.is-focus, html[data-input="pad"] .btn.is-focus { bo
   Focus.set(Views.current === 'home' ? Phone.el : Focus.first(), { scroll: false });
   if (Views.current === 'home') Boot.start(); else Boot.finish(true);
   try { if (navigator.getGamepads && Array.from(navigator.getGamepads()).some(Boolean)) GP.start(); } catch (e) { /* manette non autorisée ici */ }
+})();
+</script>
+<script>
+// « Coming soon » : la petite manette du logo attend la sortie de l'app. Elle suit le pointeur des yeux, cligne,
+// jette un œil quand on joue au clavier ou à la manette, s'assoupit si rien ne bouge, sautille et lâche les quatre r quand on la touche.
+(() => {
+  const els = Array.from(document.querySelectorAll('.soon-face'));
+  if (!els.length || !('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const EYES = [55, 67], EY = 41, EW = 8.5, EH = 17;
+  const IDLE = [[0, 0], [0, 0], [1, 0.1], [0.9, 0], [0.2, -1], [-0.9, 0.15], [0.6, 0.8], [-0.4, -0.8]];
+  const R = [1, 0.75, 0.5, 0.3]; // les quatre r du mot-symbole, en opacité décroissante
+  const rnd = (a, b) => a + Math.random() * (b - a);
+  const ease = (k, dt) => 1 - Math.exp(-k * dt);
+  let px = 0, py = 0, pointerAt = -1e9, lastInput = performance.now(), glance = null, raf = 0, last = 0, padOn = false, padPrev = '';
+
+  const faces = els.map((el) => ({
+    el, svg: el.querySelector('svg'), body: el.querySelector('.sf-body'), eyes: Array.from(el.querySelectorAll('.sf-eye')), joy: el.querySelector('.sf-joy'),
+    visible: false, ex: 0, ey: 0, bx: 0, by: 0, rot: 0, wide: 0, startle: 0, sleep: 0, look: [0, 0], lookUntil: 0,
+    blinkAt: performance.now() + rnd(900, 2600), blinkT: -1, twice: false, happy: false, hover: false, joyUntil: 0, pokedAt: 0, zAt: 0,
+  }));
+
+  function blink(f, now) { f.blinkT = now; f.twice = Math.random() < 0.2; }
+  function setHappy(f, on) { f.happy = on; f.joy.setAttribute('visibility', on ? 'visible' : 'hidden'); f.eyes.forEach((e) => e.setAttribute('visibility', on ? 'hidden' : 'visible')); }
+
+  // Une lettre qui s'envole du visage : les quatre r de la marque, ou un z quand elle dort
+  function puff(f, ch, cls, x, y, rot, dur, delay, op) {
+    const s = document.createElement('span');
+    s.className = 'soon-p' + (cls ? ' ' + cls : '');
+    s.textContent = ch;
+    f.el.appendChild(s);
+    const at = (k, sc, r, o) => ({ transform: `translate(-50%, -50%) translate(${x * k}px, ${y * k}px) scale(${sc}) rotate(${r}deg)`, opacity: o });
+    s.animate([at(0, 0.3, 0, 0), { ...at(0.5, 1.15, rot * 0.4, op), offset: 0.28 }, { ...at(0.82, 1, rot * 0.8, op), offset: 0.7 }, at(1, 0.9, rot, 0)], { duration: dur, delay, easing: 'cubic-bezier(.2,.7,.3,1)', fill: 'both' }).onfinish = () => s.remove();
+  }
+
+  function poke(f) {
+    const now = performance.now();
+    wake(now);
+    if (now - f.pokedAt < 260) return;
+    f.pokedAt = now;
+    f.joyUntil = now + 1100;
+    f.svg.animate([
+      { transform: 'none' },
+      { transform: 'translateY(-7px) scale(0.92, 1.08)', offset: 0.36 },
+      { transform: 'translateY(0) scale(1.12, 0.86)', offset: 0.68 },
+      { transform: 'none' },
+    ], { duration: 500, easing: 'ease-out' });
+    [-150, -118, -86, -54].forEach((deg, i) => {
+      const a = (deg + rnd(-8, 8)) * Math.PI / 180, d = rnd(30, 40);
+      puff(f, 'r', '', Math.cos(a) * d, Math.sin(a) * d, rnd(-25, 25), 1000, 80 + i * 50, R[i]);
+    });
+  }
+
+  function wake(now) {
+    lastInput = now;
+    faces.forEach((f) => { if (f.sleep > 0.5) { f.startle = 1; blink(f, now); } });
+    kick();
+  }
+  function look(d, ms) { glance = { x: d[0], y: d[1], until: performance.now() + ms }; }
+
+  // Manette : la page la lit déjà pour l'aperçu ; ici on regarde seulement où l'on pousse, sans rien changer d'autre
+  function pollPad(now) {
+    let pads;
+    try { pads = navigator.getGamepads ? Array.from(navigator.getGamepads()) : []; } catch (e) { padOn = false; return; }
+    const p = pads.find(Boolean);
+    if (!p) return;
+    const ax = p.axes[0] || 0, ay = p.axes[1] || 0, b = (i) => !!(p.buttons[i] && p.buttons[i].pressed);
+    let d = null;
+    if (b(14) || ax < -0.5) d = [-1, 0]; else if (b(15) || ax > 0.5) d = [1, 0];
+    else if (b(12) || ay < -0.5) d = [0, -1]; else if (b(13) || ay > 0.5) d = [0, 1];
+    else if (b(0)) d = [0.15, -1];
+    const key = d ? d.join() : (p.buttons.some((x) => x.pressed) ? 'btn' : '');
+    if (key !== padPrev) { padPrev = key; if (key) { if (d) look(d, b(0) ? 1100 : 700); wake(now); } }
+  }
+
+  function tick(now) {
+    raf = requestAnimationFrame(tick);
+    const dt = Math.min(0.05, Math.max(0, now - last) / 1000);
+    last = now;
+    if (padOn) pollPad(now);
+    const asleep = now - lastInput > 15000;
+    const glancing = glance && now < glance.until;
+    const fresh = now - pointerAt < 6000;
+
+    for (const f of faces) {
+      if (!f.visible) continue;
+      // Où regarder : un coup d'œil (clavier, manette), sinon le pointeur, sinon elle regarde autour d'elle
+      let lx = 0, ly = 0, k = 18, near = 0;
+      if (glancing) { lx = glance.x; ly = glance.y; k = 26; }
+      else if (fresh) {
+        const r = f.el.getBoundingClientRect();
+        const dx = px - (r.left + r.width / 2), dy = py - (r.top + r.height / 2), d = Math.hypot(dx, dy) || 1;
+        const m = Math.min(1, Math.max(0, (d - 12) / 160));
+        lx = dx / d * m; ly = dy / d * m;
+        near = d < 110 ? 1 - d / 110 : 0;
+      } else {
+        if (now > f.lookUntil) { f.look = IDLE[Math.floor(Math.random() * IDLE.length)]; f.lookUntil = now + rnd(1200, 3400); }
+        lx = f.look[0]; ly = f.look[1]; k = 30;
+      }
+      f.sleep += ((asleep ? 1 : 0) - f.sleep) * ease(asleep ? 1.1 : 12, dt);
+      lx *= 1 - f.sleep; ly = ly * (1 - f.sleep) + 0.6 * f.sleep;
+
+      f.ex += (lx * 5.5 - f.ex) * ease(k, dt);
+      f.ey += (ly * 4.5 - f.ey) * ease(k, dt);
+      f.bx += (lx * 4 - f.bx) * ease(7, dt);
+      f.by += (ly * 3 - f.by) * ease(7, dt);
+      f.rot += (lx * 9 - f.rot) * ease(6, dt);
+      f.startle *= Math.exp(-dt * 3);
+      f.wide += (Math.max(near * 0.6, f.startle) - f.wide) * ease(10, dt);
+
+      // Clignements ; les yeux rieurs (survol, toucher) arrivent au milieu d'un clignement
+      const want = f.hover || now < f.joyUntil;
+      let open = 1;
+      if (f.blinkT >= 0) {
+        const p = (now - f.blinkT) / 160;
+        if (p >= 1) {
+          if (f.twice) { f.twice = false; f.blinkT = now + 70; }
+          else { f.blinkT = -1; f.blinkAt = now + rnd(2200, 5600); }
+        } else if (p > 0) {
+          open = Math.abs(Math.cos(p * Math.PI));
+          if (p >= 0.5 && f.happy !== want) setHappy(f, want);
+        }
+      } else if (f.happy !== want) blink(f, now);
+      else if (now > f.blinkAt && !f.happy && f.sleep < 0.5) blink(f, now);
+
+      // Respiration, plus lente et plus ample quand elle dort
+      const breath = Math.sin(now / (900 + 600 * f.sleep)) * (0.5 + 0.9 * f.sleep);
+      f.body.setAttribute('transform', `translate(${(50 + f.bx).toFixed(2)} ${(53 + f.by + breath).toFixed(2)}) rotate(${(f.rot + f.sleep * 4).toFixed(2)}) scale(0.8) translate(-50 -51)`);
+      const h = Math.max(1.4, EH * open * (1 - 0.86 * f.sleep) * (1 + 0.22 * f.wide)), w = EW * (1 + 0.1 * f.wide);
+      const top = EY + f.ey - EH / 2 + (EH - h) * (0.5 + 0.3 * f.sleep);
+      f.eyes.forEach((e, i) => {
+        e.setAttribute('x', (EYES[i] + f.ex - w / 2).toFixed(2));
+        e.setAttribute('y', top.toFixed(2));
+        e.setAttribute('width', w.toFixed(2));
+        e.setAttribute('height', h.toFixed(2));
+        e.setAttribute('rx', (Math.min(w, h) / 2).toFixed(2));
+      });
+      f.joy.setAttribute('transform', `translate(${f.ex.toFixed(2)} ${f.ey.toFixed(2)})`);
+
+      if (f.sleep > 0.92 && now > f.zAt) { f.zAt = now + 2600; puff(f, 'z', 'is-z', rnd(12, 18), -26, rnd(-10, 14), 2400, 0, 0.85); }
+    }
+  }
+
+  function kick() {
+    const run = !document.hidden && faces.some((f) => f.visible);
+    if (run && !raf) { last = performance.now(); raf = requestAnimationFrame(tick); }
+    else if (!run && raf) { cancelAnimationFrame(raf); raf = 0; }
+  }
+
+  const io = new IntersectionObserver((en) => { en.forEach((e) => { faces.find((f) => f.el === e.target).visible = e.isIntersecting; }); kick(); });
+  faces.forEach((f) => {
+    io.observe(f.el);
+    const chip = f.el.parentElement;
+    chip.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse') f.hover = true; });
+    chip.addEventListener('pointerleave', () => { f.hover = false; });
+    chip.addEventListener('pointerdown', () => poke(f));
+  });
+  const onPointer = (e) => { px = e.clientX; py = e.clientY; pointerAt = performance.now(); wake(pointerAt); };
+  addEventListener('pointermove', onPointer, { passive: true });
+  addEventListener('pointerdown', onPointer, { passive: true });
+  document.documentElement.addEventListener('mouseleave', () => { pointerAt = -1e9; });
+  addEventListener('scroll', () => wake(performance.now()), { passive: true });
+  addEventListener('keydown', (e) => {
+    const d = { ArrowLeft: [-1, 0], ArrowRight: [1, 0], ArrowUp: [0, -1], ArrowDown: [0, 1], Enter: [0.15, -1], ' ': [0.15, -1] }[e.key];
+    if (d) look(d, d[0] === 0.15 ? 1100 : 700);
+    wake(performance.now());
+  });
+  addEventListener('gamepadconnected', () => { padOn = true; });
+  try { padOn = !!(navigator.getGamepads && Array.from(navigator.getGamepads()).some(Boolean)); } catch (e) { padOn = false; }
+  document.addEventListener('visibilitychange', kick);
 })();
 </script>
 
