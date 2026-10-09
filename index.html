@@ -106,13 +106,14 @@ main { position: relative; z-index: 1; flex: 1 0 auto; }
 /* ---------- Accueil : la manette ---------- */
 .dive { position: relative; }
 .dive-sticky { position: relative; }
-.hero { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-rows: auto auto minmax(24px, 14svh) auto; align-content: center;
-  grid-template-areas: "dev dev" "pad pad" "gap gap" "h1 side"; justify-items: center; align-items: end; gap: 18px 48px;
+.hero { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-rows: auto auto minmax(16px, 6svh) auto; align-content: center;
+  grid-template-areas: "dev dev" "pad pad" "gap gap" "txt txt"; justify-items: center; align-items: end; gap: 18px 48px;
   padding: calc(var(--top) + 12px) max(var(--gutter), calc((100% - var(--dev-w)) / 2)) clamp(28px, 5svh, 48px); }
 .hero > .device { grid-area: dev; }
 .hero > .cap-live { grid-area: cap; }
 .hero > .pad { grid-area: pad; }
-.caption { display: contents; }
+.caption { grid-area: txt; justify-self: center; display: flex; flex-direction: column; align-items: center; gap: 16px; text-align: center; }
+.caption .soon-chip { margin-bottom: 2px; }
 .caption .h1 { grid-area: h1; justify-self: start; }
 .caption .caption-side { grid-area: side; justify-self: end; }
 .js-dive .dive-sticky { position: sticky; top: 0; height: 100svh; overflow: hidden; }
@@ -283,13 +284,15 @@ html[data-input="touch"] .pad-keys, html[data-input="pad"] .pad-keys { display: 
 .h1 { margin: 0; font: 800 clamp(46px, 6vw, 86px)/0.92 var(--f-brand); min-width: 0; letter-spacing: -0.045em; text-wrap: balance; }
 .h1 .o { color: var(--orange); }
 .caption-side { display: flex; flex-direction: column; align-items: flex-start; gap: 16px; padding-bottom: 4px; }
-.kw { margin: 0; font-size: 15px; line-height: 1.55; font-weight: 500; color: var(--text-2); }
+.kw { margin: 0; font-size: 17px; line-height: 1.55; font-weight: 500; color: var(--text-2); }
 .btn { display: inline-flex; align-items: center; gap: 10px; height: 48px; padding: 0 22px 0 10px; border-radius: 999px; font-size: 16px; font-weight: 700; text-decoration: none; white-space: nowrap; transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease; }
 .btn:hover { transform: translateY(-1px); }
 .btn-a { background: var(--white); color: var(--ink); }
 .btn-a .g { width: 28px; height: 28px; border-radius: 999px; background: var(--ink); color: var(--white); display: grid; place-items: center; font-size: 12px; font-weight: 800; }
-.btn.soon { padding: 0 22px; cursor: default; }
-.btn.soon:hover { transform: none; }
+
+.soon-chip { display: inline-flex; align-items: center; gap: 9px; height: 32px; padding: 0 14px 0 12px; margin: 0; border-radius: 999px; background: rgba(10,10,12,0.46); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); font-size: 14px; font-weight: 600; color: var(--white); white-space: nowrap; }
+.soon-chip::before { content: ''; width: 7px; height: 7px; flex: none; border-radius: 999px; background: var(--orange); animation: soonPulse 2.4s ease-out infinite; }
+@keyframes soonPulse { 0% { box-shadow: 0 0 0 0 rgba(255,90,31,0.55); } 70%, 100% { box-shadow: 0 0 0 7px rgba(255,90,31,0); } }
 .btn-2 { padding: 0 20px 0 14px; background: rgba(255,255,255,0.08); color: var(--white); box-shadow: inset 0 0 0 1.5px rgba(255,255,255,0.32); }
 .btn-2:hover { background: rgba(255,255,255,0.14); }
 .btn-2 svg { width: 20px; height: 20px; }
@@ -311,7 +314,7 @@ html[data-input="keys"] .btn.is-focus, html[data-input="pad"] .btn.is-focus { bo
 .js-dive .stream-copy { opacity: var(--copy, 0); transform: translateY(calc((1 - var(--copy, 0)) * 24px)); }
 .js-dive .stream.live { pointer-events: auto; }
 .js-dive .device { visibility: var(--devvis, visible); }
-.js-dive .pad, .js-dive .cap-live, .js-dive .h1, .js-dive .caption-side { opacity: var(--cap, 1); }
+.js-dive .pad, .js-dive .cap-live, .js-dive .caption { opacity: var(--cap, 1); }
 .js-dive.diving .pad, .js-dive.diving .caption-side { pointer-events: none; }
 
 /* ---------- Rétro : la scène en pixels, jouable ---------- */
@@ -368,6 +371,8 @@ html[data-input="keys"] .btn.is-focus, html[data-input="pad"] .btn.is-focus { bo
 .mark-r:nth-of-type(3) { --rc: var(--r3); }
 .mark-r:nth-of-type(4) { --rc: var(--r4); }
 .outro-row { margin-top: clamp(32px, 6svh, 64px); display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 28px 48px; }
+.outro .soon-chip { background: rgba(255,255,255,0.08); }
+.outro-text { display: flex; flex-direction: column; align-items: flex-start; gap: 18px; }
 .outro-lead { margin: 0; font: 800 clamp(28px, 2.8vw, 40px)/1.08 var(--f-brand); letter-spacing: -0.03em; }
 .outro-lead span { color: var(--text-3); }
 .actions { display: flex; flex-wrap: wrap; gap: 12px; }
@@ -436,8 +441,10 @@ html[data-input="keys"] .btn.is-focus, html[data-input="pad"] .btn.is-focus { bo
 }
 @media (max-width: 720px), (max-aspect-ratio: 4/5) {
   .cap-live { display: block; }
-  .hero { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto; grid-template-areas: "h1" "dev" "cap" "pad" "side"; align-content: space-evenly; gap: 20px; }
-  .caption .caption-side { justify-self: start; }
+  .hero { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto; grid-template-areas: "txt" "dev" "cap" "pad"; align-content: space-evenly; gap: 20px; }
+  .kw span { display: block; }
+  .kw .kw-sep { display: none; }
+  .amb-veil { background: linear-gradient(180deg, rgba(10,10,12,0.62) 0%, rgba(10,10,12,0.5) 40%, rgba(10,10,12,0.3) 62%, rgba(10,10,12,0.86) 100%); }
   .h1 { font-size: clamp(44px, 13vw, 104px); }
 }
 @media (max-width: 720px) {
@@ -608,11 +615,9 @@ html[data-input="keys"] .btn.is-focus, html[data-input="pad"] .btn.is-focus { bo
       </div>
 
       <div class="caption">
-        <h1 class="h1">Your games,<br>over <span class="o">here</span>.</h1>
-        <div class="caption-side">
-          <p class="kw">Xbox Series X|S · Xbox One<br>NES to Wii · Your own games</p>
-          <span class="btn btn-a soon">Coming soon to the App Store</span>
-        </div>
+        <p class="soon-chip">Coming soon to the App Store</p>
+        <h1 class="h1">Your games, over <span class="o">here</span>.</h1>
+        <p class="kw"><span>Xbox Series X|S · Xbox One</span><span class="kw-sep"> · </span><span>NES to Wii · Your own games</span></p>
       </div>
     </div>
 
@@ -659,9 +664,8 @@ html[data-input="keys"] .btn.is-focus, html[data-input="pad"] .btn.is-focus { bo
 <section class="outro" id="outro" aria-labelledby="outro-title">
   <p class="outro-mark" aria-hidden="true">ove<span class="mark-r">r</span><span class="mark-r">r</span><span class="mark-r">r</span><span class="mark-r">r</span>here</p>
   <div class="outro-row">
-    <h2 class="outro-lead" id="outro-title">Free.<br><span>No ads, no account, no tracking.</span></h2>
+    <div class="outro-text"><p class="soon-chip">Coming soon to the App Store</p><h2 class="outro-lead" id="outro-title">Free.<br><span>No ads, no account, no tracking.</span></h2></div>
     <div class="actions">
-      <span class="btn btn-a soon">Coming soon to the App Store</span>
       <a class="btn btn-2" href="https://buymeacoffee.com/doctorhope__" target="_blank" rel="noopener" data-nav data-row="5"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 9h11v4.5A5.5 5.5 0 0 1 10.5 19h0A5.5 5.5 0 0 1 5 13.5z"/><path d="M16 10.5h1.25a2.25 2.25 0 0 1 0 4.5H16"/><path d="M8.5 3.5c-.6.8-.6 1.7 0 2.5M12 3.5c-.6.8-.6 1.7 0 2.5"/></svg>Buy me a coffee</a>
       <a class="btn btn-2" href="https://github.com/Hope221/overrrrhere" target="_blank" rel="noopener" data-nav data-row="5"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 7l-5 5 5 5M15 7l5 5-5 5"/></svg>Source code · GPL v3</a>
     </div>
