@@ -21,6 +21,9 @@ ces cores sont les versions iOS déjà compilées par libretro, gardées ici en 
 ## PPSSPP.framework (PSP)
 
 - Core : PPSSPP (https://github.com/hrydgard/ppsspp, dossier libretro/), licence GPL v2 ou plus récente.
+  Commit cae623f4e6c197f45662358ffc4605e3fb97298e du 25/09/2026 (« Merge pull request #22349 »), retrouvé le 09/10/2026 : la
+  compilation nocturne de libretro du 26/09 (pipeline 115375 de git.libretro.com/libretro/ppsspp, tâche « libretro-build-ios-arm64 »
+  terminée le 26/09 à 05:38 UTC) est partie de ce commit, et c'est la seule du 26/09, date du fichier.
 - Fichier d'origine : https://buildbot.libretro.com/nightly/apple/ios-arm64/latest/ppsspp_libretro.dylib.zip
   (publié le 26/09/2026, fichier interne daté du 26/09/2026, téléchargé le 26/09/2026).
   - SHA-256 du zip : d0c3ff549aa26503081f7789434a6293e5e93d267940d19a88f278a4e8eabb37
