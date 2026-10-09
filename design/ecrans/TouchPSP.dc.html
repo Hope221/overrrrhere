@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>PSP — touch controls</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#000000}
+a{color:#FFFFFF}a:hover{color:#FFFFFF}
+</style>
+</helmet>
+<div style="position: relative; width: 852px; height: 393px; overflow: hidden; background: #000000; font-family: 'Figtree', system-ui, sans-serif; color: #FFFFFF;">
+
+<img src="/_blob/c9fc34e6077a748ad247570a7215ee2f" alt="Game screen (placeholder)" style="position: absolute; left: 77px; top: 0; width: 699px; height: 393px; object-fit: cover; image-rendering: pixelated;">
+
+<div style="position: absolute; left: 0; top: 0; width: 852px; height: 393px; opacity: {{opacity}};">
+
+<a href="RetroPlay.dc.html" aria-label="Open the overrrrhere menu" style="position: absolute; left: 380px; top: 10px; width: 92px; height: 30px; box-sizing: border-box; border-radius: 999px; background: rgba(10,10,12,0.45); border: 1.5px solid rgba(255,255,255,0.4); display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 6px; text-decoration: none; box-shadow: 0 2px 8px rgba(0,0,0,0.35);">
+<svg width="16" height="16" viewBox="0 0 100 100" aria-hidden="true"><rect width="100" height="100" rx="22.4" fill="#FF5A1F"></rect><g transform="translate(50 52) scale(0.74) translate(-50 -51)"><path d="M20 34 C20 26 26 22 34 22 H66 C74 22 80 26 80 34 L86 64 C88 74 82 80 74 80 C68 80 64 76 61 70 L58 64 H42 L39 70 C36 76 32 80 26 80 C18 80 12 74 14 64 Z" fill="#FFFFFF"></path><rect x="53" y="34" width="6" height="13" rx="3" fill="#FF5A1F"></rect><rect x="63" y="34" width="6" height="13" rx="3" fill="#FF5A1F"></rect></g></svg>
+<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg>
+</a>
+
+<button type="button" aria-label="L" onClick="{{shoulderL.press}}" style="position: absolute; left: 56px; top: 10px; width: 100px; height: 34px; padding: 0; border: 0; background: transparent; cursor: pointer; filter: drop-shadow(0 2px 6px rgba(0,0,0,0.4));">
+<svg width="100" height="34" viewBox="0 0 100 34" aria-hidden="true" style="position: absolute; left: 0; top: 0;"><path d="M16 2 H94 a4 4 0 0 1 4 4 V28 a4 4 0 0 1-4 4 H6 a4 4 0 0 1-4-4 V16 Z" fill="{{shoulderL.fill}}" stroke="rgba(255,255,255,0.9)" stroke-width="2"></path></svg>
+<span style="position: relative; font-family: 'Figtree', system-ui, sans-serif; font-size: 14px; font-weight: 800; color: {{shoulderL.fg}};">L</span>
+</button>
+<button type="button" aria-label="R" onClick="{{shoulderR.press}}" style="position: absolute; left: 696px; top: 10px; width: 100px; height: 34px; padding: 0; border: 0; background: transparent; cursor: pointer; filter: drop-shadow(0 2px 6px rgba(0,0,0,0.4));">
+<svg width="100" height="34" viewBox="0 0 100 34" aria-hidden="true" style="position: absolute; left: 0; top: 0;"><path d="M84 2 H6 a4 4 0 0 0-4 4 V28 a4 4 0 0 0 4 4 H94 a4 4 0 0 0 4-4 V16 Z" fill="{{shoulderR.fill}}" stroke="rgba(255,255,255,0.9)" stroke-width="2"></path></svg>
+<span style="position: relative; font-family: 'Figtree', system-ui, sans-serif; font-size: 14px; font-weight: 800; color: {{shoulderR.fg}};">R</span>
+</button>
+
+<sc-for list="{{arrows}}" as="d" hint-placeholder-count="4">
+<button type="button" aria-label="{{d.name}}" onClick="{{d.press}}" style="position: absolute; left: {{d.x}}px; top: {{d.y}}px; width: 46px; height: 46px; padding: 0; border: 0; background: transparent; cursor: pointer; filter: drop-shadow(0 2px 6px rgba(0,0,0,0.4));">
+<svg width="46" height="46" viewBox="0 0 46 46" aria-hidden="true" style="transform: rotate({{d.rot}}deg);">
+<path d="M9 3 H37 a4 4 0 0 1 4 4 V29 L23 43 L5 29 V7 a4 4 0 0 1 4-4 Z" fill="{{d.fill}}" stroke="rgba(255,255,255,0.9)" stroke-width="2" stroke-linejoin="round"></path>
+<path d="M23 12 L29 20 H17 Z" fill="{{d.fg}}"></path>
+</svg>
+</button>
+</sc-for>
+
+<div aria-label="Analog stick" style="position: absolute; left: 108px; top: 252px; width: 92px; height: 92px; box-sizing: border-box; border-radius: 999px; border: 2px solid rgba(255,255,255,0.9); background: rgba(10,10,12,0.22); box-shadow: 0 2px 8px rgba(0,0,0,0.35);">
+<div style="position: absolute; left: 18px; top: 18px; width: 52px; height: 52px; box-sizing: border-box; border-radius: 999px; border: 2px solid rgba(255,255,255,0.9); background-color: rgba(255,255,255,0.18); background-image: radial-gradient(circle, rgba(255,255,255,0.75) 1.2px, transparent 1.6px); background-size: 6px 6px; box-shadow: 0 4px 12px rgba(0,0,0,0.4);"></div>
+</div>
+
+<sc-for list="{{faces}}" as="b" hint-placeholder-count="4">
+<button type="button" aria-label="{{b.name}}" onClick="{{b.press}}" style="position: absolute; left: {{b.x}}px; top: {{b.y}}px; width: 48px; height: 48px; box-sizing: border-box; padding: 0; border: 2px solid rgba(255,255,255,0.9); border-radius: 999px; background: {{b.fill}}; color: {{b.fg}}; font-family: 'Figtree', system-ui, sans-serif; font-size: 16px; font-weight: 800; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(0,0,0,0.4); cursor: pointer; transition: background 100ms ease;">
+<span>{{b.text}}</span>
+<sc-if value="{{b.showHint}}" hint-placeholder-val="{{ false }}">
+<svg width="9" height="9" viewBox="0 0 10 10" fill="none" stroke="{{b.fg}}" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="position: absolute; right: 6px; bottom: 6px; opacity: 0.7;"><path d="{{b.hintPath}}"></path></svg>
+</sc-if>
+</button>
+</sc-for>
+
+<sc-for list="{{smalls}}" as="s" hint-placeholder-count="2">
+<button type="button" aria-label="{{s.name}}" onClick="{{s.press}}" style="position: absolute; left: {{s.x}}px; top: 318px; width: 76px; height: 26px; box-sizing: border-box; padding: 0; border: 1.5px solid rgba(255,255,255,0.9); border-radius: 6px; background: {{s.fill}}; color: {{s.fg}}; font-family: 'Figtree', system-ui, sans-serif; font-size: 10px; font-weight: 800; letter-spacing: 0.08em; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(0,0,0,0.4); cursor: pointer;">{{s.text}}</button>
+</sc-for>
+
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"opacity":{"editor":"enum","options":["Low","Medium","High"],"default":"Medium"},"pspSymbols":{"editor":"boolean","default":false},"$preview":{"width":852,"height":393}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { lit: 'A' };
+  }
+  renderVals() {
+    const op = { Low: 0.5, Medium: 0.8, High: 1 }[this.props.opacity ?? 'Medium'] || 0.8;
+    const hints = this.props.pspSymbols ?? false;
+    const lit = this.state.lit;
+    const idle = 'rgba(10,10,12,0.22)';
+    const on = 'rgba(255,255,255,0.92)';
+    const look = (k) => ({
+      fill: lit === k ? on : idle,
+      fg: lit === k ? '#0A0A0C' : '#FFFFFF',
+      press: () => this.setState({ lit: lit === k ? '' : k })
+    });
+    const arrows = [
+      { k: 'Up', name: 'D-pad up', x: 107, y: 96, rot: 0 },
+      { k: 'Right', name: 'D-pad right', x: 153, y: 142, rot: 90 },
+      { k: 'Down', name: 'D-pad down', x: 107, y: 188, rot: 180 },
+      { k: 'Left', name: 'D-pad left', x: 61, y: 142, rot: 270 }
+    ].map((d) => Object.assign({ name: d.name, x: d.x, y: d.y, rot: d.rot }, look(d.k)));
+    const shapes = {
+      A: 'M2 2L8 8M8 2L2 8',
+      B: 'M5 1.5a3.5 3.5 0 1 1 0 7a3.5 3.5 0 1 1 0-7z',
+      X: 'M2 2h6v6h-6z',
+      Y: 'M5 1.5L8.5 8h-7z'
+    };
+    const faces = [
+      { k: 'Y', name: 'Y (triangle)', x: 702, y: 96 },
+      { k: 'X', name: 'X (square)', x: 652, y: 146 },
+      { k: 'B', name: 'B (circle)', x: 752, y: 146 },
+      { k: 'A', name: 'A (cross)', x: 702, y: 196 }
+    ].map((b) => Object.assign({ name: b.name, x: b.x, y: b.y, text: b.k, showHint: hints, hintPath: shapes[b.k] }, look(b.k)));
+    const smalls = [
+      { k: 'Select', name: 'Select', x: 634, text: 'SELECT' },
+      { k: 'Start', name: 'Start', x: 720, text: 'START' }
+    ].map((s) => Object.assign({ name: s.name, x: s.x, text: s.text }, look(s.k)));
+    return {
+      opacity: op,
+      arrows: arrows,
+      faces: faces,
+      smalls: smalls,
+      shoulderL: look('L'),
+      shoulderR: look('R')
+    };
+  }
+}
+</script>
+</body>
+</html>

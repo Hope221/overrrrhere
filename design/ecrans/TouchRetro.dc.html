@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Retro — touch controls</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#000000}
+a{color:#FFFFFF}a:hover{color:#FFFFFF}
+</style>
+</helmet>
+<div style="position: relative; width: 852px; height: 393px; overflow: hidden; background: #000000; font-family: 'Figtree', system-ui, sans-serif; color: #FFFFFF;">
+
+<img src="/_blob/d3046b87be1dfd8253f7cb92c362be8d" alt="" style="position: absolute; left: -40px; top: -40px; width: 932px; height: 473px; object-fit: cover; image-rendering: pixelated; filter: blur(30px) brightness(0.3);">
+<img src="/_blob/d3046b87be1dfd8253f7cb92c362be8d" alt="Game screen" style="position: absolute; left: 186px; top: 16px; width: 480px; height: 360px; image-rendering: pixelated; box-shadow: 0 0 40px rgba(0,0,0,0.6);">
+
+<div style="position: absolute; left: 0; top: 0; width: 852px; height: 393px; opacity: {{opacity}};">
+
+<a href="RetroPlay.dc.html" aria-label="Open the overrrrhere menu" style="position: absolute; left: 380px; top: 22px; width: 92px; height: 30px; box-sizing: border-box; border-radius: 999px; background: rgba(10,10,12,0.5); border: 1.5px solid rgba(255,255,255,0.4); display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 6px; text-decoration: none; box-shadow: 0 2px 8px rgba(0,0,0,0.35);">
+<svg width="16" height="16" viewBox="0 0 100 100" aria-hidden="true"><rect width="100" height="100" rx="22.4" fill="#FF5A1F"></rect><g transform="translate(50 52) scale(0.74) translate(-50 -51)"><path d="M20 34 C20 26 26 22 34 22 H66 C74 22 80 26 80 34 L86 64 C88 74 82 80 74 80 C68 80 64 76 61 70 L58 64 H42 L39 70 C36 76 32 80 26 80 C18 80 12 74 14 64 Z" fill="#FFFFFF"></path><rect x="53" y="34" width="6" height="13" rx="3" fill="#FF5A1F"></rect><rect x="63" y="34" width="6" height="13" rx="3" fill="#FF5A1F"></rect></g></svg>
+<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg>
+</a>
+
+<sc-for list="{{buttons}}" as="b" hint-placeholder-count="10">
+<button type="button" aria-label="{{b.name}}" onClick="{{b.press}}" style="position: absolute; left: {{b.x}}px; top: {{b.y}}px; width: {{b.w}}px; height: {{b.h}}px; box-sizing: border-box; padding: 0; border: 1.5px solid rgba(255,255,255,0.55); border-radius: {{b.r}}px; background: {{b.bg}}; color: {{b.fg}}; font-family: 'Figtree', system-ui, sans-serif; font-size: {{b.fs}}px; font-weight: 800; letter-spacing: {{b.ls}}; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(0,0,0,0.35); cursor: pointer; transition: background 100ms ease;">{{b.text}}</button>
+</sc-for>
+
+<div aria-label="D-pad" style="position: absolute; left: 70px; top: 146px; width: 102px; height: 102px;">
+<div style="position: absolute; left: 34px; top: 0; width: 34px; height: 102px; box-sizing: border-box; border-radius: 8px; border: 1.5px solid rgba(255,255,255,0.55); background: rgba(255,255,255,0.14); box-shadow: 0 2px 8px rgba(0,0,0,0.35);"></div>
+<div style="position: absolute; left: 0; top: 34px; width: 102px; height: 34px; box-sizing: border-box; border-radius: 8px; border: 1.5px solid rgba(255,255,255,0.55); background: rgba(255,255,255,0.14);"></div>
+<div style="position: absolute; left: 35.5px; top: 35.5px; width: 31px; height: 31px; background: rgba(255,255,255,0.14);"></div>
+</div>
+
+</div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"opacity":{"editor":"enum","options":["Low","Medium","High"],"default":"Medium"},"$preview":{"width":852,"height":393}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { lit: { B: true } };
+  }
+  renderVals() {
+    const op = { Low: 0.5, Medium: 0.8, High: 1 }[this.props.opacity ?? 'Medium'] || 0.8;
+    const defs = [
+      { k: 'L', name: 'L', x: 56, y: 12, w: 72, h: 30, r: 10, t: 'L', fs: 13, ls: '0' },
+      { k: 'R', name: 'R', x: 724, y: 12, w: 72, h: 30, r: 10, t: 'R', fs: 13, ls: '0' },
+      { k: 'X', name: 'X', x: 710, y: 130, w: 42, h: 42, r: 999, t: 'X', fs: 14, ls: '0' },
+      { k: 'Y', name: 'Y', x: 668, y: 172, w: 42, h: 42, r: 999, t: 'Y', fs: 14, ls: '0' },
+      { k: 'A', name: 'A', x: 752, y: 172, w: 42, h: 42, r: 999, t: 'A', fs: 14, ls: '0' },
+      { k: 'B', name: 'B', x: 710, y: 214, w: 42, h: 42, r: 999, t: 'B', fs: 14, ls: '0' },
+      { k: 'Select', name: 'Select', x: 72, y: 324, w: 70, h: 28, r: 999, t: 'SELECT', fs: 10, ls: '0.06em' },
+      { k: 'Start', name: 'Start', x: 710, y: 324, w: 70, h: 28, r: 999, t: 'START', fs: 10, ls: '0.06em' }
+    ];
+    const lit = this.state.lit;
+    const buttons = defs.map((d) => {
+      const on = !!lit[d.k];
+      return {
+        name: d.name, x: d.x, y: d.y, w: d.w, h: d.h, r: d.r, text: d.t, fs: d.fs, ls: d.ls,
+        bg: on ? 'rgba(255,255,255,0.92)' : 'rgba(255,255,255,0.14)',
+        fg: on ? '#0A0A0C' : '#FFFFFF',
+        press: () => {
+          const next = {};
+          next[d.k] = !on;
+          this.setState({ lit: next });
+        }
+      };
+    });
+    return { buttons: buttons, opacity: op };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>All games</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<div style="position: relative; width: 852px; height: 393px; overflow: hidden; background: #0A0A0C; font-family: 'Figtree', system-ui, sans-serif; color: #FFFFFF;">
+
+<div style="position: absolute; left: 0; top: 0; width: 852px; height: 393px; filter: blur(28px) brightness(0.36); pointer-events: none; transform: scale(1.1);" aria-hidden="true">
+<dc-import name="Main" hint-size="852px,393px"></dc-import>
+</div>
+
+<div style="position: absolute; left: 0; top: 0; width: 852px; height: 393px; box-sizing: border-box; padding: 16px 56px 16px 56px; display: flex; flex-direction: column;">
+
+<div style="display: flex; flex-direction: row; justify-content: space-between; align-items: flex-end;">
+<div style="display: flex; flex-direction: column;">
+<h1 style="margin: 0; font-size: 26px; line-height: 32px; font-weight: 800; letter-spacing: -0.01em;">All games</h1>
+<div style="font-size: 13px; line-height: 18px; color: rgba(255,255,255,0.74);">8 installed on Xbox Series X · Synced just now</div>
+</div>
+</div>
+
+<div style="margin-top: 16px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; width: 682px;">
+<sc-for list="{{games}}" as="g" hint-placeholder-count="8">
+<button type="button" aria-label="{{g.label}}" onClick="{{g.pick}}" style="position: relative; width: 160px; height: 90px; padding: 0; margin: 0; border: 0; border-radius: 10px; overflow: hidden; cursor: pointer; background: #17181C; box-shadow: {{g.ring}};">
+<sc-if value="{{g.isRequiem}}" hint-placeholder-val="{{ false }}">
+<img src="/_blob/c97931eefb5c7cbafa244629232556e3" alt="" style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; object-fit: cover;">
+</sc-if>
+<sc-if value="{{g.isInnocence}}" hint-placeholder-val="{{ false }}">
+<img src="/_blob/0ec4bbbf942d2c8ecb321726b65242b4" alt="" style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; object-fit: contain; background: #FFFFFF;">
+</sc-if>
+<sc-if value="{{g.isPlaceholder}}" hint-placeholder-val="{{ true }}">
+<div style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.22);">
+<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 6h11A3.5 3.5 0 0 1 21 9.5l.8 5.6a2.4 2.4 0 0 1-4.2 1.9L15 14H9l-2.6 3a2.4 2.4 0 0 1-4.2-1.9L3 9.5A3.5 3.5 0 0 1 6.5 6z"></path></svg>
+</div>
+</sc-if>
+<sc-if value="{{g.pinned}}" hint-placeholder-val="{{ false }}">
+<span style="position: absolute; right: 6px; top: 6px; width: 20px; height: 20px; border-radius: 999px; background: #FFFFFF; color: #0A0A0C; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 6px rgba(0,0,0,0.4);">
+<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>
+</span>
+</sc-if>
+</button>
+</sc-for>
+</div>
+
+<div style="flex-grow: 1;"></div>
+
+<div style="display: flex; flex-direction: row; justify-content: space-between; align-items: flex-end;">
+<div style="display: flex; flex-direction: column;">
+<div style="font-size: 18px; line-height: 24px; font-weight: 700;">{{cur.label}}</div>
+<div style="font-size: 13px; line-height: 18px; color: rgba(255,255,255,0.74);">{{cur.status}}</div>
+</div>
+<div style="display: flex; flex-direction: row; align-items: center; gap: 16px; font-size: 12px; color: rgba(255,255,255,0.74);">
+<a href="Launch.dc.html" style="display: flex; flex-direction: row; align-items: center; gap: 7px; height: 32px; color: rgba(255,255,255,0.74); text-decoration: none;">
+<span style="width: 18px; height: 18px; box-sizing: border-box; border-radius: 999px; border: 1.5px solid rgba(255,255,255,0.7); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; color: #FFFFFF;">A</span>
+<span>Play</span>
+</a>
+<button type="button" onClick="{{togglePin}}" style="display: flex; flex-direction: row; align-items: center; gap: 7px; height: 32px; padding: 0; border: 0; background: transparent; color: rgba(255,255,255,0.74); font-family: 'Figtree', system-ui, sans-serif; font-size: 12px; cursor: pointer;">
+<span style="width: 18px; height: 18px; box-sizing: border-box; border-radius: 999px; border: 1.5px solid rgba(255,255,255,0.7); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; color: #FFFFFF;">Y</span>
+<span>{{pinLabel}}</span>
+</button>
+<a href="TileEditor.dc.html" style="display: flex; flex-direction: row; align-items: center; gap: 7px; height: 32px; color: rgba(255,255,255,0.74); text-decoration: none;">
+<span style="width: 18px; height: 18px; box-sizing: border-box; border-radius: 999px; border: 1.5px solid rgba(255,255,255,0.7); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; color: #FFFFFF;">X</span>
+<span>Edit tile</span>
+</a>
+<a href="Main.dc.html" style="display: flex; flex-direction: row; align-items: center; gap: 7px; height: 32px; color: rgba(255,255,255,0.74); text-decoration: none;">
+<span style="width: 18px; height: 18px; box-sizing: border-box; border-radius: 999px; border: 1.5px solid rgba(255,255,255,0.7); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; color: #FFFFFF;">B</span>
+<span>Back</span>
+</a>
+</div>
+</div>
+
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":852,"height":393}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { sel: 'requiem', pinned: { requiem: true, innocence: true } };
+  }
+  renderVals() {
+    const list = [
+      { id: 'requiem', label: 'A Plague Tale: Requiem', kind: 'requiem' },
+      { id: 'innocence', label: 'A Plague Tale: Innocence', kind: 'innocence' },
+      { id: 'g3', label: '[Installed game]', kind: 'ph' },
+      { id: 'g4', label: '[Installed game]', kind: 'ph' },
+      { id: 'g5', label: '[Installed game]', kind: 'ph' },
+      { id: 'g6', label: '[Installed game]', kind: 'ph' },
+      { id: 'g7', label: '[Installed game]', kind: 'ph' },
+      { id: 'g8', label: '[Installed game]', kind: 'ph' }
+    ];
+    const sel = this.state.sel;
+    const pinned = this.state.pinned;
+    const pinnedIds = list.filter((g) => pinned[g.id]).map((g) => g.id);
+    const games = list.map((g) => {
+      const on = g.id === sel;
+      return {
+        label: g.label,
+        isRequiem: g.kind === 'requiem',
+        isInnocence: g.kind === 'innocence',
+        isPlaceholder: g.kind === 'ph',
+        pinned: !!pinned[g.id],
+        ring: on ? '0 0 0 2px #0A0A0C, 0 0 0 4px #FFFFFF, 0 12px 28px rgba(0,0,0,0.55)' : '0 6px 16px rgba(0,0,0,0.35)',
+        pick: () => this.setState({ sel: g.id })
+      };
+    });
+    const curG = list.find((g) => g.id === sel) || list[0];
+    const isPinned = !!pinned[curG.id];
+    const pos = pinnedIds.indexOf(curG.id) + 1;
+    return {
+      games: games,
+      cur: { label: curG.label, status: isPinned ? 'Pinned to home · Position ' + pos : '' },
+      pinLabel: isPinned ? 'Unpin' : 'Pin to home',
+      togglePin: () => {
+        const next = Object.assign({}, this.state.pinned);
+        next[sel] = !next[sel];
+        this.setState({ pinned: next });
+      }
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Game details</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#0A0A0C}
+a{color:#FFFFFF}a:hover{color:#FFFFFF}
+</style>
+</helmet>
+<div style="position: relative; width: 852px; height: 393px; overflow: hidden; background: #0A0A0C; font-family: 'Figtree', system-ui, sans-serif; color: #FFFFFF;">
+
+<img src="/_blob/55be2f84be542341a371332a0759bd95" alt="" style="position: absolute; left: 0; top: 0; width: 852px; height: 393px; object-fit: cover; object-position: 60% 30%;">
+<div style="position: absolute; left: 0; top: 0; width: 852px; height: 393px; background: linear-gradient(90deg, rgba(8,8,10,0.94) 0%, rgba(8,8,10,0.82) 42%, rgba(8,8,10,0.2) 72%, rgba(8,8,10,0) 100%);"></div>
+<div style="position: absolute; left: 0; top: 0; width: 852px; height: 393px; background: linear-gradient(0deg, rgba(8,8,10,0.7) 0%, rgba(8,8,10,0) 40%);"></div>
+
+<div style="position: absolute; left: 0; top: 0; width: 852px; height: 393px; box-sizing: border-box; padding: 22px 56px 20px 56px; display: flex; flex-direction: column;">
+
+<div style="flex-grow: 1;"></div>
+
+<img src="/_blob/c97931eefb5c7cbafa244629232556e3" alt="" style="width: 112px; height: 63px; border-radius: 8px; object-fit: cover; box-shadow: 0 8px 20px rgba(0,0,0,0.45);">
+
+<h1 style="margin: 12px 0 0 0; font-size: 28px; line-height: 34px; font-weight: 800; letter-spacing: -0.01em;">A Plague Tale: Requiem</h1>
+<div style="margin-top: 2px; font-size: 13px; line-height: 18px; color: rgba(255,255,255,0.74);">Focus Entertainment · Adventure · Installed on your Xbox</div>
+
+<p style="margin: 10px 0 0 0; width: 430px; font-size: 13px; line-height: 19px; color: rgba(255,255,255,0.84);">Amicia and Hugo flee south in search of a cure for Hugo's curse, hunted by soldiers and swarms of rats across a plague-stricken land.</p>
+
+<div style="margin-top: 14px; display: flex; flex-direction: row; gap: 28px;">
+<div style="display: flex; flex-direction: column;">
+<span style="font-size: 11px; line-height: 14px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(255,255,255,0.6);">Last played</span>
+<span style="margin-top: 3px; font-size: 15px; line-height: 20px; font-weight: 700;">Yesterday</span>
+</div>
+<div style="display: flex; flex-direction: column;">
+<span style="font-size: 11px; line-height: 14px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(255,255,255,0.6);">Played here</span>
+<span style="margin-top: 3px; font-size: 15px; line-height: 20px; font-weight: 700;">14 h</span>
+</div>
+<div style="display: flex; flex-direction: column;">
+<span style="font-size: 11px; line-height: 14px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(255,255,255,0.6);">Achievements</span>
+<span style="margin-top: 3px; font-size: 15px; line-height: 20px; font-weight: 700; font-variant-numeric: tabular-nums;">32 of 50 <span style="font-weight: 500; color: rgba(255,255,255,0.6);">· 740 G</span></span>
+<div style="margin-top: 5px; width: 140px; height: 4px; border-radius: 999px; background: rgba(255,255,255,0.18); overflow: hidden;">
+<div style="width: 64%; height: 4px; border-radius: 999px; background: #FFFFFF;"></div>
+</div>
+</div>
+</div>
+
+<div style="margin-top: 16px; display: flex; flex-direction: row; justify-content: space-between; align-items: center;">
+<div style="display: flex; flex-direction: row; align-items: center; gap: 10px;">
+<a href="Launch.dc.html" style="height: 44px; box-sizing: border-box; display: flex; flex-direction: row; align-items: center; gap: 10px; padding: 0 22px 0 10px; border-radius: 999px; background: #FFFFFF; color: #0A0A0C; text-decoration: none; font-size: 15px; font-weight: 700;">
+<span style="width: 26px; height: 26px; border-radius: 999px; background: #0A0A0C; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700;">A</span>
+<span>Play</span>
+</a>
+<button type="button" onClick="{{togglePin}}" style="height: 44px; box-sizing: border-box; display: flex; flex-direction: row; align-items: center; gap: 10px; padding: 0 20px 0 10px; border-radius: 999px; background: rgba(255,255,255,0.1); border: 1.5px solid rgba(255,255,255,0.28); color: #FFFFFF; font-family: 'Figtree', system-ui, sans-serif; font-size: 15px; font-weight: 600; cursor: pointer;">
+<span style="width: 26px; height: 26px; box-sizing: border-box; border-radius: 999px; border: 1.5px solid rgba(255,255,255,0.7); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700;">Y</span>
+<span>{{pinLabel}}</span>
+</button>
+<a href="TileEditor.dc.html" style="height: 44px; box-sizing: border-box; display: flex; flex-direction: row; align-items: center; gap: 10px; padding: 0 20px 0 10px; border-radius: 999px; background: rgba(255,255,255,0.1); border: 1.5px solid rgba(255,255,255,0.28); color: #FFFFFF; text-decoration: none; font-size: 15px; font-weight: 600;">
+<span style="width: 26px; height: 26px; box-sizing: border-box; border-radius: 999px; border: 1.5px solid rgba(255,255,255,0.7); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700;">X</span>
+<span>Edit tile</span>
+</a>
+</div>
+<a href="Main.dc.html" style="display: flex; flex-direction: row; align-items: center; gap: 7px; height: 44px; font-size: 12px; color: rgba(255,255,255,0.74); text-decoration: none;">
+<span style="width: 18px; height: 18px; box-sizing: border-box; border-radius: 999px; border: 1.5px solid rgba(255,255,255,0.7); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; color: #FFFFFF;">B</span>
+<span>Back</span>
+</a>
+</div>
+
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":852,"height":393}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { pinned: true };
+  }
+  renderVals() {
+    return {
+      pinLabel: this.state.pinned ? 'Unpin from home' : 'Pin to home',
+      togglePin: () => this.setState({ pinned: !this.state.pinned })
+    };
+  }
+}
+</script>
+</body>
+</html>

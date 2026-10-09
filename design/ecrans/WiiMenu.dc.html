@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Wii — options</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#000000}
+a{color:#FFFFFF}a:hover{color:#FFFFFF}
+</style>
+</helmet>
+<div style="position: relative; width: 852px; height: 393px; overflow: hidden; background: #000000; font-family: 'Figtree', system-ui, sans-serif; color: #FFFFFF;">
+
+<img src="/_blob/4451805e6e8ca1d9dd1b2285cc560b82" alt="" style="position: absolute; left: 77px; top: 0; width: 699px; height: 393px; image-rendering: pixelated;">
+<div style="position: absolute; left: 0; top: 0; width: 852px; height: 393px; background: rgba(8,8,10,0.5);"></div>
+
+<nav aria-label="Wii options" style="position: absolute; left: 0; top: 0; width: 340px; height: 393px; box-sizing: border-box; padding: 18px 20px 18px 56px; display: flex; flex-direction: column; background: rgba(22,22,26,0.86); backdrop-filter: blur(24px); border-right: 1px solid rgba(255,255,255,0.08); border-radius: 0 22px 22px 0;">
+
+<div style="padding: 0 12px;">
+<div style="font-size: 17px; line-height: 22px; font-weight: 700;">Wii options</div>
+<div style="font-size: 12px; line-height: 17px; color: rgba(255,255,255,0.7);">Saved for this game</div>
+</div>
+
+<div style="margin-top: 12px; display: flex; flex-direction: column; gap: 2px;">
+<button type="button" onClick="{{cycleController}}" style="height: 42px; box-sizing: border-box; display: flex; flex-direction: row; align-items: center; justify-content: space-between; padding: 0 12px; border: 0; border-radius: 10px; background: transparent; color: rgba(255,255,255,0.85); font-family: 'Figtree', system-ui, sans-serif; font-size: 15px; font-weight: 500; text-align: left; cursor: pointer;">
+<span>Controller</span>
+<span style="font-size: 13px; color: rgba(255,255,255,0.6);">{{controller}}</span>
+</button>
+<button type="button" onClick="{{cyclePointer}}" style="height: 42px; box-sizing: border-box; display: flex; flex-direction: row; align-items: center; justify-content: space-between; padding: 0 12px; border: 0; border-radius: 10px; background: rgba(255,255,255,0.12); color: #FFFFFF; font-family: 'Figtree', system-ui, sans-serif; font-size: 15px; font-weight: 600; text-align: left; cursor: pointer;">
+<span>Pointer</span>
+<span style="font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.75);">{{pointer}}</span>
+</button>
+<div style="height: 42px; box-sizing: border-box; display: flex; flex-direction: row; align-items: center; justify-content: space-between; padding: 0 12px; border-radius: 10px; color: rgba(255,255,255,0.85); font-size: 15px; font-weight: 500;">
+<span>Pointer speed</span>
+<div style="display: flex; flex-direction: row; gap: 2px; padding: 2px; border-radius: 999px; background: rgba(255,255,255,0.1);">
+<sc-for list="{{speeds}}" as="v" hint-placeholder-count="3">
+<button type="button" aria-pressed="{{v.on}}" onClick="{{v.pick}}" style="height: 26px; padding: 0 10px; border: 0; border-radius: 999px; background: {{v.bg}}; color: {{v.fg}}; font-family: 'Figtree', system-ui, sans-serif; font-size: 12px; font-weight: 600; cursor: pointer;">{{v.label}}</button>
+</sc-for>
+</div>
+</div>
+<div style="height: 42px; box-sizing: border-box; display: flex; flex-direction: row; align-items: center; justify-content: space-between; padding: 0 12px; border-radius: 10px; color: rgba(255,255,255,0.85); font-size: 15px; font-weight: 500;">
+<span>Recenter pointer</span>
+<span style="font-size: 12px; color: rgba(255,255,255,0.55);">Right stick click</span>
+</div>
+<a href="WiiControls.dc.html" style="height: 42px; box-sizing: border-box; display: flex; flex-direction: row; align-items: center; justify-content: space-between; padding: 0 12px; border-radius: 10px; color: rgba(255,255,255,0.85); text-decoration: none; font-size: 15px; font-weight: 500;">
+<span>See all controls</span>
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg>
+</a>
+</div>
+
+<div style="flex-grow: 1;"></div>
+
+<div style="padding: 0 12px 10px 12px; font-size: 12px; line-height: 17px; color: rgba(255,255,255,0.6);">{{pointerHint}}</div>
+
+<div style="display: flex; flex-direction: row; gap: 18px; padding: 0 12px; font-size: 12px; color: rgba(255,255,255,0.7);">
+<div style="display: flex; flex-direction: row; align-items: center; gap: 7px;">
+<span style="width: 18px; height: 18px; box-sizing: border-box; border-radius: 999px; border: 1.5px solid rgba(255,255,255,0.7); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; color: #FFFFFF;">A</span>
+<span>Change</span>
+</div>
+<a href="RetroPlay.dc.html" style="display: flex; flex-direction: row; align-items: center; gap: 7px; color: rgba(255,255,255,0.7); text-decoration: none;">
+<span style="width: 18px; height: 18px; box-sizing: border-box; border-radius: 999px; border: 1.5px solid rgba(255,255,255,0.7); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; color: #FFFFFF;">B</span>
+<span>Back</span>
+</a>
+</div>
+</nav>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":852,"height":393}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { controller: 'Remote + Nunchuk', pointer: 'Right stick', speed: 'Medium', auto: true };
+  }
+  renderVals() {
+    const controllers = ['Remote + Nunchuk', 'Sideways Remote', 'Classic Controller', 'GameCube Controller'];
+    const pointers = ['Right stick', 'Gyro + right stick', 'Touch'];
+    const hints = {
+      'Right stick': 'Push the right stick to move the pointer. Push further to go faster.',
+      'Gyro + right stick': 'Tilt your iPhone to aim, like a real Wii Remote. The right stick fine-tunes.',
+      'Touch': 'Touch the screen where you want to point. Press A to select.'
+    };
+    const st = this.state;
+    const speeds = ['Slow', 'Medium', 'Fast'].map((v) => {
+      const on = st.speed === v;
+      return {
+        label: v, on: on ? 'true' : 'false',
+        bg: on ? '#FFFFFF' : 'transparent',
+        fg: on ? '#0A0A0C' : 'rgba(255,255,255,0.74)',
+        pick: () => this.setState({ speed: v })
+      };
+    });
+    const noPointer = st.controller === 'Classic Controller' || st.controller === 'GameCube Controller';
+    return {
+      controller: st.auto ? st.controller + ' · Auto' : st.controller,
+      pointer: noPointer ? 'Not used' : st.pointer,
+      pointerHint: st.controller === 'GameCube Controller'
+        ? 'Plays like a GameCube controller: no pointer, no motion. Best for games that support it.'
+        : (st.controller === 'Classic Controller' ? 'The Classic Controller has no pointer. Use it for games that support it.' : hints[st.pointer]),
+      speeds: speeds,
+      cycleController: () => this.setState({ controller: controllers[(controllers.indexOf(st.controller) + 1) % controllers.length], auto: false }),
+      cyclePointer: () => this.setState({ pointer: pointers[(pointers.indexOf(st.pointer) + 1) % 3] })
+    };
+  }
+}
+</script>
+</body>
+</html>

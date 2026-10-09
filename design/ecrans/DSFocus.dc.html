@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>DS — focus</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#000000}
+</style>
+</helmet>
+<div style="position: relative; width: 852px; height: 393px; overflow: hidden; background: #050507; font-family: 'Figtree', system-ui, sans-serif; color: #FFFFFF;">
+
+<div style="position: absolute; left: 56px; top: 16px; width: 480px; height: 360px; border-radius: 6px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.6);">
+<img src="{{bigImg}}" alt="{{bigLabel}}" style="width: 480px; height: 360px; image-rendering: pixelated; display: block;">
+<sc-if value="{{bigIsTouch}}" hint-placeholder-val="{{ false }}">
+<div style="position: absolute; left: 0; top: 0; width: 480px; height: 360px; box-sizing: border-box; border: 1.5px solid rgba(255,255,255,0.35); border-radius: 6px;"></div>
+<span style="position: absolute; right: 8px; top: 8px; height: 20px; padding: 0 8px 0 6px; border-radius: 6px; background: rgba(10,10,12,0.62); display: flex; flex-direction: row; align-items: center; gap: 4px; font-size: 10px; font-weight: 700; color: rgba(255,255,255,0.88);">
+<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 11V5a2 2 0 0 1 4 0v5"></path><path d="M13 10a2 2 0 0 1 4 0v1a2 2 0 0 1 3 1.7V15a6 6 0 0 1-6 6h-1.5a6 6 0 0 1-4.9-2.5L5 15.5a1.8 1.8 0 0 1 2.8-2.2L9 14.5"></path></svg>
+<span>Touch</span>
+</span>
+</sc-if>
+</div>
+
+<div style="position: absolute; left: 556px; top: 16px; width: 240px; height: 180px; border-radius: 6px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.6);">
+<img src="{{smallImg}}" alt="{{smallLabel}}" style="width: 240px; height: 180px; image-rendering: pixelated; display: block;">
+<sc-if value="{{smallIsTouch}}" hint-placeholder-val="{{ true }}">
+<div style="position: absolute; left: 0; top: 0; width: 240px; height: 180px; box-sizing: border-box; border: 1.5px solid rgba(255,255,255,0.35); border-radius: 6px;"></div>
+<span style="position: absolute; right: 6px; top: 6px; height: 18px; padding: 0 7px 0 5px; border-radius: 6px; background: rgba(10,10,12,0.62); display: flex; flex-direction: row; align-items: center; gap: 4px; font-size: 10px; font-weight: 700; color: rgba(255,255,255,0.88);">
+<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 11V5a2 2 0 0 1 4 0v5"></path><path d="M13 10a2 2 0 0 1 4 0v1a2 2 0 0 1 3 1.7V15a6 6 0 0 1-6 6h-1.5a6 6 0 0 1-4.9-2.5L5 15.5a1.8 1.8 0 0 1 2.8-2.2L9 14.5"></path></svg>
+<span>Touch</span>
+</span>
+</sc-if>
+</div>
+
+<button type="button" onClick="{{swap}}" style="position: absolute; left: 556px; top: 208px; height: 36px; box-sizing: border-box; display: flex; flex-direction: row; align-items: center; gap: 8px; padding: 0 14px 0 8px; border: 1.5px solid rgba(255,255,255,0.28); border-radius: 999px; background: rgba(255,255,255,0.1); color: #FFFFFF; font-family: 'Figtree', system-ui, sans-serif; font-size: 13px; font-weight: 600; cursor: pointer;">
+<span style="height: 20px; padding: 0 6px; box-sizing: border-box; border-radius: 999px; border: 1.5px solid rgba(255,255,255,0.7); display: flex; align-items: center; font-size: 9px; font-weight: 800;">RS</span>
+<span>Swap screens</span>
+</button>
+
+<div style="position: absolute; left: 556px; top: 356px; font-size: 11px; color: rgba(255,255,255,0.5);">View + Menu · Game menu</div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":852,"height":393}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { swapped: false };
+  }
+  renderVals() {
+    const top = '/_blob/cae3aac66ab7436737564c863315a630';
+    const bottom = '/_blob/b133cf4b20706365c961cb8c476e4d22';
+    const s = this.state.swapped;
+    return {
+      bigImg: s ? bottom : top,
+      smallImg: s ? top : bottom,
+      bigLabel: s ? 'Bottom screen (touch)' : 'Top screen',
+      smallLabel: s ? 'Top screen' : 'Bottom screen (touch)',
+      bigIsTouch: s,
+      smallIsTouch: !s,
+      swap: () => this.setState({ swapped: !s })
+    };
+  }
+}
+</script>
+</body>
+</html>

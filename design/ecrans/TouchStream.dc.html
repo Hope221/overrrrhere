@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Stream — touch controls</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#000000}
+a{color:#FFFFFF}a:hover{color:#FFFFFF}
+</style>
+</helmet>
+<div style="position: relative; width: 852px; height: 393px; overflow: hidden; background: #000000; font-family: 'Figtree', system-ui, sans-serif; color: #FFFFFF;">
+
+<img src="/_blob/55be2f84be542341a371332a0759bd95" alt="Game stream" style="position: absolute; left: 0; top: 0; width: 852px; height: 393px; object-fit: cover; object-position: 60% 30%;">
+
+<div style="position: absolute; left: 0; top: 0; width: 852px; height: 393px; opacity: {{opacity}};">
+
+<a href="Stream.dc.html" aria-label="Open the overrrrhere menu" style="position: absolute; left: 380px; top: 10px; width: 92px; height: 30px; box-sizing: border-box; border-radius: 999px; background: rgba(10,10,12,0.45); border: 1.5px solid rgba(255,255,255,0.4); display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 6px; text-decoration: none; box-shadow: 0 2px 8px rgba(0,0,0,0.35);">
+<svg width="16" height="16" viewBox="0 0 100 100" aria-hidden="true"><rect width="100" height="100" rx="22.4" fill="#FF5A1F"></rect><g transform="translate(50 52) scale(0.74) translate(-50 -51)"><path d="M20 34 C20 26 26 22 34 22 H66 C74 22 80 26 80 34 L86 64 C88 74 82 80 74 80 C68 80 64 76 61 70 L58 64 H42 L39 70 C36 76 32 80 26 80 C18 80 12 74 14 64 Z" fill="#FFFFFF"></path><rect x="53" y="34" width="6" height="13" rx="3" fill="#FF5A1F"></rect><rect x="63" y="34" width="6" height="13" rx="3" fill="#FF5A1F"></rect></g></svg>
+<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg>
+</a>
+
+<sc-for list="{{buttons}}" as="b" hint-placeholder-count="12">
+<button type="button" aria-label="{{b.name}}" onClick="{{b.press}}" style="position: absolute; left: {{b.x}}px; top: {{b.y}}px; width: {{b.w}}px; height: {{b.h}}px; box-sizing: border-box; padding: 0; border: 1.5px solid rgba(255,255,255,0.55); border-radius: {{b.r}}px; background: {{b.bg}}; color: {{b.fg}}; font-family: 'Figtree', system-ui, sans-serif; font-size: {{b.fs}}px; font-weight: 800; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(0,0,0,0.35); cursor: pointer; transition: background 100ms ease;">{{b.text}}</button>
+</sc-for>
+
+<div aria-label="Left stick" style="position: absolute; left: 66px; top: 116px; width: 112px; height: 112px; box-sizing: border-box; border-radius: 999px; border: 1.5px solid rgba(255,255,255,0.45); background: rgba(255,255,255,0.08); box-shadow: 0 2px 8px rgba(0,0,0,0.35);">
+<div style="position: absolute; left: 40px; top: 20px; width: 50px; height: 50px; box-sizing: border-box; border-radius: 999px; background: rgba(255,255,255,0.85); box-shadow: 0 4px 12px rgba(0,0,0,0.4);"></div>
+</div>
+
+<div aria-label="Right stick" style="position: absolute; left: 566px; top: 246px; width: 100px; height: 100px; box-sizing: border-box; border-radius: 999px; border: 1.5px solid rgba(255,255,255,0.45); background: rgba(255,255,255,0.08); box-shadow: 0 2px 8px rgba(0,0,0,0.35);">
+<div style="position: absolute; left: 26px; top: 26px; width: 46px; height: 46px; box-sizing: border-box; border-radius: 999px; background: rgba(255,255,255,0.55); box-shadow: 0 4px 12px rgba(0,0,0,0.4);"></div>
+</div>
+
+<div aria-label="D-pad" style="position: absolute; left: 156px; top: 248px; width: 96px; height: 96px;">
+<div style="position: absolute; left: 32px; top: 0; width: 32px; height: 96px; box-sizing: border-box; border-radius: 8px; border: 1.5px solid rgba(255,255,255,0.55); background: rgba(255,255,255,0.14); box-shadow: 0 2px 8px rgba(0,0,0,0.35);"></div>
+<div style="position: absolute; left: 0; top: 32px; width: 96px; height: 32px; box-sizing: border-box; border-radius: 8px; border: 1.5px solid rgba(255,255,255,0.55); background: rgba(255,255,255,0.14);"></div>
+<div style="position: absolute; left: 33.5px; top: 33.5px; width: 29px; height: 29px; background: rgba(255,255,255,0.14);"></div>
+</div>
+
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"opacity":{"editor":"enum","options":["Low","Medium","High"],"default":"Medium"},"$preview":{"width":852,"height":393}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { lit: { A: true } };
+  }
+  renderVals() {
+    const op = { Low: 0.5, Medium: 0.8, High: 1 }[this.props.opacity ?? 'Medium'] || 0.8;
+    const defs = [
+      { k: 'LT', name: 'Left trigger', x: 56, y: 12, w: 58, h: 30, r: 10, t: 'LT', fs: 12 },
+      { k: 'LB', name: 'Left bumper', x: 122, y: 12, w: 58, h: 30, r: 10, t: 'LB', fs: 12 },
+      { k: 'RB', name: 'Right bumper', x: 672, y: 12, w: 58, h: 30, r: 10, t: 'RB', fs: 12 },
+      { k: 'RT', name: 'Right trigger', x: 738, y: 12, w: 58, h: 30, r: 10, t: 'RT', fs: 12 },
+      { k: 'Y', name: 'Y', x: 700, y: 100, w: 46, h: 46, r: 999, t: 'Y', fs: 15 },
+      { k: 'X', name: 'X', x: 652, y: 148, w: 46, h: 46, r: 999, t: 'X', fs: 15 },
+      { k: 'B', name: 'B', x: 748, y: 148, w: 46, h: 46, r: 999, t: 'B', fs: 15 },
+      { k: 'A', name: 'A', x: 700, y: 196, w: 46, h: 46, r: 999, t: 'A', fs: 15 },
+      { k: 'View', name: 'View', x: 372, y: 318, w: 36, h: 36, r: 999, t: '⧉', fs: 13 },
+      { k: 'Menu', name: 'Menu', x: 444, y: 318, w: 36, h: 36, r: 999, t: '≡', fs: 16 }
+    ];
+    const lit = this.state.lit;
+    const buttons = defs.map((d) => {
+      const on = !!lit[d.k];
+      return {
+        name: d.name, x: d.x, y: d.y, w: d.w, h: d.h, r: d.r, text: d.t, fs: d.fs,
+        bg: on ? 'rgba(255,255,255,0.92)' : 'rgba(255,255,255,0.14)',
+        fg: on ? '#0A0A0C' : '#FFFFFF',
+        press: () => {
+          const next = {};
+          next[d.k] = !on;
+          this.setState({ lit: next });
+        }
+      };
+    });
+    return { buttons: buttons, opacity: op };
+  }
+}
+</script>
+</body>
+</html>

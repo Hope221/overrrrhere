@@ -1,0 +1,194 @@
+<title>Maquettes GameCube overrrrhere</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&family=Bricolage+Grotesque:opsz,wght@12..96,800&display=swap" rel="stylesheet">
+<style>
+:root{
+  color-scheme: dark;
+  --ink:#0A0A0C; --screen:#050507; --panel:rgba(22,22,26,0.86);
+  --white:#FFFFFF; --muted:rgba(255,255,255,0.74); --faint:rgba(255,255,255,0.5);
+  --orange:#FF5A1F; --green:#7CE3A6; --line:rgba(255,255,255,0.12);
+}
+html,body{background:var(--ink);color:var(--white)}
+body{font-family:'Figtree',system-ui,-apple-system,sans-serif;padding-inline:16px;padding-block:28px 56px;line-height:1.5}
+.wrap{max-width:980px;margin:0 auto;display:flex;flex-direction:column;gap:40px}
+header{display:flex;flex-direction:column;gap:10px}
+.brand{font-family:'Bricolage Grotesque','Figtree',sans-serif;font-weight:800;font-size:15px;letter-spacing:-0.01em;color:var(--muted)}
+.brand b{color:var(--white);font-weight:800}
+.brand i{font-style:normal;color:var(--orange)}
+h1{font-family:'Bricolage Grotesque','Figtree',sans-serif;font-weight:800;font-size:clamp(28px,5vw,40px);line-height:1.05;margin:0;text-wrap:balance}
+.lede{color:var(--muted);max-width:66ch;margin:0;font-size:15px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font-size:12px;font-weight:600;padding:4px 10px;border-radius:999px;border:1px solid var(--line);color:var(--muted)}
+.chip.new{border-color:rgba(255,90,31,0.5);color:var(--white)}
+section{display:flex;flex-direction:column;gap:14px}
+.sh{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 12px}
+h2{font-size:20px;font-weight:700;margin:0}
+.tag{font-size:12px;font-weight:700;color:var(--ink);background:var(--white);border-radius:999px;padding:2px 9px}
+.tag.alt{background:transparent;color:var(--muted);border:1px solid var(--line)}
+.note{color:var(--muted);font-size:14px;margin:0;max-width:72ch}
+.note code,.lede code{font-size:12.5px;background:rgba(255,255,255,0.08);padding:1px 5px;border-radius:5px}
+
+/* phone frame: always 852x393 inside, scaled to the column */
+.phone{position:relative;width:100%;max-width:100%;aspect-ratio:852/393;border-radius:28px;background:#000;box-shadow:0 0 0 1px rgba(255,255,255,0.1),0 20px 50px rgba(0,0,0,0.55);overflow:hidden}
+.stage{position:absolute;left:0;top:0;width:852px;height:393px;transform-origin:0 0;background:var(--screen);overflow:hidden;font-family:'Figtree',system-ui,sans-serif;color:#fff}
+.abs{position:absolute}
+.scr{position:absolute;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,0.6)}
+.scr .ring{position:absolute;inset:0;border:1.5px solid rgba(255,255,255,0.35);border-radius:inherit;box-sizing:border-box;pointer-events:none}
+.touchtag{position:absolute;right:8px;top:8px;height:20px;padding:0 8px 0 6px;border-radius:6px;background:rgba(10,10,12,0.62);display:flex;align-items:center;gap:4px;font-size:10px;font-weight:700;color:rgba(255,255,255,0.88)}
+.hints{position:absolute;display:flex;gap:18px;font-size:11px;color:rgba(255,255,255,0.5)}
+
+/* placeholder GameCube picture, drawn in CSS so nothing real is shipped */
+.gc-art{position:absolute;overflow:hidden;background:
+  linear-gradient(180deg,#2a3a6e 0%,#6a7fc0 48%,transparent 48%),
+  linear-gradient(180deg,transparent 62%,#4b7a3a 62%,#2f5526 100%);
+  background-color:#6a7fc0;box-shadow:0 10px 30px rgba(0,0,0,0.6)}
+.gc-art::before{content:"";position:absolute;left:10%;right:10%;bottom:30%;height:24%;background:
+  radial-gradient(ellipse at 25% 100%,#1f3f22 0 45%,transparent 46%),
+  radial-gradient(ellipse at 70% 100%,#27502a 0 50%,transparent 51%)}
+.gc-art::after{content:"";position:absolute;left:46%;bottom:32%;width:6%;aspect-ratio:3/5;background:#FF5A1F;border-radius:3px}
+.cap{position:absolute;left:8px;bottom:6px;font-size:10px;font-weight:700;color:rgba(255,255,255,0.9);background:rgba(10,10,12,0.55);padding:1px 6px;border-radius:5px;letter-spacing:0.02em}
+
+/* touch controls (same look as TouchRetro / DSStacked) */
+.btn{position:absolute;box-sizing:border-box;padding:0;border:1.5px solid rgba(255,255,255,0.55);background:rgba(255,255,255,0.14);color:#fff;font-family:'Figtree',system-ui,sans-serif;font-weight:800;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,0.35);cursor:pointer;transition:background 100ms ease,color 100ms ease}
+.btn.on{background:rgba(255,255,255,0.92);color:#0A0A0C}
+.btn:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.stick{position:absolute;border-radius:999px;box-sizing:border-box;border:1.5px solid rgba(255,255,255,0.55);background:rgba(255,255,255,0.08);box-shadow:0 2px 8px rgba(0,0,0,0.35)}
+.stick .knob{position:absolute;border-radius:999px;background:rgba(255,255,255,0.22);border:1.5px solid rgba(255,255,255,0.7);box-sizing:border-box}
+.stick .lbl{position:absolute;left:0;right:0;bottom:-16px;text-align:center;font-size:9px;font-weight:700;letter-spacing:0.06em;color:rgba(255,255,255,0.55)}
+.pill{position:absolute;box-sizing:border-box;border-radius:999px;background:rgba(10,10,12,0.45);border:1.5px solid rgba(255,255,255,0.4);display:flex;align-items:center;justify-content:center;gap:6px;box-shadow:0 2px 8px rgba(0,0,0,0.35)}
+
+/* menu panel */
+.menu{position:absolute;left:0;top:0;width:320px;height:393px;box-sizing:border-box;padding:18px 20px 18px 56px;display:flex;flex-direction:column;background:rgba(22,22,26,0.86);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-right:1px solid rgba(255,255,255,0.08);border-radius:0 22px 22px 0}
+.row{height:44px;box-sizing:border-box;display:flex;align-items:center;justify-content:space-between;padding:0 12px;border:0;border-radius:10px;background:transparent;color:rgba(255,255,255,0.8);font-family:'Figtree',system-ui,sans-serif;font-size:15px;font-weight:500;text-align:left;cursor:pointer;width:100%}
+.row.sel{background:rgba(255,255,255,0.12);color:#fff;font-weight:600}
+.row small{font-size:13px;color:rgba(255,255,255,0.6);font-weight:500}
+.glyph{width:18px;height:18px;box-sizing:border-box;border-radius:999px;border:1.5px solid rgba(255,255,255,0.7);display:inline-flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff}
+
+/* controls under each mockup */
+.ctrls{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.seg{display:inline-flex;gap:2px;padding:3px;border-radius:999px;background:rgba(255,255,255,0.1)}
+.seg button{height:28px;padding:0 12px;border:0;border-radius:999px;background:transparent;color:rgba(255,255,255,0.8);font:600 13px 'Figtree',system-ui,sans-serif;cursor:pointer}
+.seg button[aria-pressed="true"]{background:#fff;color:#0A0A0C}
+.seg button:focus-visible{outline:2px solid var(--orange);outline-offset:1px}
+.ctrls label{font-size:13px;color:var(--muted)}
+
+/* mapping table */
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:14px}
+table{border-collapse:collapse;width:100%;min-width:520px;font-size:14px}
+th,td{text-align:left;padding:9px 14px;border-bottom:1px solid var(--line)}
+th{font-size:12px;letter-spacing:0.06em;text-transform:uppercase;color:var(--faint);font-weight:700}
+tr:last-child td{border-bottom:0}
+td:first-child{font-weight:600;white-space:nowrap}
+.k{display:inline-flex;min-width:20px;height:20px;padding:0 6px;box-sizing:border-box;border-radius:999px;border:1.5px solid rgba(255,255,255,0.6);align-items:center;justify-content:center;font-size:10.5px;font-weight:800}
+.q{border:1px solid rgba(255,90,31,0.45);border-radius:14px;padding:14px 16px;display:flex;flex-direction:column;gap:8px}
+.q h3{margin:0;font-size:15px}
+.q ol{margin:0;padding-left:20px;color:var(--muted);font-size:14px;display:flex;flex-direction:column;gap:6px}
+.q b{color:#fff}
+@media (prefers-reduced-motion: reduce){*{transition:none!important}}
+</style>
+
+<div class="wrap">
+  <header>
+    <div class="brand"><b>ove</b><i>r</i><i style="opacity:.75">r</i><i style="opacity:.5">r</i><i style="opacity:.3">r</i><b>here</b> · proposition</div>
+    <h1>GameCube : contrôles tactiles et menu</h1>
+    <p class="lede">La GameCube marche avec la manette depuis le build 26. Il manque les boutons à l'écran quand aucune manette n'est connectée. Ils reprennent la forme de la vraie manette GameCube : un grand A au milieu, B, X et Y autour, un stick C et Z sous R. L'image du jeu est une image de remplacement dessinée ici.</p>
+    <div class="chips">
+      <span class="chip">Taille de référence 852 × 393</span>
+      <span class="chip">Marges 56 pt</span>
+      <span class="chip">Style de TouchRetro</span>
+      <span class="chip new">Nouveau : grand A, Z, stick C</span>
+    </div>
+  </header>
+
+  <section>
+    <div class="sh"><h2>1. Contrôles tactiles</h2><span class="tag">sans manette</span></div>
+    <p class="note">L'image du jeu rétrécit comme pour la SNES (480 × 360, à 16 pt du haut) et les boutons occupent les bandes sur les côtés. À gauche : L, le stick principal, une petite croix. À droite : R, Z, les boutons A B X Y (A plus grand), le stick C, Start. La pastille avec le logo, en haut au centre, ouvre le menu du jeu. L et R sont enfoncés à fond (pas de demi-pression au doigt). Touche un bouton pour le voir pressé.</p>
+    <div class="phone"><div class="stage" id="tch"></div></div>
+    <div class="ctrls">
+      <label for="op">Opacité</label>
+      <div class="seg" role="group" aria-label="Opacité des contrôles" id="op">
+        <button type="button" data-o="0.5" aria-pressed="false">Low</button>
+        <button type="button" data-o="0.8" aria-pressed="true">Medium</button>
+        <button type="button" data-o="1" aria-pressed="false">High</button>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sh"><h2>2. Menu du jeu</h2><span class="tag alt">View + Menu, ou la pastille</span></div>
+    <p class="note">Le même menu que les autres consoles, <b>sans « Fast forward »</b> : sans JIT, la GameCube atteint tout juste sa vitesse normale, l'avance rapide ne ferait rien. Vignettes des sauvegardes : pas encore d'image pour la GameCube (il faudrait recompiler le cœur dans le cloud pour lire l'image de Dolphin).</p>
+    <div class="phone"><div class="stage" id="men"></div></div>
+  </section>
+
+  <section>
+    <div class="sh"><h2>3. Manette physique → GameCube</h2><span class="tag alt">validé au build 26</span></div>
+    <p class="note">Contrairement à la SNES et à la DS, les boutons suivent leur <b>lettre</b> (ta décision du 27/09/2026) : A fait A, B fait B.</p>
+    <div class="tbl"><table>
+      <thead><tr><th>Manette Xbox</th><th>GameCube</th></tr></thead>
+      <tbody>
+        <tr><td><span class="k">A</span> <span class="k">B</span> <span class="k">X</span> <span class="k">Y</span></td><td>A, B, X, Y (même lettre)</td></tr>
+        <tr><td><span class="k">RB</span></td><td>Z</td></tr>
+        <tr><td><span class="k">LT</span> <span class="k">RT</span></td><td>L, R (analogiques)</td></tr>
+        <tr><td>Stick gauche</td><td>Stick principal</td></tr>
+        <tr><td>Stick droit</td><td>Stick C</td></tr>
+        <tr><td>Croix</td><td>Croix</td></tr>
+        <tr><td><span class="k">Menu</span></td><td>Start</td></tr>
+        <tr><td>View + Menu</td><td>Menu du jeu overrrrhere</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+</div>
+
+<script>
+(function(){
+  var LOGO='<svg width="16" height="16" viewBox="0 0 100 100" aria-hidden="true"><rect width="100" height="100" rx="22.4" fill="#FF5A1F"></rect><g transform="translate(50 52) scale(0.74) translate(-50 -51)"><path d="M20 34 C20 26 26 22 34 22 H66 C74 22 80 26 80 34 L86 64 C88 74 82 80 74 80 C68 80 64 76 61 70 L58 64 H42 L39 70 C36 76 32 80 26 80 C18 80 12 74 14 64 Z" fill="#0A0A0C"></path><rect x="53" y="34" width="6" height="13" rx="3" fill="#FF5A1F"></rect><rect x="63" y="34" width="6" height="13" rx="3" fill="#FF5A1F"></rect></g></svg>';
+  var CHEV='<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg>';
+  function art(x,y,w,h){ return '<div class="gc-art" style="left:'+x+'px;top:'+y+'px;width:'+w+'px;height:'+h+'px"><span class="cap">GameCube · 4:3</span></div>'; }
+
+  // 1. touch controls (mêmes places que src/screens/retro/TouchRetro.tsx, GAMECUBE)
+  var tch=document.getElementById('tch');
+  tch.style.background='#000';
+  var defs=[
+    {k:'L',x:56,y:12,w:72,h:30,r:10,fs:13},
+    {k:'R',x:724,y:12,w:72,h:30,r:10,fs:13},
+    {k:'Z',x:724,y:50,w:72,h:30,r:10,fs:13},
+    {k:'Y',x:697,y:99,w:38,h:38,r:999,fs:13},
+    {k:'X',x:758,y:141,w:38,h:38,r:999,fs:13},
+    {k:'A',x:703,y:153,w:54,h:54,r:999,fs:17},
+    {k:'B',x:669,y:195,w:38,h:38,r:999,fs:13},
+    {k:'START',x:710,y:330,w:70,h:28,r:999,fs:10,ls:'0.06em'}
+  ];
+  var h = art(186,16,480,360);
+  h += '<div id="ctl" class="abs" style="left:0;top:0;width:852px;height:393px;opacity:0.8">';
+  h += '<div class="pill" style="left:380px;top:22px;width:92px;height:30px">'+LOGO+CHEV+'</div>';
+  defs.forEach(function(d){
+    h += '<button type="button" class="btn" aria-label="'+d.k+'" style="left:'+d.x+'px;top:'+d.y+'px;width:'+d.w+'px;height:'+d.h+'px;border-radius:'+d.r+'px;font-size:'+d.fs+'px;letter-spacing:'+(d.ls||'0')+'">'+d.k+'</button>';
+  });
+  h += '<div class="stick" style="left:70px;top:98px;width:104px;height:104px"><div class="knob" style="left:25.5px;top:25.5px;width:50px;height:50px"></div></div>';
+  h += '<div aria-label="D-pad" class="abs" style="left:80px;top:238px;width:84px;height:84px">'
+     + '<div class="abs" style="left:28px;top:0;width:28px;height:84px;box-sizing:border-box;border-radius:8px;border:1.5px solid rgba(255,255,255,0.55);background:rgba(255,255,255,0.14);box-shadow:0 2px 8px rgba(0,0,0,0.35)"></div>'
+     + '<div class="abs" style="left:0;top:28px;width:84px;height:28px;box-sizing:border-box;border-radius:8px;border:1.5px solid rgba(255,255,255,0.55);background:rgba(255,255,255,0.14)"></div>'
+     + '<div class="abs" style="left:29.5px;top:29.5px;width:25px;height:25px;background:rgba(255,255,255,0.14)"></div></div>';
+  h += '<div class="stick" style="left:724px;top:244px;width:56px;height:56px"><div class="knob" style="left:14px;top:14px;width:25px;height:25px"></div><div class="lbl">C</div></div>';
+  h += '</div>';
+  tch.innerHTML=h;
+  tch.querySelectorAll('.btn').forEach(function(b){ b.onclick=function(){ var on=b.classList.contains('on'); tch.querySelectorAll('.btn.on').forEach(function(o){o.classList.remove('on')}); if(!on) b.classList.add('on'); }; });
+  tch.querySelector('.btn[aria-label="A"]').classList.add('on');
+  var ctl=document.getElementById('ctl');
+  document.querySelectorAll('#op button').forEach(function(b){ b.onclick=function(){ ctl.style.opacity=b.dataset.o; document.querySelectorAll('#op button').forEach(function(o){o.setAttribute('aria-pressed', o===b?'true':'false')}); }; });
+
+  // 2. menu
+  var men=document.getElementById('men');
+  men.style.background='#000';
+  var rows=[['Resume',''],['Save state','Slot 2'],['Load state','1 save'],['Touch controls','Auto'],['Back to launcher','']];
+  var p='<nav class="menu" aria-label="Game menu"><div style="padding:0 12px"><div style="font-size:17px;line-height:22px;font-weight:700">[Game title]</div><div style="font-size:12px;line-height:17px;color:rgba(255,255,255,0.7)">GameCube · 24 min · Battery 68%</div></div><div style="margin-top:10px;display:flex;flex-direction:column;gap:2px">';
+  rows.forEach(function(r,i){ p+='<button type="button" class="row'+(i===0?' sel':'')+'" style="height:38px"><span>'+r[0]+'</span><small>'+r[1]+'</small></button>'; });
+  p+='</div><div style="flex-grow:1"></div><div style="padding:0 12px;font-size:12px;line-height:17px;color:rgba(255,255,255,0.6)">Game paused</div></nav>';
+  men.innerHTML = art(164,0,524,393) + '<div class="abs" style="left:0;top:0;width:852px;height:393px;background:rgba(8,8,10,0.5)"></div>' + p;
+  men.querySelectorAll('.row').forEach(function(b){ b.onclick=function(){ men.querySelectorAll('.row').forEach(function(o){o.classList.toggle('sel', o===b)}); }; });
+
+  function fit(){ document.querySelectorAll('.phone').forEach(function(ph){ var s=ph.clientWidth/852; ph.querySelector('.stage').style.transform='scale('+s+')'; }); }
+  fit();
+  if(window.ResizeObserver){ new ResizeObserver(fit).observe(document.body); } else { window.addEventListener('resize',fit); }
+})();
+</script>

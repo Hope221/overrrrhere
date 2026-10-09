@@ -1,0 +1,66 @@
+{
+  "expo": {
+    "name": "overrrrhere",
+    "slug": "overrrrhere",
+    "owner": "allolift",
+    "version": "1.0.0",
+    "platforms": [
+      "ios"
+    ],
+    "orientation": "landscape",
+    "icon": "./assets/brand/icon-app-ios-1024.png",
+    "userInterfaceStyle": "dark",
+    "backgroundColor": "#0A0A0C",
+    "ios": {
+      "bundleIdentifier": "com.elhadji.overrrrhere",
+      "supportsTablet": false,
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false,
+        "NSLocalNetworkUsageDescription": "overrrrhere connects to your Xbox on your home network to stream your games."
+      },
+      "entitlements": {
+        "com.apple.developer.kernel.increased-memory-limit": true
+      }
+    },
+    "plugins": [
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/brand/splash-icone-1024.png",
+          "imageWidth": 104,
+          "resizeMode": "contain",
+          "backgroundColor": "#0A0A0C"
+        }
+      ],
+      "expo-secure-store",
+      "expo-web-browser",
+      [
+        "@config-plugins/react-native-webrtc",
+        {
+          "cameraPermission": "overrrrhere never uses your camera. The streaming component declares this permission, but the app never asks for it.",
+          "microphonePermission": "overrrrhere never uses your microphone. The streaming component declares this permission, but the app never asks for it."
+        }
+      ],
+      "expo-font",
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "overrrrhere uses your photos only when you choose a custom tile or background image."
+        }
+      ],
+      [
+        "expo-audio",
+        {
+          "enableBackgroundPlayback": false,
+          "microphonePermission": "overrrrhere never uses your microphone. The streaming component declares this permission, but the app never asks for it."
+        }
+      ],
+      "expo-asset"
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "28af4825-8a50-4475-a62e-e5b27d9d3190"
+      }
+    }
+  }
+}

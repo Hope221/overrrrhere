@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Streaming — paused</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#0A0A0C}
+a{color:#FFFFFF}a:hover{color:#FFFFFF}
+</style>
+</helmet>
+<div style="position: relative; width: 852px; height: 393px; overflow: hidden; background: #0A0A0C; font-family: 'Figtree', system-ui, sans-serif; color: #FFFFFF;">
+
+<img src="/_blob/55be2f84be542341a371332a0759bd95" alt="Game stream" style="position: absolute; left: 0; top: 0; width: 852px; height: 393px; object-fit: cover; object-position: 60% 30%;">
+<div style="position: absolute; left: 0; top: 0; width: 852px; height: 393px; background: rgba(8,8,10,0.45);"></div>
+
+<nav aria-label="Stream menu" style="position: absolute; left: 0; top: 0; width: 320px; height: 393px; box-sizing: border-box; padding: 18px 20px 18px 56px; display: flex; flex-direction: column; background: rgba(22,22,26,0.84); backdrop-filter: blur(24px); border-right: 1px solid rgba(255,255,255,0.08); border-radius: 0 22px 22px 0;">
+
+<div style="padding: 0 12px;">
+<div style="font-size: 17px; line-height: 22px; font-weight: 700;">A Plague Tale: Requiem</div>
+<div style="font-size: 12px; line-height: 17px; color: rgba(255,255,255,0.7);">Xbox Series X · 42 min · Battery 64%</div>
+</div>
+
+
+
+<div style="margin-top: 10px; display: flex; flex-direction: column; gap: 2px;">
+<a href="Stream.dc.html" style="height: 40px; box-sizing: border-box; display: flex; flex-direction: row; align-items: center; gap: 14px; padding: 0 12px; border-radius: 10px; background: rgba(255,255,255,0.12); color: #FFFFFF; text-decoration: none; font-size: 15px; font-weight: 600;">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5z"></path></svg>
+<span>Resume</span>
+</a>
+<a href="Library.dc.html" style="height: 40px; box-sizing: border-box; display: flex; flex-direction: row; align-items: center; gap: 14px; padding: 0 12px; border-radius: 10px; color: rgba(255,255,255,0.72); text-decoration: none; font-size: 15px; font-weight: 500;">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h13l-3-3"></path><path d="M20 16H7l3 3"></path></svg>
+<span>Switch game</span>
+</a>
+<button type="button" onClick="{{cycleTouch}}" style="height: 40px; box-sizing: border-box; display: flex; flex-direction: row; align-items: center; justify-content: space-between; padding: 0 12px; border: 0; border-radius: 10px; background: transparent; color: rgba(255,255,255,0.72); font-family: 'Figtree', system-ui, sans-serif; font-size: 15px; font-weight: 500; cursor: pointer;">
+<span style="display: flex; flex-direction: row; align-items: center; gap: 14px;">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 11V5a2 2 0 0 1 4 0v5"></path><path d="M13 10a2 2 0 0 1 4 0v1a2 2 0 0 1 3 1.7V15a6 6 0 0 1-6 6h-1.5a6 6 0 0 1-4.9-2.5L5 15.5a1.8 1.8 0 0 1 2.8-2.2L9 14.5"></path></svg>
+<span>Touch controls</span>
+</span>
+<span style="font-size: 13px; color: rgba(255,255,255,0.55);">{{touchMode}}</span>
+</button>
+<a href="Main.dc.html" style="height: 40px; box-sizing: border-box; display: flex; flex-direction: row; align-items: center; gap: 14px; padding: 0 12px; border-radius: 10px; color: rgba(255,255,255,0.72); text-decoration: none; font-size: 15px; font-weight: 500;">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 11l8-6.5 8 6.5"></path><path d="M6 9.5V19h12V9.5"></path></svg>
+<span>Back to launcher</span>
+</a>
+<a href="Main.dc.html" style="height: 40px; box-sizing: border-box; display: flex; flex-direction: row; align-items: center; gap: 14px; padding: 0 12px; border-radius: 10px; color: rgba(255,255,255,0.72); text-decoration: none; font-size: 15px; font-weight: 500;">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"></path></svg>
+<span>Put Xbox to sleep</span>
+</a>
+</div>
+
+<div style="flex-grow: 1;"></div>
+
+<div style="padding: 0 12px; font-size: 12px; line-height: 17px; color: rgba(255,255,255,0.6);">Game keeps running</div>
+</nav>
+
+<sc-if value="{{lowBattery}}" hint-placeholder-val="{{ false }}">
+<div role="status" style="position: absolute; right: 56px; top: 16px; height: 40px; box-sizing: border-box; padding: 0 16px 0 12px; border-radius: 999px; background: rgba(22,22,26,0.88); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 10px 28px rgba(0,0,0,0.45); display: flex; flex-direction: row; align-items: center; gap: 10px;">
+<svg width="24" height="12" viewBox="0 0 26 12" aria-hidden="true">
+<rect x="0.75" y="0.75" width="21.5" height="10.5" rx="3" fill="none" stroke="#FFFFFF" stroke-width="1.2" opacity="0.6"></rect>
+<rect x="2.5" y="2.5" width="3.6" height="7" rx="1.2" fill="#FF5A1F"></rect>
+<rect x="23.5" y="4" width="1.8" height="4" rx="0.9" fill="#FFFFFF" opacity="0.6"></rect>
+</svg>
+<span style="font-size: 13px; font-weight: 700;">Battery at 20%</span>
+<span style="font-size: 12px; color: rgba(255,255,255,0.7);">Plug in to keep playing</span>
+</div>
+</sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"lowBattery":{"editor":"boolean","default":false},"$preview":{"width":852,"height":393}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { touch: 'Auto' };
+  }
+  renderVals() {
+    const order = ['Auto', 'On', 'Off'];
+    const t = this.state.touch;
+    return {
+      lowBattery: this.props.lowBattery ?? false,
+      touchMode: t,
+      cycleTouch: () => this.setState({ touch: order[(order.indexOf(t) + 1) % 3] })
+    };
+  }
+}
+</script>
+</body>
+</html>

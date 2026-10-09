@@ -1,0 +1,4 @@
+framework module GameCube {
+  umbrella header "GameCube.h"
+  export *
+}

@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Retro</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+.rl-scroll{scrollbar-width:none}
+.rl-scroll::-webkit-scrollbar{display:none}
+</style>
+</helmet>
+<div style="position: relative; width: 852px; height: 393px; overflow: hidden; background: #0A0A0C; font-family: 'Figtree', system-ui, sans-serif; color: #FFFFFF;">
+
+<img src="/_blob/b6710dba22a40bd1307ca4aaac39dffb" alt="" style="position: absolute; left: -40px; top: -40px; width: 932px; height: 473px; object-fit: cover; image-rendering: pixelated; filter: blur(26px) brightness(0.3) saturate(1.1);">
+
+<sc-if value="{{hasGames}}" hint-placeholder-val="{{ true }}">
+<div class="rl-scroll" style="position: absolute; left: 0; top: 0; width: 852px; height: 393px; overflow-y: auto; scroll-snap-type: y mandatory; scroll-padding-top: 124px; scroll-padding-bottom: 84px;">
+<div style="box-sizing: border-box; padding: 124px 56px 96px 56px; display: grid; grid-template-columns: repeat(5, 138px); gap: 12px;">
+<sc-for list="{{games}}" as="g" hint-placeholder-count="30">
+<button type="button" aria-label="{{g.title}}" onClick="{{g.pick}}" style="position: relative; width: 138px; height: 78px; padding: 0; margin: 0; border: 0; border-radius: 9px; overflow: hidden; cursor: pointer; background: #17181C; scroll-snap-align: start; box-shadow: {{g.ring}};">
+<sc-if value="{{g.hasCover}}" hint-placeholder-val="{{ true }}">
+<img src="{{g.art}}" alt="" style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; object-fit: cover; image-rendering: pixelated;">
+</sc-if>
+<sc-if value="{{g.noCover}}" hint-placeholder-val="{{ false }}">
+<div style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; box-sizing: border-box; padding: 10px 10px 26px 10px; display: flex; flex-direction: column; justify-content: center; text-align: left; background: linear-gradient(150deg, #22232A 0%, #15161A 100%);">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="position: absolute; right: 8px; top: 8px;"><path d="M6 3h12v13l-2 2v3H8v-3l-2-2z"></path><rect x="9" y="6" width="6" height="5" rx="1"></rect></svg>
+<span style="font-family: 'Figtree', system-ui, sans-serif; font-size: 12px; line-height: 15px; font-weight: 700; color: rgba(255,255,255,0.9); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; padding-right: 16px;">{{g.title}}</span>
+</div>
+</sc-if>
+<span style="position: absolute; left: 6px; bottom: 6px; height: 16px; padding: 0 6px; border-radius: 5px; background: rgba(10,10,12,0.78); color: #FFFFFF; font-family: 'Figtree', system-ui, sans-serif; font-size: 10px; font-weight: 800; letter-spacing: 0.05em; line-height: 16px;">{{g.chip}}</span>
+<sc-if value="{{g.motion}}" hint-placeholder-val="{{ false }}">
+<span aria-label="Uses motion controls" style="position: absolute; right: 6px; bottom: 6px; width: 20px; height: 20px; border-radius: 999px; background: rgba(10,10,12,0.78); display: flex; align-items: center; justify-content: center;">
+<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="7" width="6" height="12" rx="2"></rect><path d="M5 9a6 6 0 0 0 0 6M19 9a6 6 0 0 1 0 6M3 6.5a10 10 0 0 0 0 11M21 6.5a10 10 0 0 1 0 11"></path></svg>
+</span>
+</sc-if>
+<sc-if value="{{g.inCloud}}" hint-placeholder-val="{{ false }}">
+<span aria-label="In iCloud, downloads when you play" style="position: absolute; right: 6px; top: 6px; width: 22px; height: 22px; border-radius: 999px; background: rgba(10,10,12,0.72); display: flex; align-items: center; justify-content: center;">
+<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 18a4.5 4.5 0 0 1-.6-8.96A6 6 0 0 1 18 8.5a4 4 0 0 1 0 8"></path><path d="M12 12v8M9 17l3 3 3-3"></path></svg>
+</span>
+</sc-if>
+<sc-if value="{{g.pinned}}" hint-placeholder-val="{{ false }}">
+<span style="position: absolute; right: 6px; top: 6px; width: 20px; height: 20px; border-radius: 999px; background: #FFFFFF; color: #0A0A0C; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 0 1.5px rgba(10,10,12,0.6);">
+<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>
+</span>
+</sc-if>
+</button>
+</sc-for>
+</div>
+</div>
+</sc-if>
+
+<div style="position: absolute; left: 0; top: 0; width: 852px; height: 112px; background: rgba(10,10,12,0.94); backdrop-filter: blur(18px);"></div>
+<div style="position: absolute; left: 0; top: 112px; width: 852px; height: 16px; background: linear-gradient(180deg, rgba(10,10,12,0.94) 0%, rgba(10,10,12,0) 100%); pointer-events: none;"></div>
+
+<div style="position: absolute; left: 56px; top: 14px; width: 740px; display: flex; flex-direction: row; justify-content: space-between; align-items: flex-end;">
+<div style="display: flex; flex-direction: column;">
+<h1 style="margin: 0; font-size: 26px; line-height: 32px; font-weight: 800; letter-spacing: -0.01em;">Retro</h1>
+<div style="font-size: 13px; line-height: 18px; color: rgba(255,255,255,0.74);">{{countLabel}}</div>
+</div>
+<div style="display: flex; flex-direction: row; align-items: center; gap: 12px;">
+<span style="display: flex; flex-direction: row; align-items: center; gap: 6px; font-size: 12px; line-height: 18px; color: rgba(255,255,255,0.66);">
+<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 18a4.5 4.5 0 0 1-.6-8.96A6 6 0 0 1 18 8.5a4 4 0 0 1 0 8H7z"></path></svg>
+<span>iCloud Drive › Retro Games</span>
+</span>
+<a href="RomImport.dc.html" style="height: 30px; box-sizing: border-box; display: flex; flex-direction: row; align-items: center; gap: 6px; padding: 0 12px 0 10px; border-radius: 999px; border: 1.5px solid rgba(255,255,255,0.28); color: #FFFFFF; text-decoration: none; font-size: 12px; font-weight: 600;">
+<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>
+<span>Add a ROM</span>
+</a>
+</div>
+</div>
+
+<div style="position: absolute; left: 56px; top: 70px; width: 740px; height: 32px; display: flex; flex-direction: row; align-items: center; gap: 8px;">
+<span style="flex-shrink: 0; height: 20px; padding: 0 6px; box-sizing: border-box; border-radius: 5px; border: 1.5px solid rgba(255,255,255,0.6); display: flex; align-items: center; font-size: 10px; font-weight: 800; color: rgba(255,255,255,0.85);">LB</span>
+<div class="rl-scroll" style="flex-grow: 1; overflow-x: auto; -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 12px, #000 calc(100% - 24px), transparent 100%); mask-image: linear-gradient(90deg, transparent 0, #000 12px, #000 calc(100% - 24px), transparent 100%);">
+<div style="display: flex; flex-direction: row; gap: 8px; padding: 0 12px; width: max-content;">
+<sc-for list="{{filters}}" as="f" hint-placeholder-count="11">
+<button type="button" onClick="{{f.pick}}" aria-pressed="{{f.on}}" style="flex-shrink: 0; height: 30px; padding: 0 14px; border: 0; border-radius: 999px; background: {{f.bg}}; color: {{f.fg}}; font-family: 'Figtree', system-ui, sans-serif; font-size: 13px; font-weight: 600; cursor: pointer; white-space: nowrap;">{{f.label}}</button>
+</sc-for>
+</div>
+</div>
+<span style="flex-shrink: 0; height: 20px; padding: 0 6px; box-sizing: border-box; border-radius: 5px; border: 1.5px solid rgba(255,255,255,0.6); display: flex; align-items: center; font-size: 10px; font-weight: 800; color: rgba(255,255,255,0.85);">RB</span>
+</div>
+
+<sc-if value="{{isEmpty}}" hint-placeholder-val="{{ false }}">
+<div style="position: absolute; left: 0; top: 124px; width: 852px; height: 250px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;">
+<div style="width: 56px; height: 56px; border-radius: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.12); display: flex; align-items: center; justify-content: center;">
+<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12v13l-2 2v3H8v-3l-2-2z"></path><rect x="9" y="6" width="6" height="5" rx="1"></rect><path d="M10 18v3M14 18v3"></path></svg>
+</div>
+<div style="margin-top: 14px; font-size: 20px; line-height: 26px; font-weight: 800;">No games yet</div>
+<div style="margin-top: 4px; width: 420px; font-size: 14px; line-height: 20px; color: rgba(255,255,255,0.74);">Put your ROM files in iCloud Drive › Retro Games. They show up here by themselves.</div>
+</div>
+</sc-if>
+
+<sc-if value="{{hasGames}}" hint-placeholder-val="{{ true }}">
+<div style="position: absolute; left: 0; top: 305px; width: 852px; height: 88px; background: linear-gradient(180deg, rgba(10,10,12,0) 0%, rgba(10,10,12,0.94) 22%, rgba(10,10,12,0.96) 100%); pointer-events: none;"></div>
+<div style="position: absolute; left: 56px; top: 330px; width: 740px; height: 48px; display: flex; flex-direction: row; justify-content: space-between; align-items: center; gap: 20px;">
+<div style="min-width: 0; display: flex; flex-direction: column;">
+<div style="font-size: 17px; line-height: 22px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{cur.title}}</div>
+<div style="font-size: 12px; line-height: 17px; color: rgba(255,255,255,0.72); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{cur.meta}}</div>
+</div>
+<div style="flex-shrink: 0; display: flex; flex-direction: row; align-items: center; gap: 14px; font-size: 12px; color: rgba(255,255,255,0.74);">
+<a href="RetroPlay.dc.html" style="display: flex; flex-direction: row; align-items: center; gap: 6px; height: 32px; color: rgba(255,255,255,0.74); text-decoration: none;">
+<span style="width: 18px; height: 18px; box-sizing: border-box; border-radius: 999px; border: 1.5px solid rgba(255,255,255,0.7); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; color: #FFFFFF;">A</span>
+<span>{{cur.action}}</span>
+</a>
+<a href="RetroDetails.dc.html" style="display: flex; flex-direction: row; align-items: center; gap: 6px; height: 32px; color: rgba(255,255,255,0.74); text-decoration: none;">
+<span style="width: 18px; height: 18px; box-sizing: border-box; border-radius: 999px; border: 1.5px solid rgba(255,255,255,0.7); display: flex; align-items: center; justify-content: center; color: #FFFFFF;"><svg width="9" height="9" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="1" y="3.5" width="6.5" height="6.5" rx="1.2"></rect><path d="M4.5 3.5V2.2A1.2 1.2 0 0 1 5.7 1H9.8A1.2 1.2 0 0 1 11 2.2v4.1a1.2 1.2 0 0 1-1.2 1.2H7.5"></path></svg></span>
+<span>Details</span>
+</a>
+<button type="button" onClick="{{togglePin}}" style="display: flex; flex-direction: row; align-items: center; gap: 6px; height: 32px; padding: 0; border: 0; background: transparent; color: rgba(255,255,255,0.74); font-family: 'Figtree', system-ui, sans-serif; font-size: 12px; cursor: pointer;">
+<span style="width: 18px; height: 18px; box-sizing: border-box; border-radius: 999px; border: 1.5px solid rgba(255,255,255,0.7); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; color: #FFFFFF;">Y</span>
+<span>{{pinLabel}}</span>
+</button>
+<a href="TileEditor.dc.html" style="display: flex; flex-direction: row; align-items: center; gap: 6px; height: 32px; color: rgba(255,255,255,0.74); text-decoration: none;">
+<span style="width: 18px; height: 18px; box-sizing: border-box; border-radius: 999px; border: 1.5px solid rgba(255,255,255,0.7); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; color: #FFFFFF;">X</span>
+<span>Edit tile</span>
+</a>
+<a href="Main.dc.html" style="display: flex; flex-direction: row; align-items: center; gap: 6px; height: 32px; color: rgba(255,255,255,0.74); text-decoration: none;">
+<span style="width: 18px; height: 18px; box-sizing: border-box; border-radius: 999px; border: 1.5px solid rgba(255,255,255,0.7); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; color: #FFFFFF;">B</span>
+<span>Back</span>
+</a>
+</div>
+</div>
+</sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"empty":{"editor":"boolean","default":false},"$preview":{"width":852,"height":393}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { filter: 'All', sel: 'g0', pinned: { g0: true } };
+  }
+  renderVals() {
+    const empty = this.props.empty ?? false;
+    const arts = [
+      '/_blob/b6710dba22a40bd1307ca4aaac39dffb', '/_blob/91693db175bfb2720b3fe34c83295db7',
+      '/_blob/ecc70d5e7d1b9a8007cfadb6542235d5', '/_blob/218aba517cbaf218d2599ec575ea324c',
+      '/_blob/c9fc34e6077a748ad247570a7215ee2f', '/_blob/6cd64cc8a37c18599a10454080efd6ad',
+      '/_blob/cae3aac66ab7436737564c863315a630', '/_blob/bedcc74108c837fed68c8eebd86d234e'
+    ];
+    const systems = [
+      ['SNES', 'SNES', 'Super Nintendo'], ['GB', 'GAME BOY', 'Game Boy'], ['GBC', 'GAME BOY COLOR', 'Game Boy Color'],
+      ['GBA', 'GBA', 'Game Boy Advance'], ['MD', 'MEGA DRIVE', 'Mega Drive'], ['N64', 'N64', 'Nintendo 64'],
+      ['PSP', 'PSP', 'PSP'], ['DS', 'DS', 'Nintendo DS'], ['3DS', '3DS', 'Nintendo 3DS'], ['GC', 'GAMECUBE', 'GameCube'], ['WII', 'WII', 'Wii']
+    ];
+    const filterNames = { SNES: 'SNES', GB: 'Game Boy', GBC: 'Game Boy Color', GBA: 'GBA', MD: 'Mega Drive', N64: 'N64', PSP: 'PSP', DS: 'DS', '3DS': '3DS', GC: 'GameCube', WII: 'Wii' };
+    const noCoverTitles = ['The Legend of Zelda: Ocarina of Time 3D', 'Aliens vs. Predator: Requiem', 'Def Jam: Fight for NY: The Takeover', 'Metal Slug 2'];
+    const all = [];
+    for (let i = 0; i < 40; i++) {
+      const sys = systems[(i * 7) % systems.length];
+      const noCover = i === 5 || i === 13 || i === 22 || i === 31;
+      all.push({
+        id: 'g' + i,
+        sys: sys[0], chip: sys[1], system: sys[2],
+        title: noCover ? noCoverTitles[[5, 13, 22, 31].indexOf(i)] : '[Game title]',
+        art: arts[i % arts.length],
+        hasCover: !noCover, noCover: noCover,
+        downloaded: !(i === 3 || i === 9 || i === 18 || i === 27),
+        saved: i % 3 === 0,
+        motion: sys[0] === 'WII' && i % 2 === 1
+      });
+    }
+    const present = systems.filter((s) => all.some((g) => g.sys === s[0]));
+    const fnames = ['All'].concat(present.map((s) => filterNames[s[0]]));
+    const byName = {};
+    present.forEach((s) => { byName[filterNames[s[0]]] = s[0]; });
+    const fsel = this.state.filter;
+    const shown = all.filter((g) => fsel === 'All' || g.sys === byName[fsel]);
+    const sel = this.state.sel;
+    const pinned = this.state.pinned;
+    const games = shown.map((g) => {
+      const on = g.id === sel;
+      return {
+        title: g.title, art: g.art, chip: g.chip, hasCover: g.hasCover, noCover: g.noCover, motion: !!g.motion,
+        inCloud: !g.downloaded && !pinned[g.id],
+        pinned: !!pinned[g.id],
+        ring: on ? '0 0 0 2px #0A0A0C, 0 0 0 4px #FFFFFF, 0 10px 24px rgba(0,0,0,0.55)' : '0 4px 12px rgba(0,0,0,0.35)',
+        pick: () => this.setState({ sel: g.id })
+      };
+    });
+    const c = shown.find((g) => g.id === sel) || shown[0] || all[0];
+    const isPinned = !!pinned[c.id];
+    const meta = (c.motion ? c.system + ' · Uses motion controls' : c.system) + (c.downloaded
+      ? (isPinned ? ' · Pinned to home' : ' · Last played last week')
+      : ' · 32 MB · Downloads when you play');
+    const filters = fnames.map((n) => {
+      const on = n === fsel;
+      return {
+        label: n, on: on ? 'true' : 'false',
+        bg: on ? '#FFFFFF' : 'rgba(255,255,255,0.1)',
+        fg: on ? '#0A0A0C' : 'rgba(255,255,255,0.8)',
+        pick: () => this.setState({ filter: n })
+      };
+    });
+    return {
+      games: games,
+      filters: filters,
+      cur: { title: c.title, meta: meta, action: c.saved ? 'Continue' : 'Play' },
+      isEmpty: empty,
+      hasGames: !empty,
+      countLabel: empty ? 'No games yet' : '538 games · 501 on this iPhone',
+      pinLabel: isPinned ? 'Unpin' : 'Pin to home',
+      togglePin: () => {
+        const next = Object.assign({}, this.state.pinned);
+        next[c.id] = !next[c.id];
+        this.setState({ pinned: next });
+      }
+    };
+  }
+}
+</script>
+</body>
+</html>

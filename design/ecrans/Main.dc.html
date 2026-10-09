@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Launcher home</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<div style="position: relative; width: 852px; height: 393px; overflow: hidden; background: #0A0A0C; font-family: 'Figtree', system-ui, sans-serif; color: #FFFFFF;">
+
+<svg viewBox="0 0 852 393" preserveAspectRatio="xMidYMid slice" style="position: absolute; left: 0; top: 0; width: 852px; height: 393px;" aria-hidden="true">
+<defs>
+<linearGradient id="hero-sky" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="{{cur.skyTop}}"></stop>
+<stop offset="1" stop-color="{{cur.skyBot}}"></stop>
+</linearGradient>
+</defs>
+<rect x="0" y="0" width="852" height="393" fill="url(#hero-sky)"></rect>
+<g opacity="{{cur.stars}}" fill="#FFFFFF">
+<circle cx="470" cy="60" r="1.2" opacity="0.7"></circle>
+<circle cx="540" cy="96" r="0.9" opacity="0.5"></circle>
+<circle cx="702" cy="52" r="1.4" opacity="0.8"></circle>
+<circle cx="768" cy="112" r="1" opacity="0.5"></circle>
+<circle cx="812" cy="40" r="1.1" opacity="0.6"></circle>
+<circle cx="610" cy="34" r="0.9" opacity="0.5"></circle>
+</g>
+<circle cx="{{cur.sunX}}" cy="{{cur.sunY}}" r="{{cur.glowR}}" fill="{{cur.sun}}" opacity="{{cur.glowO}}"></circle>
+<circle cx="{{cur.sunX}}" cy="{{cur.sunY}}" r="{{cur.sunR}}" fill="{{cur.sun}}" opacity="{{cur.sunO}}"></circle>
+<g opacity="{{cur.signal}}" fill="none" stroke="{{cur.sun}}" stroke-width="1.5">
+<circle cx="640" cy="190" r="38" opacity="0.5"></circle>
+<circle cx="640" cy="190" r="80" opacity="0.32"></circle>
+<circle cx="640" cy="190" r="128" opacity="0.2"></circle>
+<circle cx="640" cy="190" r="182" opacity="0.11"></circle>
+</g>
+<g opacity="{{cur.hills}}">
+<path d="M0 250 C120 200 220 215 330 230 S560 190 680 215 S820 225 852 210 L852 393 L0 393 Z" fill="{{cur.far}}"></path>
+<path d="M578 262 V232 H586 V222 H592 V232 H604 V240 H624 V212 H630 V202 H636 V212 H642 V240 H658 V226 H666 V262 Z" fill="{{cur.mid}}" opacity="{{cur.castle}}"></path>
+<path d="M0 290 C90 260 200 270 300 285 S500 250 620 272 S780 290 852 265 L852 393 L0 393 Z" fill="{{cur.mid}}"></path>
+<g fill="{{cur.detail}}" opacity="{{cur.cypress}}">
+<ellipse cx="596" cy="262" rx="6" ry="30"></ellipse>
+<ellipse cx="612" cy="268" rx="5" ry="24"></ellipse>
+<ellipse cx="704" cy="266" rx="6" ry="32"></ellipse>
+<ellipse cx="719" cy="272" rx="4.5" ry="22"></ellipse>
+<ellipse cx="786" cy="262" rx="5.5" ry="28"></ellipse>
+</g>
+<path d="M0 335 C140 310 260 325 400 330 S640 300 852 320 L852 393 L0 393 Z" fill="{{cur.near}}"></path>
+</g>
+</svg>
+
+<sc-if value="{{cur.photo}}" hint-placeholder-val="{{ true }}">
+<img src="/_blob/55be2f84be542341a371332a0759bd95" alt="" style="position: absolute; left: 0; top: 0; width: 852px; height: 393px; object-fit: cover; object-position: 60% 30%;">
+</sc-if>
+<sc-if value="{{cur.photo2}}" hint-placeholder-val="{{ false }}">
+<img src="/_blob/814277e8eddd9e40c13718ad3864d413" alt="" style="position: absolute; left: 0; top: 0; width: 852px; height: 393px; object-fit: cover; object-position: 50% 55%;">
+</sc-if>
+<sc-if value="{{cur.pixel}}" hint-placeholder-val="{{ false }}">
+<img src="/_blob/b6710dba22a40bd1307ca4aaac39dffb" alt="" style="position: absolute; left: 0; top: 0; width: 852px; height: 393px; object-fit: cover; object-position: 60% 50%; image-rendering: pixelated;">
+</sc-if>
+
+<div style="position: absolute; left: 0; top: 0; width: 852px; height: 393px; background: linear-gradient(90deg, rgba(8,8,10,0.88) 0%, rgba(8,8,10,0.55) 38%, rgba(8,8,10,0) 64%);"></div>
+<div style="position: absolute; left: 0; top: 0; width: 852px; height: 393px; background: linear-gradient(0deg, rgba(8,8,10,0.92) 0%, rgba(8,8,10,0.45) 34%, rgba(8,8,10,0) 58%);"></div>
+<div style="position: absolute; left: 0; top: 0; width: 852px; height: 96px; background: linear-gradient(180deg, rgba(8,8,10,0.72) 0%, rgba(8,8,10,0.42) 45%, rgba(8,8,10,0) 100%);"></div>
+
+<div style="position: absolute; left: 0; top: 0; width: 852px; height: 393px; box-sizing: border-box; padding: 14px 56px 18px 56px; display: flex; flex-direction: column;">
+
+<div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; height: 32px;">
+<div style="display: flex; flex-direction: row; align-items: center; gap: 10px;">
+<svg width="24" height="24" viewBox="0 0 100 100" role="img" aria-label="overrrrhere">
+<rect x="0" y="0" width="100" height="100" rx="22.4" fill="#FF5A1F"></rect>
+<g transform="translate(50 52) scale(0.74) translate(-50 -51)">
+<path d="M20 34 C20 26 26 22 34 22 H66 C74 22 80 26 80 34 L86 64 C88 74 82 80 74 80 C68 80 64 76 61 70 L58 64 H42 L39 70 C36 76 32 80 26 80 C18 80 12 74 14 64 Z" fill="#FFFFFF"></path>
+<rect x="53" y="34" width="6" height="13" rx="3" fill="#FF5A1F"></rect>
+<rect x="63" y="34" width="6" height="13" rx="3" fill="#FF5A1F"></rect>
+</g>
+</svg>
+<div style="width: 1px; height: 18px; background: rgba(255,255,255,0.2);"></div>
+<div role="img" aria-label="Gamer picture" style="width: 28px; height: 28px; border-radius: 999px; overflow: hidden; background: linear-gradient(160deg, #3A3B44 0%, #1C1D22 100%); box-shadow: inset 0 0 0 1.5px rgba(255,255,255,0.22); display: flex; align-items: flex-end; justify-content: center;">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="rgba(255,255,255,0.55)" aria-hidden="true"><circle cx="12" cy="9" r="4.2"></circle><path d="M3.5 24a8.5 8 0 0 1 17 0z"></path></svg>
+</div>
+<div style="font-size: 14px; font-weight: 600; letter-spacing: 0.01em;">[Gamertag]</div>
+</div>
+<div style="display: flex; flex-direction: row; align-items: center; gap: 16px; color: rgba(255,255,255,0.9);">
+<div style="display: flex; flex-direction: row; align-items: center; gap: 7px; height: 26px; padding: 0 10px; border-radius: 999px; background: rgba(255,255,255,0.1); font-size: 12px; font-weight: 600;">
+<span style="width: 6px; height: 6px; border-radius: 999px; background: {{chipDot}};"></span>
+<span>{{chipLabel}}</span>
+</div>
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-label="Controller connected" role="img">
+<path d="M6.5 6h11A3.5 3.5 0 0 1 21 9.5l.8 5.6a2.4 2.4 0 0 1-4.2 1.9L15 14H9l-2.6 3a2.4 2.4 0 0 1-4.2-1.9L3 9.5A3.5 3.5 0 0 1 6.5 6z"></path>
+<path d="M7.5 10h3M9 8.5v3"></path>
+<path d="M15.5 9.5h.01M17.5 11.5h.01"></path>
+</svg>
+<div style="display: flex; flex-direction: row; align-items: center; gap: 6px;">
+<svg width="26" height="12" viewBox="0 0 26 12" aria-label="Battery 78 percent" role="img">
+<rect x="0.75" y="0.75" width="21.5" height="10.5" rx="3" fill="none" stroke="currentColor" stroke-width="1.2" opacity="0.6"></rect>
+<rect x="2.5" y="2.5" width="13.5" height="7" rx="1.5" fill="currentColor"></rect>
+<rect x="23.5" y="4" width="1.8" height="4" rx="0.9" fill="currentColor" opacity="0.6"></rect>
+</svg>
+<div style="font-size: 13px; font-weight: 500; font-variant-numeric: tabular-nums;">78%</div>
+</div>
+<div style="font-size: 14px; font-weight: 600; font-variant-numeric: tabular-nums;">21:04</div>
+</div>
+</div>
+
+<div style="flex-grow: 1;"></div>
+
+<div style="display: flex; flex-direction: row; align-items: flex-end; gap: 14px; height: 92px; transform: translateX(-{{rowShift}}px); transition: transform 220ms ease;">
+<sc-for list="{{tiles}}" as="item" hint-placeholder-count="4">
+<button type="button" aria-label="{{item.title}}" onClick="{{item.pick}}" style="position: relative; display: block; flex-shrink: 0; width: {{item.w}}px; height: {{item.h}}px; padding: 0; margin: 0; border: 0; border-radius: 10px; overflow: hidden; cursor: pointer; background: {{item.bg}}; box-shadow: {{item.ring}}; opacity: {{item.dim}}; transition: width 180ms ease, height 180ms ease, box-shadow 180ms ease;">
+<sc-if value="{{item.hasArt}}" hint-placeholder-val="{{ true }}">
+<svg viewBox="0 0 852 393" preserveAspectRatio="xMidYMid slice" style="position: absolute; left: 0; top: 0; width: 100%; height: 100%;" aria-hidden="true">
+<defs>
+<linearGradient id="t-{{item.id}}" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="{{item.skyTop}}"></stop>
+<stop offset="1" stop-color="{{item.skyBot}}"></stop>
+</linearGradient>
+</defs>
+<rect x="0" y="0" width="852" height="393" fill="url(#t-{{item.id}})"></rect>
+<circle cx="{{item.sunX}}" cy="{{item.sunY}}" r="{{item.glowR}}" fill="{{item.sun}}" opacity="{{item.glowO}}"></circle>
+<circle cx="{{item.sunX}}" cy="{{item.sunY}}" r="{{item.sunR}}" fill="{{item.sun}}" opacity="{{item.sunO}}"></circle>
+<g opacity="{{item.signal}}" fill="none" stroke="{{item.sun}}" stroke-width="6">
+<circle cx="426" cy="196" r="60" opacity="0.55"></circle>
+<circle cx="426" cy="196" r="120" opacity="0.35"></circle>
+<circle cx="426" cy="196" r="185" opacity="0.2"></circle>
+</g>
+<g opacity="{{item.hills}}">
+<path d="M0 250 C120 200 220 215 330 230 S560 190 680 215 S820 225 852 210 L852 393 L0 393 Z" fill="{{item.far}}"></path>
+<path d="M578 262 V232 H586 V222 H592 V232 H604 V240 H624 V212 H630 V202 H636 V212 H642 V240 H658 V226 H666 V262 Z" fill="{{item.mid}}" opacity="{{item.castle}}"></path>
+<path d="M0 290 C90 260 200 270 300 285 S500 250 620 272 S780 290 852 265 L852 393 L0 393 Z" fill="{{item.mid}}"></path>
+<g fill="{{item.detail}}" opacity="{{item.cypress}}">
+<ellipse cx="596" cy="262" rx="6" ry="30"></ellipse>
+<ellipse cx="612" cy="268" rx="5" ry="24"></ellipse>
+<ellipse cx="704" cy="266" rx="6" ry="32"></ellipse>
+<ellipse cx="719" cy="272" rx="4.5" ry="22"></ellipse>
+<ellipse cx="786" cy="262" rx="5.5" ry="28"></ellipse>
+</g>
+<path d="M0 335 C140 310 260 325 400 330 S640 300 852 320 L852 393 L0 393 Z" fill="{{item.near}}"></path>
+</g>
+</svg>
+</sc-if>
+<sc-if value="{{item.photo}}" hint-placeholder-val="{{ false }}">
+<img src="/_blob/c97931eefb5c7cbafa244629232556e3" alt="" style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; object-fit: cover;">
+</sc-if>
+<sc-if value="{{item.photo2}}" hint-placeholder-val="{{ false }}">
+<img src="/_blob/0ec4bbbf942d2c8ecb321726b65242b4" alt="" style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; object-fit: contain; background: #FFFFFF;">
+</sc-if>
+<sc-if value="{{item.pixel}}" hint-placeholder-val="{{ false }}">
+<img src="/_blob/b6710dba22a40bd1307ca4aaac39dffb" alt="" style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; object-fit: cover; image-rendering: pixelated;">
+<span style="position: absolute; left: 6px; bottom: 6px; height: 16px; padding: 0 6px; border-radius: 5px; background: rgba(10,10,12,0.78); color: #FFFFFF; font-family: 'Figtree', system-ui, sans-serif; font-size: 10px; font-weight: 800; letter-spacing: 0.05em; line-height: 16px;">SNES</span>
+</sc-if>
+<sc-if value="{{item.isRetroLib}}" hint-placeholder-val="{{ false }}">
+<div style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; box-sizing: border-box; border: 1px solid rgba(255,255,255,0.18); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.85);">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12v13l-2 2v3H8v-3l-2-2z"></path><rect x="9" y="6" width="6" height="5" rx="1"></rect><path d="M10 18v3M14 18v3"></path></svg>
+</div>
+</sc-if>
+<sc-if value="{{item.isAdd}}" hint-placeholder-val="{{ false }}">
+<div style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; box-sizing: border-box; border: 1px solid rgba(255,255,255,0.18); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.85);">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="7" height="7" rx="1.5"></rect><rect x="13" y="4" width="7" height="7" rx="1.5"></rect><rect x="4" y="13" width="7" height="7" rx="1.5"></rect><rect x="13" y="13" width="7" height="7" rx="1.5"></rect></svg>
+</div>
+</sc-if>
+</button>
+</sc-for>
+</div>
+
+<div style="margin-top: 16px; display: flex; flex-direction: column;">
+<h1 style="margin: 0; font-size: 24px; line-height: 28px; font-weight: 800; letter-spacing: -0.01em;">{{cur.title}}</h1>
+<div style="margin-top: 3px; font-size: 13px; line-height: 18px; color: rgba(255,255,255,0.74);">{{cur.meta}}</div>
+</div>
+
+<div style="margin-top: 12px; display: flex; flex-direction: row; justify-content: space-between; align-items: center;">
+<div style="display: flex; flex-direction: row; align-items: center; gap: 10px;">
+<a href="{{cur.href}}" style="height: 44px; box-sizing: border-box; display: flex; flex-direction: row; align-items: center; gap: 10px; padding: 0 22px 0 10px; border-radius: 999px; background: #FFFFFF; color: #0A0A0C; text-decoration: none; font-family: 'Figtree', system-ui, sans-serif; font-size: 15px; font-weight: 700; cursor: pointer;">
+<span style="width: 26px; height: 26px; border-radius: 999px; background: #0A0A0C; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700;">A</span>
+<span>{{cur.action}}</span>
+</a>
+<sc-if value="{{cur.isGame}}" hint-placeholder-val="{{ true }}">
+<a href="{{cur.detailsHref}}" style="height: 44px; box-sizing: border-box; display: flex; flex-direction: row; align-items: center; gap: 10px; padding: 0 20px 0 10px; border-radius: 999px; background: rgba(255,255,255,0.1); border: 1.5px solid rgba(255,255,255,0.28); color: #FFFFFF; text-decoration: none; font-family: 'Figtree', system-ui, sans-serif; font-size: 15px; font-weight: 600; cursor: pointer;">
+<span style="width: 26px; height: 26px; box-sizing: border-box; border-radius: 999px; border: 1.5px solid rgba(255,255,255,0.7); display: flex; align-items: center; justify-content: center;"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.4" aria-label="View" role="img"><rect x="1" y="3.5" width="6.5" height="6.5" rx="1.2"></rect><path d="M4.5 3.5V2.2A1.2 1.2 0 0 1 5.7 1H9.8A1.2 1.2 0 0 1 11 2.2v4.1a1.2 1.2 0 0 1-1.2 1.2H7.5"></path></svg></span>
+<span>Details</span>
+</a>
+</sc-if>
+</div>
+<div style="display: flex; flex-direction: row; align-items: center; gap: 18px; font-size: 12px; color: rgba(255,255,255,0.74);">
+<a href="Menu.dc.html" style="display: flex; flex-direction: row; align-items: center; gap: 7px; color: rgba(255,255,255,0.74); text-decoration: none;">
+<span style="width: 18px; height: 18px; box-sizing: border-box; border-radius: 999px; border: 1.5px solid rgba(255,255,255,0.7); display: flex; align-items: center; justify-content: center; color: #FFFFFF;">
+<svg width="9" height="9" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><path d="M1.5 2.5h7M1.5 5h7M1.5 7.5h7"></path></svg>
+</span>
+<span>Menu</span>
+</a>
+</div>
+</div>
+
+</div>
+
+<sc-if value="{{firstRun}}" hint-placeholder-val="{{ false }}">
+<div role="status" style="position: absolute; right: 56px; top: 56px; width: 290px; box-sizing: border-box; padding: 12px 14px; border-radius: 14px; background: rgba(22,22,26,0.88); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 14px 36px rgba(0,0,0,0.45); display: flex; flex-direction: row; gap: 12px;">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FF5A1F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0; margin-top: 1px;"><path d="M12 3l2.4 5.6L20 11l-5.6 2.4L12 19l-2.4-5.6L4 11l5.6-2.4z"></path></svg>
+<div style="display: flex; flex-direction: column; gap: 3px;">
+<div style="font-size: 13px; line-height: 18px; font-weight: 700;">Your home is ready</div>
+<div style="font-size: 12px; line-height: 17px; color: rgba(255,255,255,0.74);">Your recent games are pinned here.</div>
+</div>
+</div>
+</sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"focusColor":{"editor":"color","default":"#FFFFFF","options":["#FFFFFF","#7CE3A6","#8AB4FF"]},"firstRun":{"editor":"boolean","default":false},"offline":{"editor":"boolean","default":false},"$preview":{"width":852,"height":393}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { sel: 'requiem' };
+  }
+  renderVals() {
+    const focus = this.props.focusColor ?? '#FFFFFF';
+    const base = { sunX: 610, sunY: 200, sunO: 1, glowO: 0.18, stars: 0, signal: 0, hills: 1, castle: 0, cypress: 0, hasArt: true, isAdd: false, photo: false, photo2: false, href: 'Launch.dc.html' };
+    const data = [
+      Object.assign({}, base, {
+        id: 'requiem', title: 'A Plague Tale: Requiem', meta: 'Last played yesterday · 14 h played', action: 'Play', photo: true,
+        skyTop: '#5E3547', skyBot: '#F2B46B', sun: '#FFE6B8', sunR: 44, glowR: 96,
+        far: '#C0714F', mid: '#733C33', near: '#2B181B', detail: '#1F1115', cypress: 1
+      }),
+      Object.assign({}, base, {
+        id: 'innocence', title: 'A Plague Tale: Innocence', meta: 'Last played 3 weeks ago · 11 h played', action: 'Play', photo2: true,
+        skyTop: '#141B26', skyBot: '#56626E', sun: '#E4E7EA', sunX: 700, sunY: 110, sunR: 22, glowR: 60, glowO: 0.12,
+        far: '#394552', mid: '#252D38', near: '#12171F', detail: '#1B222C', castle: 1, stars: 1
+      }),
+      Object.assign({}, base, {
+        id: 'retrogame', title: '[Game title]', meta: 'Super Nintendo · Last played yesterday · 3 h played', action: 'Continue', href: 'RetroPlay.dc.html', detailsHref: 'RetroDetails.dc.html',
+        skyTop: '#0C0C0F', skyBot: '#1A1B21', sun: '#FFFFFF', sunR: 0, glowR: 0, sunO: 0, glowO: 0,
+        far: '#24252C', mid: '#1A1B20', near: '#111216', detail: '#111216', hasArt: false, pixel: true
+      }),
+      Object.assign({}, base, {
+        id: 'remote', title: 'Console home', meta: "Stream your Xbox's home screen without launching a game", action: 'Stream',
+        skyTop: '#050E09', skyBot: '#0E2B1C', sun: '#8FE8B4', sunX: 640, sunY: 190, sunR: 6, glowR: 30, glowO: 0.25,
+        far: '#000000', mid: '#000000', near: '#000000', detail: '#000000', hills: 0, signal: 1
+      }),
+      Object.assign({}, base, {
+        id: 'retro', title: 'Retro', meta: '6 games on this iPhone · Add your own ROMs from Files', action: 'Open', href: 'RetroLibrary.dc.html',
+        skyTop: '#0C0C0F', skyBot: '#1A1B21', sun: '#FFFFFF', sunR: 0, glowR: 0, sunO: 0, glowO: 0,
+        far: '#24252C', mid: '#1A1B20', near: '#111216', detail: '#111216', hasArt: false, isRetroLib: true
+      }),
+      Object.assign({}, base, {
+        id: 'add', title: 'All games', meta: 'Every game installed on your Xbox · Pin your favorites here', action: 'Open', href: 'Library.dc.html',
+        skyTop: '#0C0C0F', skyBot: '#1A1B21', sun: '#FFFFFF', sunR: 0, glowR: 0, sunO: 0, glowO: 0,
+        far: '#24252C', mid: '#1A1B20', near: '#111216', detail: '#111216', hasArt: false, isAdd: true
+      })
+    ];
+    const offline = this.props.offline ?? false;
+    const needsXbox = (id) => id === 'requiem' || id === 'innocence' || id === 'remote' || id === 'add';
+    const sel = this.state.sel;
+    const base0 = data.find((d) => d.id === sel) || data[0];
+    const cur = Object.assign({}, base0);
+    cur.isGame = cur.id === 'requiem' || cur.id === 'innocence' || cur.id === 'retrogame';
+    cur.detailsHref = cur.detailsHref || 'GameDetails.dc.html';
+    if (offline && needsXbox(cur.id)) {
+      cur.meta = "You're offline · Retro games still work";
+      cur.href = 'LaunchIssue.dc.html';
+    }
+    const selIndex = Math.max(0, data.findIndex((d) => d.id === sel));
+    const selRight = selIndex * (128 + 14) + 160;
+    const rowShift = Math.max(0, selRight - 740 + 8);
+    const tiles = data.map((d) => {
+      const on = d.id === sel;
+      return Object.assign({}, d, {
+        w: on ? 160 : 128,
+        h: on ? 90 : 72,
+        bg: (d.isAdd || d.isRetroLib) ? 'rgba(255,255,255,0.07)' : '#141416',
+        ring: on
+          ? '0 0 0 2px #0A0A0C, 0 0 0 4px ' + focus + ', 0 14px 32px rgba(0,0,0,0.55)'
+          : '0 6px 16px rgba(0,0,0,0.35)',
+        dim: (offline && needsXbox(d.id) && !on) ? 0.45 : 1,
+        pick: () => this.setState({ sel: d.id })
+      });
+    });
+    return {
+      tiles: tiles, cur: cur, rowShift: rowShift, firstRun: this.props.firstRun ?? false,
+      chipDot: offline ? 'rgba(255,255,255,0.45)' : '#7CE3A6',
+      chipLabel: offline ? 'Offline' : 'Xbox Series X'
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,429 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Settings — Controller</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@800&amp;family=Figtree:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#0A0A0C}
+a{color:#FFFFFF}a:hover{color:#FFFFFF}
+</style>
+</helmet>
+<div style="position: relative; width: 852px; height: 393px; overflow: hidden; background: #0A0A0C; font-family: 'Figtree', system-ui, sans-serif; color: #FFFFFF;">
+
+<div style="position: absolute; left: 0; top: 0; width: 852px; height: 393px; filter: blur(28px) brightness(0.4) saturate(1.1); pointer-events: none; transform: scale(1.1);" aria-hidden="true">
+<dc-import name="Main" hint-size="852px,393px"></dc-import>
+</div>
+<div style="position: absolute; left: 0; top: 0; width: 852px; height: 393px; background: rgba(8,8,10,0.4);"></div>
+
+<div style="position: absolute; left: 0; top: 0; width: 852px; height: 393px; box-sizing: border-box; padding: 18px 56px 18px 56px; display: flex; flex-direction: row; gap: 28px;">
+
+<div style="width: 188px; flex-shrink: 0; display: flex; flex-direction: column;">
+<h1 style="margin: 0 0 10px 12px; font-size: 26px; line-height: 32px; font-weight: 800; letter-spacing: -0.01em;">Settings</h1>
+<div style="display: flex; flex-direction: column; gap: 2px;">
+<sc-for list="{{nav}}" as="n" hint-placeholder-count="6">
+<button type="button" onClick="{{n.pick}}" style="height: 40px; display: flex; align-items: center; padding: 0 12px; border: 0; border-radius: 10px; background: {{n.bg}}; color: {{n.fg}}; font-family: 'Figtree', system-ui, sans-serif; font-size: 15px; font-weight: 600; text-align: left; cursor: pointer;">{{n.label}}</button>
+</sc-for>
+</div>
+<div style="flex-grow: 1;"></div>
+<div style="display: flex; flex-direction: row; align-items: center; gap: 18px; padding: 0 12px; font-size: 12px; color: rgba(255,255,255,0.74);">
+<div style="display: flex; flex-direction: row; align-items: center; gap: 7px;">
+<span style="width: 18px; height: 18px; box-sizing: border-box; border-radius: 999px; border: 1.5px solid rgba(255,255,255,0.7); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; color: #FFFFFF;">A</span>
+<span>Select</span>
+</div>
+<a href="Main.dc.html" style="display: flex; flex-direction: row; align-items: center; gap: 7px; color: rgba(255,255,255,0.74); text-decoration: none;">
+<span style="width: 18px; height: 18px; box-sizing: border-box; border-radius: 999px; border: 1.5px solid rgba(255,255,255,0.7); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; color: #FFFFFF;">B</span>
+<span>Back</span>
+</a>
+</div>
+</div>
+
+<div style="flex-grow: 1; margin-top: 46px; margin-bottom: 4px; box-sizing: border-box; padding: 18px 20px; border-radius: 18px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.07); display: flex; flex-direction: column;">
+<sc-if value="{{isController}}" hint-placeholder-val="{{ true }}">
+<div style="display: flex; flex-direction: column;">
+<div style="display: flex; flex-direction: row; align-items: center; gap: 14px; padding: 0 12px 16px 12px;">
+<div style="width: 40px; height: 40px; border-radius: 12px; background: rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center;">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 6h11A3.5 3.5 0 0 1 21 9.5l.8 5.6a2.4 2.4 0 0 1-4.2 1.9L15 14H9l-2.6 3a2.4 2.4 0 0 1-4.2-1.9L3 9.5A3.5 3.5 0 0 1 6.5 6z"></path><path d="M7.5 10h3M9 8.5v3"></path><path d="M15.5 9.5h.01M17.5 11.5h.01"></path></svg>
+</div>
+<div style="display: flex; flex-direction: column;">
+<div style="font-size: 17px; line-height: 22px; font-weight: 700;">Mobile controller</div>
+<div style="display: flex; flex-direction: row; align-items: center; gap: 6px; font-size: 13px; line-height: 18px; color: rgba(255,255,255,0.74);">
+<span style="width: 6px; height: 6px; border-radius: 999px; background: #7CE3A6;"></span>
+<span>Connected</span>
+</div>
+</div>
+</div>
+
+<div style="height: 1px; background: rgba(255,255,255,0.08);"></div>
+
+<sc-for list="{{rows}}" as="row" hint-placeholder-count="3">
+<div style="height: 46px; box-sizing: border-box; display: flex; flex-direction: row; align-items: center; justify-content: space-between; padding: 0 12px; margin-top: 4px; border-radius: 10px; background: {{row.rowBg}};">
+<span style="font-size: 15px; font-weight: 500;">{{row.label}}</span>
+<button type="button" aria-label="{{row.label}}" aria-pressed="{{row.on}}" onClick="{{row.toggle}}" style="position: relative; width: 40px; height: 24px; padding: 0; border: 0; border-radius: 999px; cursor: pointer; background: {{row.track}}; transition: background 160ms ease;">
+<span style="position: absolute; top: 3px; left: {{row.knobX}}px; width: 18px; height: 18px; border-radius: 999px; background: {{row.knob}}; transition: left 160ms ease;"></span>
+</button>
+</div>
+</sc-for>
+
+<div style="height: 46px; box-sizing: border-box; display: flex; flex-direction: row; align-items: center; justify-content: space-between; padding: 0 12px; margin-top: 4px; border-radius: 10px;">
+<span style="font-size: 15px; font-weight: 500;">Touch controls</span>
+<div style="display: flex; flex-direction: row; gap: 2px; padding: 2px; border-radius: 999px; background: rgba(255,255,255,0.1);">
+<sc-for list="{{touchModes}}" as="v" hint-placeholder-count="3">
+<button type="button" aria-pressed="{{v.on}}" onClick="{{v.pick}}" style="height: 28px; padding: 0 12px; border: 0; border-radius: 999px; background: {{v.bg}}; color: {{v.fg}}; font-family: 'Figtree', system-ui, sans-serif; font-size: 13px; font-weight: 600; cursor: pointer;">{{v.label}}</button>
+</sc-for>
+</div>
+</div>
+<div style="height: 46px; box-sizing: border-box; display: flex; flex-direction: row; align-items: center; justify-content: space-between; padding: 0 12px; margin-top: 4px; border-radius: 10px;">
+<span style="font-size: 15px; font-weight: 500;">Touch controls opacity</span>
+<div style="display: flex; flex-direction: row; gap: 2px; padding: 2px; border-radius: 999px; background: rgba(255,255,255,0.1);">
+<sc-for list="{{touchOpacities}}" as="v" hint-placeholder-count="3">
+<button type="button" aria-pressed="{{v.on}}" onClick="{{v.pick}}" style="height: 28px; padding: 0 12px; border: 0; border-radius: 999px; background: {{v.bg}}; color: {{v.fg}}; font-family: 'Figtree', system-ui, sans-serif; font-size: 13px; font-weight: 600; cursor: pointer;">{{v.label}}</button>
+</sc-for>
+</div>
+</div>
+<a href="ControllerTest.dc.html" style="height: 46px; box-sizing: border-box; display: flex; flex-direction: row; align-items: center; justify-content: space-between; padding: 0 12px; margin-top: 4px; border-radius: 10px; color: #FFFFFF; text-decoration: none;">
+<span style="font-size: 15px; font-weight: 500;">Test buttons</span>
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg>
+</a>
+</div>
+</sc-if>
+
+<sc-if value="{{isXbox}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-direction: column;">
+<div style="display: flex; flex-direction: row; align-items: center; justify-content: space-between; padding: 0 12px 16px 12px;">
+<div style="display: flex; flex-direction: row; align-items: center; gap: 14px;">
+<div style="width: 40px; height: 40px; border-radius: 12px; background: rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center;">
+<svg width="16" height="24" viewBox="0 0 34 54" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="30" height="50" rx="5"></rect><circle cx="17" cy="11" r="5" opacity="0.6"></circle></svg>
+</div>
+<div style="display: flex; flex-direction: column;">
+<div style="font-size: 17px; line-height: 22px; font-weight: 700;">Xbox Series X</div>
+<div style="display: flex; flex-direction: row; align-items: center; gap: 6px; font-size: 13px; line-height: 18px; color: rgba(255,255,255,0.74);">
+<span style="width: 6px; height: 6px; border-radius: 999px; background: #7CE3A6;"></span>
+<span>Ready · Asleep</span>
+</div>
+</div>
+</div>
+<a href="Consoles.dc.html" style="height: 32px; display: flex; align-items: center; padding: 0 14px; border-radius: 999px; border: 1.5px solid rgba(255,255,255,0.3); color: #FFFFFF; text-decoration: none; font-size: 13px; font-weight: 600;">Change</a>
+</div>
+
+<div style="height: 1px; background: rgba(255,255,255,0.08);"></div>
+
+<sc-for list="{{xboxRows}}" as="row" hint-placeholder-count="2">
+<div style="height: 46px; box-sizing: border-box; display: flex; flex-direction: row; align-items: center; justify-content: space-between; padding: 0 12px; margin-top: 4px; border-radius: 10px; background: {{row.rowBg}};">
+<span style="font-size: 15px; font-weight: 500;">{{row.label}}</span>
+<button type="button" aria-label="{{row.label}}" aria-pressed="{{row.on}}" onClick="{{row.toggle}}" style="position: relative; width: 40px; height: 24px; padding: 0; border: 0; border-radius: 999px; cursor: pointer; background: {{row.track}}; transition: background 160ms ease;">
+<span style="position: absolute; top: 3px; left: {{row.knobX}}px; width: 18px; height: 18px; border-radius: 999px; background: {{row.knob}}; transition: left 160ms ease;"></span>
+</button>
+</div>
+</sc-for>
+
+
+<a href="SignIn.dc.html" style="height: 46px; box-sizing: border-box; display: flex; flex-direction: row; align-items: center; padding: 0 12px; margin-top: 4px; border-radius: 10px; color: #FF8A73; text-decoration: none; font-size: 15px; font-weight: 600;">Sign out of Microsoft</a>
+</div>
+</sc-if>
+
+<sc-if value="{{isRetro}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-direction: column;">
+<div style="display: flex; flex-direction: row; align-items: center; justify-content: space-between; padding: 0 12px 14px 12px;">
+<div style="display: flex; flex-direction: column;">
+<div style="font-size: 17px; line-height: 22px; font-weight: 700;">Retro</div>
+<div style="font-size: 13px; line-height: 18px; color: rgba(255,255,255,0.74);">6 games · 184 MB on this iPhone</div>
+</div>
+<a href="RetroLibrary.dc.html" style="height: 32px; display: flex; align-items: center; padding: 0 14px; border-radius: 999px; border: 1.5px solid rgba(255,255,255,0.3); color: #FFFFFF; text-decoration: none; font-size: 13px; font-weight: 600;">Manage ROMs</a>
+</div>
+<div style="height: 1px; background: rgba(255,255,255,0.08);"></div>
+<sc-for list="{{retroRows}}" as="row" hint-placeholder-count="1">
+<div style="height: 46px; box-sizing: border-box; display: flex; flex-direction: row; align-items: center; justify-content: space-between; padding: 0 12px; margin-top: 4px; border-radius: 10px; background: {{row.rowBg}};">
+<span style="font-size: 15px; font-weight: 500;">{{row.label}}</span>
+<button type="button" aria-label="{{row.label}}" aria-pressed="{{row.on}}" onClick="{{row.toggle}}" style="position: relative; width: 40px; height: 24px; padding: 0; border: 0; border-radius: 999px; cursor: pointer; background: {{row.track}}; transition: background 160ms ease;">
+<span style="position: absolute; top: 3px; left: {{row.knobX}}px; width: 18px; height: 18px; border-radius: 999px; background: {{row.knob}}; transition: left 160ms ease;"></span>
+</button>
+</div>
+</sc-for>
+<div style="height: 46px; box-sizing: border-box; display: flex; flex-direction: row; align-items: center; justify-content: space-between; padding: 0 12px; margin-top: 4px; border-radius: 10px;">
+<span style="font-size: 15px; font-weight: 500;">Screen</span>
+<div style="display: flex; flex-direction: row; gap: 2px; padding: 2px; border-radius: 999px; background: rgba(255,255,255,0.1);">
+<sc-for list="{{screens}}" as="v" hint-placeholder-count="3">
+<button type="button" aria-pressed="{{v.on}}" onClick="{{v.pick}}" style="height: 28px; padding: 0 12px; border: 0; border-radius: 999px; background: {{v.bg}}; color: {{v.fg}}; font-family: 'Figtree', system-ui, sans-serif; font-size: 13px; font-weight: 600; cursor: pointer;">{{v.label}}</button>
+</sc-for>
+</div>
+</div>
+<div style="height: 46px; box-sizing: border-box; display: flex; flex-direction: row; align-items: center; justify-content: space-between; padding: 0 12px; margin-top: 4px; border-radius: 10px;">
+<span style="font-size: 15px; font-weight: 500;">Picture size</span>
+<div style="display: flex; flex-direction: row; gap: 2px; padding: 2px; border-radius: 999px; background: rgba(255,255,255,0.1);">
+<sc-for list="{{sizes}}" as="v" hint-placeholder-count="2">
+<button type="button" aria-pressed="{{v.on}}" onClick="{{v.pick}}" style="height: 28px; padding: 0 12px; border: 0; border-radius: 999px; background: {{v.bg}}; color: {{v.fg}}; font-family: 'Figtree', system-ui, sans-serif; font-size: 13px; font-weight: 600; cursor: pointer;">{{v.label}}</button>
+</sc-for>
+</div>
+</div>
+<div style="height: 46px; box-sizing: border-box; display: flex; flex-direction: row; align-items: center; justify-content: space-between; padding: 0 12px; margin-top: 4px; border-radius: 10px;">
+<span style="font-size: 15px; font-weight: 500;">DS screen layout</span>
+<div style="display: flex; flex-direction: row; gap: 2px; padding: 2px; border-radius: 999px; background: rgba(255,255,255,0.1);">
+<sc-for list="{{dsLayouts}}" as="v" hint-placeholder-count="3">
+<button type="button" aria-pressed="{{v.on}}" onClick="{{v.pick}}" style="height: 28px; padding: 0 12px; border: 0; border-radius: 999px; background: {{v.bg}}; color: {{v.fg}}; font-family: 'Figtree', system-ui, sans-serif; font-size: 13px; font-weight: 600; cursor: pointer;">{{v.label}}</button>
+</sc-for>
+</div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{isAppearance}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-direction: column;">
+<div style="display: flex; flex-direction: column; padding: 0 12px 14px 12px;">
+<div style="font-size: 17px; line-height: 22px; font-weight: 700;">Appearance</div>
+</div>
+<div style="height: 1px; background: rgba(255,255,255,0.08);"></div>
+<div style="height: 46px; box-sizing: border-box; display: flex; flex-direction: row; align-items: center; justify-content: space-between; padding: 0 12px; margin-top: 4px; border-radius: 10px;">
+<span style="font-size: 15px; font-weight: 500;">Focus color</span>
+<div style="display: flex; flex-direction: row; gap: 12px;">
+<sc-for list="{{swatches}}" as="s" hint-placeholder-count="3">
+<button type="button" aria-label="{{s.name}}" aria-pressed="{{s.on}}" onClick="{{s.pick}}" style="width: 24px; height: 24px; padding: 0; border: 0; border-radius: 999px; background: {{s.color}}; box-shadow: {{s.ring}}; cursor: pointer;"></button>
+</sc-for>
+</div>
+</div>
+<sc-for list="{{appearanceRows}}" as="row" hint-placeholder-count="3">
+<div style="height: 46px; box-sizing: border-box; display: flex; flex-direction: row; align-items: center; justify-content: space-between; padding: 0 12px; margin-top: 4px; border-radius: 10px; background: {{row.rowBg}};">
+<span style="font-size: 15px; font-weight: 500;">{{row.label}}</span>
+<button type="button" aria-label="{{row.label}}" aria-pressed="{{row.on}}" onClick="{{row.toggle}}" style="position: relative; width: 40px; height: 24px; padding: 0; border: 0; border-radius: 999px; cursor: pointer; background: {{row.track}}; transition: background 160ms ease;">
+<span style="position: absolute; top: 3px; left: {{row.knobX}}px; width: 18px; height: 18px; border-radius: 999px; background: {{row.knob}}; transition: left 160ms ease;"></span>
+</button>
+</div>
+</sc-for>
+</div>
+</sc-if>
+
+<sc-if value="{{isTiles}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-direction: column;">
+<div style="display: flex; flex-direction: column; padding: 0 12px 14px 12px;">
+<div style="font-size: 17px; line-height: 22px; font-weight: 700;">Tiles</div>
+<div style="font-size: 13px; line-height: 18px; color: rgba(255,255,255,0.74);">2 games pinned to your home</div>
+</div>
+<div style="height: 1px; background: rgba(255,255,255,0.08);"></div>
+<sc-for list="{{tilesRows}}" as="row" hint-placeholder-count="3">
+<div style="height: 46px; box-sizing: border-box; display: flex; flex-direction: row; align-items: center; justify-content: space-between; padding: 0 12px; margin-top: 4px; border-radius: 10px; background: {{row.rowBg}};">
+<span style="font-size: 15px; font-weight: 500;">{{row.label}}</span>
+<button type="button" aria-label="{{row.label}}" aria-pressed="{{row.on}}" onClick="{{row.toggle}}" style="position: relative; width: 40px; height: 24px; padding: 0; border: 0; border-radius: 999px; cursor: pointer; background: {{row.track}}; transition: background 160ms ease;">
+<span style="position: absolute; top: 3px; left: {{row.knobX}}px; width: 18px; height: 18px; border-radius: 999px; background: {{row.knob}}; transition: left 160ms ease;"></span>
+</button>
+</div>
+</sc-for>
+<a href="Library.dc.html" style="height: 46px; box-sizing: border-box; display: flex; flex-direction: row; align-items: center; justify-content: space-between; padding: 0 12px; margin-top: 4px; border-radius: 10px; color: #FFFFFF; text-decoration: none;">
+<span style="font-size: 15px; font-weight: 500;">Manage pinned games</span>
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg>
+</a>
+</div>
+</sc-if>
+
+<sc-if value="{{isSound}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-direction: column;">
+<div style="display: flex; flex-direction: column; padding: 0 12px 14px 12px;">
+<div style="font-size: 17px; line-height: 22px; font-weight: 700;">Sound</div>
+</div>
+<div style="height: 1px; background: rgba(255,255,255,0.08);"></div>
+<sc-for list="{{soundRows}}" as="row" hint-placeholder-count="2">
+<div style="height: 46px; box-sizing: border-box; display: flex; flex-direction: row; align-items: center; justify-content: space-between; padding: 0 12px; margin-top: 4px; border-radius: 10px; background: {{row.rowBg}};">
+<span style="font-size: 15px; font-weight: 500;">{{row.label}}</span>
+<button type="button" aria-label="{{row.label}}" aria-pressed="{{row.on}}" onClick="{{row.toggle}}" style="position: relative; width: 40px; height: 24px; padding: 0; border: 0; border-radius: 999px; cursor: pointer; background: {{row.track}}; transition: background 160ms ease;">
+<span style="position: absolute; top: 3px; left: {{row.knobX}}px; width: 18px; height: 18px; border-radius: 999px; background: {{row.knob}}; transition: left 160ms ease;"></span>
+</button>
+</div>
+</sc-for>
+<div style="height: 46px; box-sizing: border-box; display: flex; flex-direction: row; align-items: center; justify-content: space-between; padding: 0 12px; margin-top: 4px; border-radius: 10px;">
+<span style="font-size: 15px; font-weight: 500;">Volume</span>
+<div style="display: flex; flex-direction: row; gap: 2px; padding: 2px; border-radius: 999px; background: rgba(255,255,255,0.1);">
+<sc-for list="{{volumes}}" as="v" hint-placeholder-count="3">
+<button type="button" aria-pressed="{{v.on}}" onClick="{{v.pick}}" style="height: 28px; padding: 0 12px; border: 0; border-radius: 999px; background: {{v.bg}}; color: {{v.fg}}; font-family: 'Figtree', system-ui, sans-serif; font-size: 13px; font-weight: 600; cursor: pointer;">{{v.label}}</button>
+</sc-for>
+</div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{isAbout}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-direction: column;">
+<div style="display: flex; flex-direction: row; align-items: center; gap: 14px; padding: 0 12px 14px 12px;">
+<svg width="40" height="40" viewBox="0 0 100 100" aria-hidden="true">
+<rect x="0" y="0" width="100" height="100" rx="22.4" fill="#FF5A1F"></rect>
+<g transform="translate(50 52) scale(0.74) translate(-50 -51)">
+<path d="M20 34 C20 26 26 22 34 22 H66 C74 22 80 26 80 34 L86 64 C88 74 82 80 74 80 C68 80 64 76 61 70 L58 64 H42 L39 70 C36 76 32 80 26 80 C18 80 12 74 14 64 Z" fill="#FFFFFF"></path>
+<rect x="53" y="34" width="6" height="13" rx="3" fill="#FF5A1F"></rect>
+<rect x="63" y="34" width="6" height="13" rx="3" fill="#FF5A1F"></rect>
+</g>
+</svg>
+<div style="display: flex; flex-direction: column;">
+<div style="font-family: 'Bricolage Grotesque', 'Figtree', sans-serif; font-size: 20px; line-height: 24px; font-weight: 800; letter-spacing: -0.035em;">ove<span style="color: #FF5A1F;">r</span><span style="color: #FF5A1F; opacity: 0.75;">r</span><span style="color: #FF5A1F; opacity: 0.5;">r</span><span style="color: #FF5A1F; opacity: 0.3;">r</span>here</div>
+<div style="font-size: 13px; line-height: 18px; color: rgba(255,255,255,0.74);">Version 1.0 · Free and open source</div>
+</div>
+</div>
+<div style="height: 1px; background: rgba(255,255,255,0.08);"></div>
+<a href="Welcome.dc.html" style="height: 46px; box-sizing: border-box; display: flex; flex-direction: row; align-items: center; justify-content: space-between; padding: 0 12px; margin-top: 4px; border-radius: 10px; color: #FFFFFF; text-decoration: none;">
+<span style="font-size: 15px; font-weight: 500;">Show the welcome again</span>
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg>
+</a>
+<button type="button" onClick="{{askReset}}" style="height: 46px; width: 100%; box-sizing: border-box; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; padding: 0 12px; margin-top: 4px; border: 0; border-radius: 10px; background: transparent; font-family: 'Figtree', system-ui, sans-serif; text-align: left; cursor: pointer;">
+<span style="font-size: 15px; font-weight: 600; color: #FF8A73;">Reset overrrrhere</span>
+<span style="font-size: 12px; line-height: 16px; color: rgba(255,255,255,0.6);">Erases pinned games, play time and settings on this iPhone</span>
+</button>
+</div>
+</sc-if>
+</div>
+
+</div>
+
+<sc-if value="{{confirmReset}}" hint-placeholder-val="{{ false }}">
+<div style="position: absolute; left: 0; top: 0; width: 852px; height: 393px; background: rgba(8,8,10,0.62); backdrop-filter: blur(6px); display: flex; align-items: center; justify-content: center;">
+<div role="alertdialog" aria-label="Reset overrrrhere" style="width: 420px; box-sizing: border-box; padding: 22px 24px 18px 24px; border-radius: 18px; background: rgba(24,24,28,0.96); border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 24px 60px rgba(0,0,0,0.55); display: flex; flex-direction: column;">
+<div style="font-size: 20px; line-height: 26px; font-weight: 800;">Reset overrrrhere?</div>
+<p style="margin: 8px 0 0 0; font-size: 14px; line-height: 20px; color: rgba(255,255,255,0.76);">This erases your pinned games, play time and settings on this iPhone. Your Xbox and your games are not affected.</p>
+<div style="margin-top: 20px; display: flex; flex-direction: row; gap: 12px;">
+<button type="button" onClick="{{cancelReset}}" style="height: 44px; padding: 0 26px; border: 0; border-radius: 999px; background: #FFFFFF; color: #0A0A0C; font-family: 'Figtree', system-ui, sans-serif; font-size: 15px; font-weight: 700; cursor: pointer; box-shadow: 0 0 0 2px #18181C, 0 0 0 4px #FFFFFF;">Cancel</button>
+<button type="button" onClick="{{cancelReset}}" style="height: 44px; padding: 0 22px; border: 1.5px solid rgba(255,138,115,0.6); border-radius: 999px; background: transparent; color: #FF8A73; font-family: 'Figtree', system-ui, sans-serif; font-size: 15px; font-weight: 600; cursor: pointer;">Reset</button>
+</div>
+<div style="margin-top: 16px; display: flex; flex-direction: row; gap: 18px; font-size: 12px; color: rgba(255,255,255,0.7);">
+<div style="display: flex; flex-direction: row; align-items: center; gap: 7px;">
+<span style="width: 18px; height: 18px; box-sizing: border-box; border-radius: 999px; border: 1.5px solid rgba(255,255,255,0.7); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; color: #FFFFFF;">A</span>
+<span>Select</span>
+</div>
+<div style="display: flex; flex-direction: row; align-items: center; gap: 7px;">
+<span style="width: 18px; height: 18px; box-sizing: border-box; border-radius: 999px; border: 1.5px solid rgba(255,255,255,0.7); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; color: #FFFFFF;">B</span>
+<span>Cancel</span>
+</div>
+</div>
+</div>
+</div>
+</sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"section":{"editor":"enum","options":["Controller","Xbox &amp; Remote Play","Retro","Appearance","Tiles","Sound","About"],"default":"Controller"},"$preview":{"width":852,"height":393}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = {
+      vibration: true, sounds: true, swap: false, wifiCheck: true, autoSleep: true,
+      artBg: true, reduceMotion: false, clock24: true,
+      autoPin: true, showPlayTime: true, consoleTile: true,
+      readyChime: true, volume: 'Medium', focusColor: 'White', retroAutosave: true, retroScreen: 'Sharp', retroSize: 'Original', touchPref: 'Auto', touchOpacity: 'Medium', dsLayout: 'Side by side',
+      focus: 'vibration', section: null, confirmReset: false
+    };
+  }
+  makeRow(d) {
+    const on = !!this.state[d.key];
+    return {
+      label: d.label,
+      on: on ? 'true' : 'false',
+      rowBg: this.state.focus === d.key ? 'rgba(255,255,255,0.1)' : 'transparent',
+      track: on ? '#FFFFFF' : 'rgba(255,255,255,0.22)',
+      knob: on ? '#0A0A0C' : '#FFFFFF',
+      knobX: on ? 19 : 3,
+      toggle: () => this.setState({ [d.key]: !on, focus: d.key })
+    };
+  }
+  renderVals() {
+    const rows = [
+      { key: 'vibration', label: 'Phone vibration' }
+    ].map((d) => this.makeRow(d));
+    const xboxRows = [
+      { key: 'wifiCheck', label: 'Check Wi-Fi before playing' },
+      { key: 'autoSleep', label: 'Put Xbox to sleep when I quit' }
+    ].map((d) => this.makeRow(d));
+    const appearanceRows = [
+      { key: 'artBg', label: 'Game art in the background' },
+      { key: 'reduceMotion', label: 'Reduce motion' },
+      { key: 'clock24', label: '24-hour clock' }
+    ].map((d) => this.makeRow(d));
+    const tilesRows = [
+      { key: 'autoPin', label: 'Auto-pin recently played games' },
+      { key: 'showPlayTime', label: 'Show play time on home' },
+      { key: 'consoleTile', label: 'Show the Console home tile' }
+    ].map((d) => this.makeRow(d));
+    const soundRows = [
+      { key: 'sounds', label: 'Interface sounds' },
+      { key: 'readyChime', label: 'Chime when your game is ready' }
+    ].map((d) => this.makeRow(d));
+    const swatches = [
+      { name: 'White', color: '#FFFFFF' },
+      { name: 'Green', color: '#7CE3A6' },
+      { name: 'Orange', color: '#FF5A1F' }
+    ].map((s) => {
+      const on = this.state.focusColor === s.name;
+      return {
+        name: s.name, color: s.color, on: on ? 'true' : 'false',
+        ring: on ? '0 0 0 2px #1A1A1E, 0 0 0 4px #FFFFFF' : 'none',
+        pick: () => this.setState({ focusColor: s.name })
+      };
+    });
+    const retroRows = [
+      { key: 'retroAutosave', label: 'Auto-save when I quit' }
+    ].map((d) => this.makeRow(d));
+    const seg = (options, key) => options.map((v) => {
+      const on = this.state[key] === v;
+      return {
+        label: v, on: on ? 'true' : 'false',
+        bg: on ? '#FFFFFF' : 'transparent',
+        fg: on ? '#0A0A0C' : 'rgba(255,255,255,0.74)',
+        pick: () => this.setState({ [key]: v })
+      };
+    });
+    const screens = seg(['Sharp', 'Smooth', 'CRT'], 'retroScreen');
+    const sizes = seg(['Original', 'Fill screen'], 'retroSize');
+    const touchModes = seg(['Auto', 'Always', 'Off'], 'touchPref');
+    const touchOpacities = seg(['Low', 'Medium', 'High'], 'touchOpacity');
+    const dsLayouts = seg(['Side by side', 'Stacked', 'Focus'], 'dsLayout');
+    const volumes = ['Low', 'Medium', 'High'].map((v) => {
+      const on = this.state.volume === v;
+      return {
+        label: v, on: on ? 'true' : 'false',
+        bg: on ? '#FFFFFF' : 'transparent',
+        fg: on ? '#0A0A0C' : 'rgba(255,255,255,0.74)',
+        pick: () => this.setState({ volume: v })
+      };
+    });
+    const section = this.state.section || this.props.section || 'Controller';
+    const names = ['Controller', 'Xbox & Remote Play', 'Retro', 'Appearance', 'Tiles', 'Sound', 'About'];
+    const nav = names.map((n) => {
+      const on = n === section;
+      return {
+        label: n,
+        bg: on ? 'rgba(255,255,255,0.12)' : 'transparent',
+        fg: on ? '#FFFFFF' : 'rgba(255,255,255,0.72)',
+        pick: () => this.setState({ section: n })
+      };
+    });
+    return {
+      nav: nav,
+      rows: rows,
+      xboxRows: xboxRows,
+      appearanceRows: appearanceRows,
+      tilesRows: tilesRows,
+      soundRows: soundRows,
+      swatches: swatches,
+      volumes: volumes,
+      isController: section === 'Controller',
+      isXbox: section === 'Xbox & Remote Play',
+      isAppearance: section === 'Appearance',
+      isRetro: section === 'Retro',
+      retroRows: retroRows,
+      screens: screens,
+      sizes: sizes,
+      touchModes: touchModes,
+      touchOpacities: touchOpacities,
+      dsLayouts: dsLayouts,
+      isTiles: section === 'Tiles',
+      isSound: section === 'Sound',
+      isAbout: section === 'About',
+      confirmReset: this.state.confirmReset,
+      askReset: () => this.setState({ confirmReset: true }),
+      cancelReset: () => this.setState({ confirmReset: false })
+    };
+  }
+}
+</script>
+</body>
+</html>

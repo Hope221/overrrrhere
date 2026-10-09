@@ -1,0 +1,295 @@
+<title>Maquettes 3DS overrrrhere</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&family=Bricolage+Grotesque:opsz,wght@12..96,800&display=swap" rel="stylesheet">
+<style>
+:root{
+  color-scheme: dark;
+  --ink:#0A0A0C; --screen:#050507; --panel:rgba(22,22,26,0.86);
+  --white:#FFFFFF; --muted:rgba(255,255,255,0.74); --faint:rgba(255,255,255,0.5);
+  --orange:#FF5A1F; --green:#7CE3A6; --line:rgba(255,255,255,0.12);
+}
+html,body{background:var(--ink);color:var(--white)}
+body{font-family:'Figtree',system-ui,-apple-system,sans-serif;padding-inline:16px;padding-block:28px 56px;line-height:1.5}
+.wrap{max-width:980px;margin:0 auto;display:flex;flex-direction:column;gap:40px}
+header{display:flex;flex-direction:column;gap:10px}
+.brand{font-family:'Bricolage Grotesque','Figtree',sans-serif;font-weight:800;font-size:15px;letter-spacing:-0.01em;color:var(--muted)}
+.brand b{color:var(--white);font-weight:800}
+.brand i{font-style:normal;color:var(--orange)}
+h1{font-family:'Bricolage Grotesque','Figtree',sans-serif;font-weight:800;font-size:clamp(28px,5vw,40px);line-height:1.05;margin:0;text-wrap:balance}
+.lede{color:var(--muted);max-width:66ch;margin:0;font-size:15px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font-size:12px;font-weight:600;padding:4px 10px;border-radius:999px;border:1px solid var(--line);color:var(--muted)}
+.chip.new{border-color:rgba(255,90,31,0.5);color:var(--white)}
+section{display:flex;flex-direction:column;gap:14px}
+.sh{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 12px}
+h2{font-size:20px;font-weight:700;margin:0}
+.tag{font-size:12px;font-weight:700;color:var(--ink);background:var(--white);border-radius:999px;padding:2px 9px}
+.tag.alt{background:transparent;color:var(--muted);border:1px solid var(--line)}
+.note{color:var(--muted);font-size:14px;margin:0;max-width:72ch}
+.note code,.lede code{font-size:12.5px;background:rgba(255,255,255,0.08);padding:1px 5px;border-radius:5px}
+
+/* phone frame: always 852x393 inside, scaled to the column */
+.phone{position:relative;width:100%;max-width:100%;aspect-ratio:852/393;border-radius:28px;background:#000;box-shadow:0 0 0 1px rgba(255,255,255,0.1),0 20px 50px rgba(0,0,0,0.55);overflow:hidden}
+.stage{position:absolute;left:0;top:0;width:852px;height:393px;transform-origin:0 0;background:var(--screen);overflow:hidden;font-family:'Figtree',system-ui,sans-serif;color:#fff}
+.abs{position:absolute}
+.scr{position:absolute;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,0.6)}
+.scr .ring{position:absolute;inset:0;border:1.5px solid rgba(255,255,255,0.35);border-radius:inherit;box-sizing:border-box;pointer-events:none}
+.touchtag{position:absolute;right:8px;top:8px;height:20px;padding:0 8px 0 6px;border-radius:6px;background:rgba(10,10,12,0.62);display:flex;align-items:center;gap:4px;font-size:10px;font-weight:700;color:rgba(255,255,255,0.88)}
+.hints{position:absolute;display:flex;gap:18px;font-size:11px;color:rgba(255,255,255,0.5)}
+
+/* placeholder 3DS pictures, drawn in CSS so nothing real is shipped */
+.top-art{position:absolute;inset:0;background:
+  linear-gradient(180deg,#6fb7ff 0%,#a9d8ff 52%,transparent 52%),
+  linear-gradient(180deg,transparent 60%,#58b04a 60%,#3f8f35 100%);
+  background-color:#a9d8ff}
+.top-art::before{content:"";position:absolute;left:8%;right:8%;bottom:26%;height:22%;background:
+  radial-gradient(ellipse at 20% 100%,#2f6f2a 0 45%,transparent 46%),
+  radial-gradient(ellipse at 62% 100%,#357c2f 0 50%,transparent 51%),
+  radial-gradient(ellipse at 90% 100%,#2f6f2a 0 40%,transparent 41%)}
+.top-art::after{content:"";position:absolute;left:44%;bottom:30%;width:7%;aspect-ratio:3/4;background:#FF5A1F;border-radius:2px}
+.bot-art{position:absolute;inset:0;background:
+  repeating-linear-gradient(0deg,rgba(255,255,255,0.05) 0 1px,transparent 1px 12px),
+  repeating-linear-gradient(90deg,rgba(255,255,255,0.05) 0 1px,transparent 1px 12px),
+  linear-gradient(160deg,#2b2f63,#191b3a)}
+.bot-art::before{content:"";position:absolute;left:12%;top:22%;width:34%;height:56%;border-radius:8%;background:rgba(255,255,255,0.14)}
+.bot-art::after{content:"";position:absolute;left:54%;top:22%;width:34%;height:56%;border-radius:8%;background:rgba(255,90,31,0.55)}
+.cap{position:absolute;left:8px;bottom:6px;font-size:10px;font-weight:700;color:rgba(255,255,255,0.9);background:rgba(10,10,12,0.55);padding:1px 6px;border-radius:5px;letter-spacing:0.02em}
+
+/* touch controls (same look as TouchRetro / DSStacked) */
+.btn{position:absolute;box-sizing:border-box;padding:0;border:1.5px solid rgba(255,255,255,0.55);background:rgba(255,255,255,0.14);color:#fff;font-family:'Figtree',system-ui,sans-serif;font-weight:800;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,0.35);cursor:pointer;transition:background 100ms ease,color 100ms ease}
+.btn.on{background:rgba(255,255,255,0.92);color:#0A0A0C}
+.btn:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.stick{position:absolute;border-radius:999px;box-sizing:border-box;border:1.5px solid rgba(255,255,255,0.55);background:rgba(255,255,255,0.08);box-shadow:0 2px 8px rgba(0,0,0,0.35)}
+.stick .knob{position:absolute;border-radius:999px;background:rgba(255,255,255,0.22);border:1.5px solid rgba(255,255,255,0.7);box-sizing:border-box}
+.stick .lbl{position:absolute;left:0;right:0;bottom:-16px;text-align:center;font-size:9px;font-weight:700;letter-spacing:0.06em;color:rgba(255,255,255,0.55)}
+.pill{position:absolute;box-sizing:border-box;border-radius:999px;background:rgba(10,10,12,0.45);border:1.5px solid rgba(255,255,255,0.4);display:flex;align-items:center;justify-content:center;gap:6px;box-shadow:0 2px 8px rgba(0,0,0,0.35)}
+
+/* menu panel */
+.menu{position:absolute;left:0;top:0;width:320px;height:393px;box-sizing:border-box;padding:18px 20px 18px 56px;display:flex;flex-direction:column;background:rgba(22,22,26,0.86);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-right:1px solid rgba(255,255,255,0.08);border-radius:0 22px 22px 0}
+.row{height:44px;box-sizing:border-box;display:flex;align-items:center;justify-content:space-between;padding:0 12px;border:0;border-radius:10px;background:transparent;color:rgba(255,255,255,0.8);font-family:'Figtree',system-ui,sans-serif;font-size:15px;font-weight:500;text-align:left;cursor:pointer;width:100%}
+.row.sel{background:rgba(255,255,255,0.12);color:#fff;font-weight:600}
+.row small{font-size:13px;color:rgba(255,255,255,0.6);font-weight:500}
+.glyph{width:18px;height:18px;box-sizing:border-box;border-radius:999px;border:1.5px solid rgba(255,255,255,0.7);display:inline-flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff}
+
+/* controls under each mockup */
+.ctrls{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.seg{display:inline-flex;gap:2px;padding:3px;border-radius:999px;background:rgba(255,255,255,0.1)}
+.seg button{height:28px;padding:0 12px;border:0;border-radius:999px;background:transparent;color:rgba(255,255,255,0.8);font:600 13px 'Figtree',system-ui,sans-serif;cursor:pointer}
+.seg button[aria-pressed="true"]{background:#fff;color:#0A0A0C}
+.seg button:focus-visible{outline:2px solid var(--orange);outline-offset:1px}
+.ctrls label{font-size:13px;color:var(--muted)}
+
+/* mapping table */
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:14px}
+table{border-collapse:collapse;width:100%;min-width:520px;font-size:14px}
+th,td{text-align:left;padding:9px 14px;border-bottom:1px solid var(--line)}
+th{font-size:12px;letter-spacing:0.06em;text-transform:uppercase;color:var(--faint);font-weight:700}
+tr:last-child td{border-bottom:0}
+td:first-child{font-weight:600;white-space:nowrap}
+.k{display:inline-flex;min-width:20px;height:20px;padding:0 6px;box-sizing:border-box;border-radius:999px;border:1.5px solid rgba(255,255,255,0.6);align-items:center;justify-content:center;font-size:10.5px;font-weight:800}
+.q{border:1px solid rgba(255,90,31,0.45);border-radius:14px;padding:14px 16px;display:flex;flex-direction:column;gap:8px}
+.q h3{margin:0;font-size:15px}
+.q ol{margin:0;padding-left:20px;color:var(--muted);font-size:14px;display:flex;flex-direction:column;gap:6px}
+.q b{color:#fff}
+@media (prefers-reduced-motion: reduce){*{transition:none!important}}
+</style>
+
+<div class="wrap">
+  <header>
+    <div class="brand"><b>ove</b><i>r</i><i style="opacity:.75">r</i><i style="opacity:.5">r</i><i style="opacity:.3">r</i><b>here</b> · proposition</div>
+    <h1>Nintendo 3DS : quatre écrans à valider</h1>
+    <p class="lede">Même logique que la DS : trois dispositions (côte à côte, empilés, focus) et un menu « 3DS options ». Ce qui change : les deux écrans n'ont pas la même largeur (haut 400×240, bas 320×240), et la 3DS a en plus un stick rond, ZL / ZR et un petit stick C. Les images de jeu sont des dessins de remplacement.</p>
+    <div class="chips">
+      <span class="chip">Taille de référence 852 × 393</span>
+      <span class="chip">Marges 56 pt</span>
+      <span class="chip">Style des maquettes DS</span>
+      <span class="chip new">Nouveau : Circle Pad, ZL / ZR, stick C</span>
+    </div>
+  </header>
+
+  <!-- 1. Side by side -->
+  <section>
+    <div class="sh"><h2>1. Côte à côte</h2><span class="tag">par défaut avec manette</span></div>
+    <p class="note">Les deux écrans à la même hauteur, <b>taille réelle (×1)</b> : 400×240 et 320×240 tiennent exactement dans la largeur. L'écran tactile a son contour et l'étiquette « Touch », comme pour la DS.</p>
+    <div class="phone"><div class="stage" id="sbs"></div></div>
+    <div class="ctrls"><div class="seg" role="group" aria-label="Échange des écrans">
+      <button type="button" id="sbs-a" aria-pressed="true">Haut à gauche</button>
+      <button type="button" id="sbs-b" aria-pressed="false">Écrans échangés</button>
+    </div></div>
+  </section>
+
+  <!-- 2. Stacked + touch -->
+  <section>
+    <div class="sh"><h2>2. Empilés + contrôles tactiles</h2><span class="tag">par défaut sans manette</span></div>
+    <p class="note">La forme d'une vraie 3DS : l'écran du haut (310×186) au-dessus de celui du bas (248×186), centrés. À gauche : L, ZL, Circle Pad, croix, Select. À droite : R, ZR, A B X Y en losange (position Nintendo), stick C, Start. La pastille avec le logo reste à gauche, comme en DS. Touche un bouton pour le voir pressé.</p>
+    <div class="phone"><div class="stage" id="stk"></div></div>
+    <div class="ctrls">
+      <label for="op">Opacité</label>
+      <div class="seg" role="group" aria-label="Opacité des contrôles" id="op">
+        <button type="button" data-o="0.5" aria-pressed="false">Low</button>
+        <button type="button" data-o="0.8" aria-pressed="true">Medium</button>
+        <button type="button" data-o="1" aria-pressed="false">High</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. Focus -->
+  <section>
+    <div class="sh"><h2>3. Focus</h2><span class="tag alt">au choix dans le menu</span></div>
+    <p class="note">Un grand écran (540×324 pour celui du haut) et le petit à droite, avec le bouton « Swap screens ». Utile pour les jeux où tout se passe en haut.</p>
+    <div class="phone"><div class="stage" id="foc"></div></div>
+  </section>
+
+  <!-- 4. Menu -->
+  <section>
+    <div class="sh"><h2>4. Menu « 3DS options »</h2><span class="tag alt">View + Menu, le jeu est en pause</span></div>
+    <p class="note">Le menu du jeu gagne une ligne « 3DS options › », comme « DS options ». Dedans, seulement deux lignes : <b>Screen layout</b> et <b>Swap screens</b>. Je n'ai pas repris « souffler dans le micro » ni « fermer le couvercle » : très peu de jeux 3DS en ont besoin. Dis-moi si tu les veux.</p>
+    <div class="phone"><div class="stage" id="men"></div></div>
+    <div class="ctrls"><div class="seg" role="group" aria-label="Panneau affiché">
+      <button type="button" id="m-main" aria-pressed="false">Menu du jeu</button>
+      <button type="button" id="m-3ds" aria-pressed="true">3DS options</button>
+    </div></div>
+  </section>
+
+  <!-- 5. Mapping -->
+  <section>
+    <div class="sh"><h2>5. Manette physique → 3DS</h2></div>
+    <p class="note">Même règle que SNES et DS : les boutons suivent leur <b>position</b>, pas leur lettre. Le bouton du bas de la manette Xbox (A) fait donc le B de la 3DS.</p>
+    <div class="tbl"><table>
+      <thead><tr><th>Manette Xbox</th><th>3DS</th></tr></thead>
+      <tbody>
+        <tr><td><span class="k">A</span> <span class="k">B</span> <span class="k">X</span> <span class="k">Y</span></td><td>B, A, Y, X (même position)</td></tr>
+        <tr><td><span class="k">LB</span> <span class="k">RB</span></td><td>L, R</td></tr>
+        <tr><td><span class="k">LT</span> <span class="k">RT</span></td><td>ZL, ZR</td></tr>
+        <tr><td>Stick gauche</td><td>Circle Pad</td></tr>
+        <tr><td>Croix</td><td>Croix</td></tr>
+        <tr><td>Stick droit</td><td>Stick C</td></tr>
+        <tr><td>Clic du stick droit</td><td>Swap screens (comme la DS)</td></tr>
+        <tr><td><span class="k">View</span> <span class="k">Menu</span></td><td>Select, Start</td></tr>
+        <tr><td>View + Menu</td><td>Menu du jeu overrrrhere</td></tr>
+        <tr><td>Doigt sur l'écran du bas</td><td>Écran tactile, avec ou sans manette</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section>
+    <div class="sh"><h2>6. Ailleurs dans l'app</h2></div>
+    <p class="note">Étiquette « 3DS » sur les tuiles. Import : <code>.3ds</code> <code>.cci</code> <code>.cxi</code> <code>.3dsx</code> et leurs versions compressées <code>.zcci</code> <code>.zcxi</code> <code>.z3dsx</code> (liste lue dans le core). Jaquettes : dossier libretro « Nintendo - Nintendo 3DS ». Vignettes de sauvegarde : l'écran du haut, comme pour la DS.</p>
+    <div class="q">
+      <h3>À trancher</h3>
+      <ol>
+        <li><b>Stick C tactile</b> : je le garde (petit, en bas à droite) ou je l'enlève ? Peu de jeux s'en servent (Smash Bros, Majora's Mask 3D).</li>
+        <li><b>Focus</b> : utile pour toi, ou deux dispositions suffisent ?</li>
+        <li><b>Micro et couvercle</b> : hors du menu, d'accord ?</li>
+      </ol>
+    </div>
+  </section>
+</div>
+
+<script>
+(function(){
+  var LOGO='<svg width="16" height="16" viewBox="0 0 100 100" aria-hidden="true"><rect width="100" height="100" rx="22.4" fill="#FF5A1F"></rect><g transform="translate(50 52) scale(0.74) translate(-50 -51)"><path d="M20 34 C20 26 26 22 34 22 H66 C74 22 80 26 80 34 L86 64 C88 74 82 80 74 80 C68 80 64 76 61 70 L58 64 H42 L39 70 C36 76 32 80 26 80 C18 80 12 74 14 64 Z" fill="#0A0A0C"></path><rect x="53" y="34" width="6" height="13" rx="3" fill="#FF5A1F"></rect><rect x="63" y="34" width="6" height="13" rx="3" fill="#FF5A1F"></rect></g></svg>';
+  var CHEV='<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg>';
+  var HAND='<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 11V5a2 2 0 0 1 4 0v5"></path><path d="M13 10a2 2 0 0 1 4 0v1a2 2 0 0 1 3 1.7V15a6 6 0 0 1-6 6h-1.5a6 6 0 0 1-4.9-2.5L5 15.5a1.8 1.8 0 0 1 2.8-2.2L9 14.5"></path></svg>';
+
+  function screen(kind,x,y,w,h,r,touch,small){
+    var art = kind==='top' ? '<div class="top-art"></div>' : '<div class="bot-art"></div>';
+    var cap = kind==='top' ? 'Top · 400×240' : 'Bottom · 320×240';
+    var t = touch ? '<div class="ring"></div><span class="touchtag"'+(small?' style="right:6px;top:6px;height:18px"':'')+'>'+HAND+'<span>Touch</span></span>' : '';
+    return '<div class="scr" style="left:'+x+'px;top:'+y+'px;width:'+w+'px;height:'+h+'px;border-radius:'+r+'px">'+art+'<span class="cap">'+cap+'</span>'+t+'</div>';
+  }
+
+  // 1. side by side
+  var sbs=document.getElementById('sbs');
+  function drawSbs(swapped){
+    var a = swapped ? screen('bot',60,64,320,240,6,true) + screen('top',392,64,400,240,6,false)
+                    : screen('top',60,64,400,240,6,false) + screen('bot',472,64,320,240,6,true);
+    sbs.innerHTML = a + '<div class="hints" style="left:56px;top:340px;width:740px;justify-content:center"><span>View + Menu · Game menu</span><span>Right stick click · Swap screens</span></div>';
+  }
+  drawSbs(false);
+  var sa=document.getElementById('sbs-a'), sb=document.getElementById('sbs-b');
+  sa.onclick=function(){drawSbs(false);sa.setAttribute('aria-pressed','true');sb.setAttribute('aria-pressed','false')};
+  sb.onclick=function(){drawSbs(true);sb.setAttribute('aria-pressed','true');sa.setAttribute('aria-pressed','false')};
+
+  // 2. stacked + touch
+  var stk=document.getElementById('stk');
+  var defs=[
+    {k:'L',x:56,y:12,w:72,h:30,r:10,fs:13},
+    {k:'ZL',x:56,y:50,w:72,h:30,r:10,fs:13},
+    {k:'R',x:724,y:12,w:72,h:30,r:10,fs:13},
+    {k:'ZR',x:724,y:50,w:72,h:30,r:10,fs:13},
+    {k:'X',x:667,y:86,w:46,h:46,r:999,fs:15},
+    {k:'Y',x:619,y:134,w:46,h:46,r:999,fs:15},
+    {k:'A',x:715,y:134,w:46,h:46,r:999,fs:15},
+    {k:'B',x:667,y:182,w:46,h:46,r:999,fs:15},
+    {k:'SELECT',x:122,y:334,w:72,h:28,r:999,fs:10,ls:'0.06em'},
+    {k:'START',x:652,y:334,w:72,h:28,r:999,fs:10,ls:'0.06em'}
+  ];
+  var h = screen('top',271,8,310,186,5,false) + screen('bot',302,200,248,186,5,true,true);
+  h += '<div id="ctl" class="abs" style="left:0;top:0;width:852px;height:393px;opacity:0.8">';
+  h += '<div class="pill" style="left:140px;top:12px;width:76px;height:30px">'+LOGO+CHEV+'</div>';
+  defs.forEach(function(d){
+    h += '<button type="button" class="btn" aria-label="'+d.k+'" style="left:'+d.x+'px;top:'+d.y+'px;width:'+d.w+'px;height:'+d.h+'px;border-radius:'+d.r+'px;font-size:'+d.fs+'px;letter-spacing:'+(d.ls||'0')+'">'+d.k+'</button>';
+  });
+  // circle pad
+  h += '<div class="stick" style="left:108px;top:94px;width:100px;height:100px"><div class="knob" style="left:24px;top:24px;width:50px;height:50px"></div><div class="lbl">CIRCLE PAD</div></div>';
+  // d-pad (same drawing as DSStacked)
+  h += '<div aria-label="D-pad" class="abs" style="left:110px;top:218px;width:96px;height:96px">'
+     + '<div class="abs" style="left:32px;top:0;width:32px;height:96px;box-sizing:border-box;border-radius:8px;border:1.5px solid rgba(255,255,255,0.55);background:rgba(255,255,255,0.14);box-shadow:0 2px 8px rgba(0,0,0,0.35)"></div>'
+     + '<div class="abs" style="left:0;top:32px;width:96px;height:32px;box-sizing:border-box;border-radius:8px;border:1.5px solid rgba(255,255,255,0.55);background:rgba(255,255,255,0.14)"></div>'
+     + '<div class="abs" style="left:33.5px;top:33.5px;width:29px;height:29px;background:rgba(255,255,255,0.14)"></div></div>';
+  // C-stick
+  h += '<div class="stick" style="left:728px;top:240px;width:52px;height:52px"><div class="knob" style="left:13px;top:13px;width:23px;height:23px"></div><div class="lbl">C</div></div>';
+  h += '</div>';
+  stk.innerHTML=h;
+  stk.querySelectorAll('.btn').forEach(function(b){ b.onclick=function(){ var on=b.classList.contains('on'); stk.querySelectorAll('.btn.on').forEach(function(o){o.classList.remove('on')}); if(!on) b.classList.add('on'); }; });
+  stk.querySelector('.btn[aria-label="A"]').classList.add('on');
+  var ctl=document.getElementById('ctl');
+  document.querySelectorAll('#op button').forEach(function(b){ b.onclick=function(){ ctl.style.opacity=b.dataset.o; document.querySelectorAll('#op button').forEach(function(o){o.setAttribute('aria-pressed', o===b?'true':'false')}); }; });
+
+  // 3. focus
+  var foc=document.getElementById('foc');
+  function drawFoc(s){
+    var big = s ? screen('bot',56,16,432,324,6,true) : screen('top',56,16,540,324,6,false);
+    var sx = s ? 500 : 608, sw = s ? 296 : 188, sh = s ? 178 : 141;
+    var small = s ? screen('top',sx,16,sw,sh,6,false) : screen('bot',sx,16,sw,sh,6,true,true);
+    foc.innerHTML = big + small
+      + '<button type="button" id="swap" style="position:absolute;left:'+sx+'px;top:'+(16+sh+12)+'px;height:36px;box-sizing:border-box;display:flex;align-items:center;gap:8px;padding:0 14px 0 8px;border:1.5px solid rgba(255,255,255,0.28);border-radius:999px;background:rgba(255,255,255,0.1);color:#fff;font:600 13px Figtree,system-ui,sans-serif;cursor:pointer"><span style="height:20px;padding:0 6px;box-sizing:border-box;border-radius:999px;border:1.5px solid rgba(255,255,255,0.7);display:flex;align-items:center;font-size:9px;font-weight:800">RS</span><span>Swap screens</span></button>'
+      + '<div class="hints" style="left:'+sx+'px;top:356px">View + Menu · Game menu</div>';
+    document.getElementById('swap').onclick=function(){drawFoc(!s)};
+  }
+  drawFoc(false);
+
+  // 4. menu
+  var men=document.getElementById('men');
+  var layouts=['Side by side','Stacked','Focus'], L=0;
+  function drawMenu(view){
+    var bg = screen('top',60,64,400,240,6,false)+screen('bot',472,64,320,240,6,true)+'<div class="abs" style="left:0;top:0;width:852px;height:393px;background:rgba(8,8,10,0.5)"></div>';
+    var p='<nav class="menu" aria-label="Game menu">';
+    if(view==='main'){
+      var rows=[['Resume',''],['Save state','Slot 2'],['Load state','1 save'],['3DS options','›'],['Fast forward','Off'],['Touch controls','Auto'],['Back to launcher','']];
+      p+='<div style="padding:0 12px"><div style="font-size:17px;line-height:22px;font-weight:700">[Game title]</div><div style="font-size:12px;line-height:17px;color:rgba(255,255,255,0.7)">3DS · 24 min · Battery 68%</div></div><div style="margin-top:10px;display:flex;flex-direction:column;gap:2px">';
+      rows.forEach(function(r,i){ p+='<button type="button" class="row'+(i===3?' sel':'')+'" style="height:38px"'+(i===3?' data-open="1"':'')+'><span>'+r[0]+'</span><small>'+r[1]+'</small></button>'; });
+      p+='</div><div style="flex-grow:1"></div><div style="padding:0 12px;font-size:12px;line-height:17px;color:rgba(255,255,255,0.6)">Game paused</div>';
+    } else {
+      p+='<div style="padding:0 12px"><div style="font-size:17px;line-height:22px;font-weight:700">3DS options</div><div style="font-size:12px;line-height:17px;color:rgba(255,255,255,0.7)">Screens</div></div><div style="margin-top:12px;display:flex;flex-direction:column;gap:2px">';
+      p+='<button type="button" class="row sel" id="lay"><span>Screen layout</span><small style="color:rgba(255,255,255,0.7)">'+layouts[L]+'</small></button>';
+      p+='<button type="button" class="row"><span>Swap screens</span><small style="font-size:12px;color:rgba(255,255,255,0.5)">Right stick click</small></button>';
+      p+='</div><div style="flex-grow:1"></div><div style="display:flex;gap:18px;padding:0 12px;font-size:12px;color:rgba(255,255,255,0.7)"><div style="display:flex;align-items:center;gap:7px"><span class="glyph">A</span><span>Select</span></div><div style="display:flex;align-items:center;gap:7px"><span class="glyph">B</span><span>Back</span></div></div>';
+    }
+    p+='</nav>';
+    men.innerHTML=bg+p;
+    var lay=document.getElementById('lay'); if(lay) lay.onclick=function(){L=(L+1)%3;drawMenu('3ds')};
+    var op=men.querySelector('[data-open]'); if(op) op.onclick=function(){setMenu('3ds')};
+  }
+  var mm=document.getElementById('m-main'), m3=document.getElementById('m-3ds');
+  function setMenu(v){drawMenu(v);mm.setAttribute('aria-pressed',v==='main'?'true':'false');m3.setAttribute('aria-pressed',v==='3ds'?'true':'false')}
+  mm.onclick=function(){setMenu('main')}; m3.onclick=function(){setMenu('3ds')};
+  setMenu('3ds');
+
+  // scale every 852x393 stage to its frame
+  function fit(){ document.querySelectorAll('.phone').forEach(function(ph){ var s=ph.clientWidth/852; ph.querySelector('.stage').style.transform='scale('+s+')'; }); }
+  fit();
+  if(window.ResizeObserver){ new ResizeObserver(fit).observe(document.body); } else { window.addEventListener('resize',fit); }
+})();
+</script>

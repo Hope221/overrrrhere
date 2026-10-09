@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Before you play</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#0A0A0C}
+a{color:#FFFFFF}a:hover{color:#FFFFFF}
+</style>
+</helmet>
+<div style="position: relative; width: 852px; height: 393px; overflow: hidden; background: #0A0A0C; font-family: 'Figtree', system-ui, sans-serif; color: #FFFFFF;">
+
+<div style="position: absolute; left: 0; top: 0; width: 852px; height: 393px; filter: blur(22px) brightness(0.3); pointer-events: none; transform: scale(1.08);" aria-hidden="true">
+<dc-import name="Main" hint-size="852px,393px"></dc-import>
+</div>
+
+<div style="position: absolute; left: 0; top: 0; width: 852px; height: 393px; box-sizing: border-box; padding: 14px 56px 26px 56px; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+
+<div style="width: 56px; height: 56px; border-radius: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.12); display: flex; align-items: center; justify-content: center; color: #FFFFFF;">
+<sc-if value="{{wifiIcon}}" hint-placeholder-val="{{ true }}">
+<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 8.5a14 14 0 0 1 19 0"></path><path d="M5.5 12a9.5 9.5 0 0 1 13 0"></path><path d="M8.7 15.4a5 5 0 0 1 6.6 0"></path><path d="M12 19h.01"></path><path d="M3 3l18 18"></path></svg>
+</sc-if>
+<sc-if value="{{isXbox}}" hint-placeholder-val="{{ false }}">
+<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v8"></path><path d="M6.6 6.6a8 8 0 1 0 10.8 0"></path></svg>
+</sc-if>
+<sc-if value="{{isSignedOut}}" hint-placeholder-val="{{ false }}">
+<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"></circle><path d="M4.5 20a7.5 7.5 0 0 1 15 0"></path></svg>
+</sc-if>
+<sc-if value="{{isDropped}}" hint-placeholder-val="{{ false }}">
+<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12a8 8 0 0 1-13.7 5.6"></path><path d="M4 12a8 8 0 0 1 13.7-5.6"></path><path d="M18 3v4h-4"></path><path d="M6 21v-4h4"></path></svg>
+</sc-if>
+</div>
+
+<sc-if value="{{isOffline}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-direction: column; align-items: center;">
+<h1 style="margin: 18px 0 0 0; font-size: 24px; line-height: 30px; font-weight: 800; letter-spacing: -0.01em; text-align: center;">You're offline</h1>
+<p style="margin: 6px 0 0 0; width: 420px; font-size: 14px; line-height: 20px; color: rgba(255,255,255,0.74); text-align: center;">Retro games still work.</p>
+<div style="margin-top: 22px; display: flex; flex-direction: row; align-items: center; gap: 12px;">
+<a href="RetroLibrary.dc.html" style="height: 44px; box-sizing: border-box; display: flex; flex-direction: row; align-items: center; gap: 10px; padding: 0 22px 0 10px; border-radius: 999px; background: #FFFFFF; color: #0A0A0C; text-decoration: none; font-size: 15px; font-weight: 700;">
+<span style="width: 26px; height: 26px; border-radius: 999px; background: #0A0A0C; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700;">A</span>
+<span>Go to Retro</span>
+</a>
+<a href="Main.dc.html" style="height: 44px; box-sizing: border-box; display: flex; flex-direction: row; align-items: center; gap: 10px; padding: 0 22px 0 10px; border-radius: 999px; border: 1.5px solid rgba(255,255,255,0.35); color: #FFFFFF; text-decoration: none; font-size: 15px; font-weight: 600;">
+<span style="width: 26px; height: 26px; box-sizing: border-box; border-radius: 999px; border: 1.5px solid rgba(255,255,255,0.7); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700;">B</span>
+<span>Go back</span>
+</a>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{isWifi}}" hint-placeholder-val="{{ true }}">
+<div style="display: flex; flex-direction: column; align-items: center;">
+<h1 style="margin: 18px 0 0 0; font-size: 24px; line-height: 30px; font-weight: 800; letter-spacing: -0.01em; text-align: center;">You're not on Wi-Fi</h1>
+<p style="margin: 6px 0 0 0; width: 420px; font-size: 14px; line-height: 20px; color: rgba(255,255,255,0.74); text-align: center;">On cellular data: expect lag and heavy data use.</p>
+<div style="margin-top: 22px; display: flex; flex-direction: row; align-items: center; gap: 12px;">
+<a href="Main.dc.html" style="height: 44px; box-sizing: border-box; display: flex; flex-direction: row; align-items: center; gap: 10px; padding: 0 22px 0 10px; border-radius: 999px; background: #FFFFFF; color: #0A0A0C; text-decoration: none; font-size: 15px; font-weight: 700;">
+<span style="width: 26px; height: 26px; border-radius: 999px; background: #0A0A0C; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700;">A</span>
+<span>Go back</span>
+</a>
+<a href="Launch.dc.html" style="height: 44px; box-sizing: border-box; display: flex; flex-direction: row; align-items: center; gap: 10px; padding: 0 22px 0 10px; border-radius: 999px; border: 1.5px solid rgba(255,255,255,0.35); color: #FFFFFF; text-decoration: none; font-size: 15px; font-weight: 600;">
+<span style="width: 26px; height: 26px; box-sizing: border-box; border-radius: 999px; border: 1.5px solid rgba(255,255,255,0.7); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700;">X</span>
+<span>Play anyway</span>
+</a>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{isXbox}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-direction: column; align-items: center;">
+<h1 style="margin: 18px 0 0 0; font-size: 24px; line-height: 30px; font-weight: 800; letter-spacing: -0.01em; text-align: center;">Your Xbox isn't reachable</h1>
+<p style="margin: 6px 0 0 0; width: 440px; font-size: 14px; line-height: 20px; color: rgba(255,255,255,0.74); text-align: center;">Check that it's plugged in and online, and that its power mode is set to Sleep so it can wake up remotely.</p>
+<div style="margin-top: 22px; display: flex; flex-direction: row; align-items: center; gap: 12px;">
+<a href="Launch.dc.html" style="height: 44px; box-sizing: border-box; display: flex; flex-direction: row; align-items: center; gap: 10px; padding: 0 22px 0 10px; border-radius: 999px; background: #FFFFFF; color: #0A0A0C; text-decoration: none; font-size: 15px; font-weight: 700;">
+<span style="width: 26px; height: 26px; border-radius: 999px; background: #0A0A0C; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700;">A</span>
+<span>Try again</span>
+</a>
+<a href="Main.dc.html" style="height: 44px; box-sizing: border-box; display: flex; flex-direction: row; align-items: center; gap: 10px; padding: 0 22px 0 10px; border-radius: 999px; border: 1.5px solid rgba(255,255,255,0.35); color: #FFFFFF; text-decoration: none; font-size: 15px; font-weight: 600;">
+<span style="width: 26px; height: 26px; box-sizing: border-box; border-radius: 999px; border: 1.5px solid rgba(255,255,255,0.7); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700;">B</span>
+<span>Go back</span>
+</a>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{isSignedOut}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-direction: column; align-items: center;">
+<h1 style="margin: 18px 0 0 0; font-size: 24px; line-height: 30px; font-weight: 800; letter-spacing: -0.01em; text-align: center;">Sign in again</h1>
+<p style="margin: 6px 0 0 0; width: 440px; font-size: 14px; line-height: 20px; color: rgba(255,255,255,0.74); text-align: center;">Your Microsoft sign-in expired. Your pinned games and settings are still here.</p>
+<div style="margin-top: 22px; display: flex; flex-direction: row; align-items: center; gap: 12px;">
+<a href="SignIn.dc.html" style="height: 44px; box-sizing: border-box; display: flex; flex-direction: row; align-items: center; gap: 10px; padding: 0 22px 0 10px; border-radius: 999px; background: #FFFFFF; color: #0A0A0C; text-decoration: none; font-size: 15px; font-weight: 700;">
+<span style="width: 26px; height: 26px; border-radius: 999px; background: #0A0A0C; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700;">A</span>
+<span>Sign in with Microsoft</span>
+</a>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{isDropped}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-direction: column; align-items: center;">
+<h1 style="margin: 18px 0 0 0; font-size: 24px; line-height: 30px; font-weight: 800; letter-spacing: -0.01em; text-align: center;">The stream dropped</h1>
+<p style="margin: 6px 0 0 0; width: 440px; font-size: 14px; line-height: 20px; color: rgba(255,255,255,0.74); text-align: center;">Your game is still running. Reconnect to pick up where you left off.</p>
+<div style="margin-top: 22px; display: flex; flex-direction: row; align-items: center; gap: 12px;">
+<a href="Stream.dc.html" style="height: 44px; box-sizing: border-box; display: flex; flex-direction: row; align-items: center; gap: 10px; padding: 0 22px 0 10px; border-radius: 999px; background: #FFFFFF; color: #0A0A0C; text-decoration: none; font-size: 15px; font-weight: 700;">
+<span style="width: 26px; height: 26px; border-radius: 999px; background: #0A0A0C; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700;">A</span>
+<span>Reconnect</span>
+</a>
+<a href="Main.dc.html" style="height: 44px; box-sizing: border-box; display: flex; flex-direction: row; align-items: center; gap: 10px; padding: 0 22px 0 10px; border-radius: 999px; border: 1.5px solid rgba(255,255,255,0.35); color: #FFFFFF; text-decoration: none; font-size: 15px; font-weight: 600;">
+<span style="width: 26px; height: 26px; box-sizing: border-box; border-radius: 999px; border: 1.5px solid rgba(255,255,255,0.7); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700;">B</span>
+<span>Back to launcher</span>
+</a>
+</div>
+</div>
+</sc-if>
+
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"issue":{"editor":"enum","options":["No internet","No Wi-Fi","Console offline","Signed out","Stream dropped"],"default":"No Wi-Fi"},"$preview":{"width":852,"height":393}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const issue = this.props.issue ?? 'No Wi-Fi';
+    return { isOffline: issue === 'No internet', wifiIcon: issue === 'No Wi-Fi' || issue === 'No internet', isWifi: issue === 'No Wi-Fi', isXbox: issue === 'Console offline', isSignedOut: issue === 'Signed out', isDropped: issue === 'Stream dropped' };
+  }
+}
+</script>
+</body>
+</html>

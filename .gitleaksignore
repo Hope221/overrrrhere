@@ -1,0 +1,5 @@
+# Verified false positives (2026-10-09): core option names (Genesis Plus GX, Snes9x) and the public Xbox stream protocol key (same in Greenlight and XStreaming).
+modules/retro/ios/genesis_plus_gx/libretro/libretro.c:generic-api-key:1809
+modules/retro/ios/genesis_plus_gx/libretro/libretro.c:generic-api-key:1943
+modules/retro/ios/snes9x/libretro/libretro.cpp:generic-api-key:483
+src/xbox/stream/player.ts:generic-api-key:195

@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Retro — paused</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#000000}
+a{color:#FFFFFF}a:hover{color:#FFFFFF}
+</style>
+</helmet>
+<div style="position: relative; width: 852px; height: 393px; overflow: hidden; background: #000000; font-family: 'Figtree', system-ui, sans-serif; color: #FFFFFF;">
+
+<img src="/_blob/d3046b87be1dfd8253f7cb92c362be8d" alt="" style="position: absolute; left: -40px; top: -40px; width: 932px; height: 473px; object-fit: cover; image-rendering: pixelated; filter: blur(30px) brightness(0.35);">
+<img src="/_blob/d3046b87be1dfd8253f7cb92c362be8d" alt="Game screen" style="position: absolute; left: 164px; top: 0; width: 524px; height: 393px; image-rendering: pixelated;">
+<div style="position: absolute; left: 0; top: 0; width: 852px; height: 393px; background: rgba(8,8,10,0.45);"></div>
+
+<nav aria-label="Game menu" style="position: absolute; left: 0; top: 0; width: 320px; height: 393px; box-sizing: border-box; padding: 18px 20px 18px 56px; display: flex; flex-direction: column; background: rgba(22,22,26,0.84); backdrop-filter: blur(24px); border-right: 1px solid rgba(255,255,255,0.08); border-radius: 0 22px 22px 0;">
+
+<sc-if value="{{isMain}}" hint-placeholder-val="{{ true }}">
+<div style="display: flex; flex-direction: column; flex-grow: 1;">
+<div style="padding: 0 12px;">
+<div style="font-size: 17px; line-height: 22px; font-weight: 700;">[Game title]</div>
+<div style="font-size: 12px; line-height: 17px; color: rgba(255,255,255,0.7);">SNES · 38 min · Battery 71%</div>
+</div>
+<div style="margin-top: 12px; display: flex; flex-direction: column; gap: 2px;">
+<a href="RetroPlay.dc.html" style="height: 40px; box-sizing: border-box; display: flex; flex-direction: row; align-items: center; gap: 14px; padding: 0 12px; border-radius: 10px; background: rgba(255,255,255,0.12); color: #FFFFFF; text-decoration: none; font-size: 15px; font-weight: 600;">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5z"></path></svg>
+<span>Resume</span>
+</a>
+<button type="button" onClick="{{saveNow}}" style="height: 40px; box-sizing: border-box; display: flex; flex-direction: row; align-items: center; justify-content: space-between; padding: 0 12px; border: 0; border-radius: 10px; background: transparent; color: rgba(255,255,255,0.72); font-family: 'Figtree', system-ui, sans-serif; font-size: 15px; font-weight: 500; cursor: pointer;">
+<span style="display: flex; flex-direction: row; align-items: center; gap: 14px;">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h11l3 3v13H5z"></path><path d="M8 4v5h7V4"></path><rect x="8" y="13" width="8" height="5" rx="1"></rect></svg>
+<span>Save state</span>
+</span>
+<span style="font-size: 13px; color: rgba(255,255,255,0.55);">{{saveHint}}</span>
+</button>
+<button type="button" onClick="{{openLoad}}" style="height: 40px; box-sizing: border-box; display: flex; flex-direction: row; align-items: center; justify-content: space-between; padding: 0 12px; border: 0; border-radius: 10px; background: transparent; color: rgba(255,255,255,0.72); font-family: 'Figtree', system-ui, sans-serif; font-size: 15px; font-weight: 500; cursor: pointer;">
+<span style="display: flex; flex-direction: row; align-items: center; gap: 14px;">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.3-5.6"></path><path d="M4 4v4h4"></path><path d="M12 8v4l3 2"></path></svg>
+<span>Load state</span>
+</span>
+<span style="font-size: 13px; color: rgba(255,255,255,0.55);">{{loadHint}}</span>
+</button>
+<button type="button" onClick="{{toggleFast}}" style="height: 40px; box-sizing: border-box; display: flex; flex-direction: row; align-items: center; justify-content: space-between; padding: 0 12px; border: 0; border-radius: 10px; background: transparent; color: rgba(255,255,255,0.72); font-family: 'Figtree', system-ui, sans-serif; font-size: 15px; font-weight: 500; cursor: pointer;">
+<span style="display: flex; flex-direction: row; align-items: center; gap: 14px;">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 6.5v11l8-5.5zM12 6.5v11l8-5.5z"></path></svg>
+<span>Fast forward</span>
+</span>
+<span style="position: relative; width: 40px; height: 24px; border-radius: 999px; background: {{fastTrack}};">
+<span style="position: absolute; top: 3px; left: {{fastKnobX}}px; width: 18px; height: 18px; border-radius: 999px; background: {{fastKnob}}; transition: left 160ms ease;"></span>
+</span>
+</button>
+<button type="button" onClick="{{cycleTouch}}" style="height: 40px; box-sizing: border-box; display: flex; flex-direction: row; align-items: center; justify-content: space-between; padding: 0 12px; border: 0; border-radius: 10px; background: transparent; color: rgba(255,255,255,0.72); font-family: 'Figtree', system-ui, sans-serif; font-size: 15px; font-weight: 500; cursor: pointer;">
+<span style="display: flex; flex-direction: row; align-items: center; gap: 14px;">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 11V5a2 2 0 0 1 4 0v5"></path><path d="M13 10a2 2 0 0 1 4 0v1a2 2 0 0 1 3 1.7V15a6 6 0 0 1-6 6h-1.5a6 6 0 0 1-4.9-2.5L5 15.5a1.8 1.8 0 0 1 2.8-2.2L9 14.5"></path></svg>
+<span>Touch controls</span>
+</span>
+<span style="font-size: 13px; color: rgba(255,255,255,0.55);">{{touchMode}}</span>
+</button>
+<a href="Main.dc.html" style="height: 40px; box-sizing: border-box; display: flex; flex-direction: row; align-items: center; gap: 14px; padding: 0 12px; border-radius: 10px; color: rgba(255,255,255,0.72); text-decoration: none; font-size: 15px; font-weight: 500;">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 11l8-6.5 8 6.5"></path><path d="M6 9.5V19h12V9.5"></path></svg>
+<span>Back to launcher</span>
+</a>
+</div>
+<div style="flex-grow: 1;"></div>
+<div style="padding: 0 12px; font-size: 12px; line-height: 17px; color: rgba(255,255,255,0.6);">Game paused</div>
+</div>
+</sc-if>
+
+<sc-if value="{{isList}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-direction: column; flex-grow: 1;">
+<div style="padding: 0 12px;">
+<div style="font-size: 17px; line-height: 22px; font-weight: 700;">{{listTitle}}</div>
+<div style="font-size: 12px; line-height: 17px; color: rgba(255,255,255,0.7);">{{listSub}}</div>
+</div>
+<div style="margin-top: 12px; display: flex; flex-direction: column; gap: 2px;">
+<sc-if value="{{isOverwrite}}" hint-placeholder-val="{{ false }}">
+<button type="button" onClick="{{backToMain}}" style="height: 40px; box-sizing: border-box; display: flex; flex-direction: row; align-items: center; padding: 0 12px; border: 0; border-radius: 10px; background: rgba(255,255,255,0.12); color: #FFFFFF; font-family: 'Figtree', system-ui, sans-serif; font-size: 15px; font-weight: 600; text-align: left; cursor: pointer;">Cancel</button>
+</sc-if>
+<sc-for list="{{slots}}" as="s" hint-placeholder-count="3">
+<button type="button" onClick="{{s.pick}}" style="height: 48px; box-sizing: border-box; display: flex; flex-direction: row; align-items: center; gap: 12px; padding: 0 12px; border: 0; border-radius: 10px; background: {{s.bg}}; color: #FFFFFF; font-family: 'Figtree', system-ui, sans-serif; text-align: left; cursor: pointer;">
+<img src="/_blob/d3046b87be1dfd8253f7cb92c362be8d" alt="" style="width: 44px; height: 33px; border-radius: 5px; object-fit: cover; object-position: {{s.pos}}; image-rendering: pixelated;">
+<span style="display: flex; flex-direction: column;">
+<span style="font-size: 14px; line-height: 18px; font-weight: 600;">{{s.name}}</span>
+<span style="font-size: 12px; line-height: 16px; color: rgba(255,255,255,0.6);">{{s.when}}</span>
+</span>
+</button>
+</sc-for>
+</div>
+<div style="flex-grow: 1;"></div>
+<div style="display: flex; flex-direction: row; gap: 18px; padding: 0 12px; font-size: 12px; color: rgba(255,255,255,0.7);">
+<div style="display: flex; flex-direction: row; align-items: center; gap: 7px;">
+<span style="width: 18px; height: 18px; box-sizing: border-box; border-radius: 999px; border: 1.5px solid rgba(255,255,255,0.7); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; color: #FFFFFF;">A</span>
+<span>{{listAction}}</span>
+</div>
+<button type="button" onClick="{{backToMain}}" style="display: flex; flex-direction: row; align-items: center; gap: 7px; padding: 0; border: 0; background: transparent; color: rgba(255,255,255,0.7); font-family: 'Figtree', system-ui, sans-serif; font-size: 12px; cursor: pointer;">
+<span style="width: 18px; height: 18px; box-sizing: border-box; border-radius: 999px; border: 1.5px solid rgba(255,255,255,0.7); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; color: #FFFFFF;">B</span>
+<span>Back</span>
+</button>
+</div>
+</div>
+</sc-if>
+
+</nav>
+
+<sc-if value="{{toast}}" hint-placeholder-val="{{ false }}">
+<div role="status" style="position: absolute; right: 56px; top: 16px; height: 48px; box-sizing: border-box; padding: 0 16px 0 6px; border-radius: 14px; background: rgba(22,22,26,0.9); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 10px 28px rgba(0,0,0,0.45); display: flex; flex-direction: row; align-items: center; gap: 10px;">
+<img src="/_blob/d3046b87be1dfd8253f7cb92c362be8d" alt="" style="width: 48px; height: 36px; border-radius: 6px; image-rendering: pixelated;">
+<span style="font-size: 13px; font-weight: 700;">{{toastText}}</span>
+</div>
+</sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"slotsFull":{"editor":"boolean","default":false},"savedToast":{"editor":"boolean","default":false},"$preview":{"width":852,"height":393}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { fast: false, view: 'main', toastText: '', touch: 'Auto' };
+  }
+  renderVals() {
+    const order = ['Auto', 'On', 'Off'];
+    const tm = this.state.touch;
+    const full = this.props.slotsFull ?? false;
+    const view = this.state.view;
+    const on = this.state.fast;
+    const saved = [
+      { id: 'auto', name: 'Auto-save', when: '2 h ago', pos: '30% 50%' },
+      { id: 's1', name: 'Slot 1', when: 'Yesterday', pos: '60% 50%' },
+      { id: 's2', name: 'Slot 2', when: 'Sep 20', pos: '90% 50%' }
+    ];
+    if (full) saved.push({ id: 's3', name: 'Slot 3', when: 'Sep 12', pos: '10% 50%' });
+    const loadList = saved;
+    const overwriteList = saved.filter((s) => s.id !== 'auto');
+    const list = view === 'overwrite' ? overwriteList : loadList;
+    const slots = list.map((s, i) => ({
+      name: s.name, when: s.when, pos: s.pos,
+      bg: (view === 'load' && i === 0) ? 'rgba(255,255,255,0.12)' : 'transparent',
+      pick: () => this.setState({
+        view: 'main',
+        toastText: (view === 'overwrite' ? 'Saved to ' : 'Loaded ') + s.name
+      })
+    }));
+    const propToast = this.props.savedToast ?? false;
+    return {
+      isMain: view === 'main',
+      isList: view !== 'main',
+      isOverwrite: view === 'overwrite',
+      listTitle: view === 'overwrite' ? 'All slots are full' : 'Load state',
+      listSub: view === 'overwrite' ? 'Choose a slot to replace' : 'Your game picks up from this moment',
+      listAction: view === 'overwrite' ? 'Replace' : 'Load',
+      slots: slots,
+      saveHint: full ? 'Full' : 'Slot 3',
+      loadHint: saved.length + ' saves',
+      fastTrack: on ? '#FFFFFF' : 'rgba(255,255,255,0.22)',
+      fastKnob: on ? '#0A0A0C' : '#FFFFFF',
+      fastKnobX: on ? 19 : 3,
+      toggleFast: () => this.setState({ fast: !on }),
+      touchMode: tm,
+      cycleTouch: () => this.setState({ touch: order[(order.indexOf(tm) + 1) % 3] }),
+      saveNow: () => {
+        if (full) this.setState({ view: 'overwrite' });
+        else this.setState({ toastText: 'Saved to Slot 3' });
+      },
+      openLoad: () => this.setState({ view: 'load' }),
+      backToMain: () => this.setState({ view: 'main' }),
+      toast: propToast || this.state.toastText !== '',
+      toastText: this.state.toastText || 'Saved to Slot 3'
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>DS — stacked, touch controls</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#000000}
+a{color:#FFFFFF}a:hover{color:#FFFFFF}
+</style>
+</helmet>
+<div style="position: relative; width: 852px; height: 393px; overflow: hidden; background: #050507; font-family: 'Figtree', system-ui, sans-serif; color: #FFFFFF;">
+
+<div style="position: absolute; left: 302px; top: 8px; width: 248px; height: 186px; border-radius: 5px; overflow: hidden; box-shadow: 0 8px 24px rgba(0,0,0,0.6);">
+<img src="/_blob/cae3aac66ab7436737564c863315a630" alt="Top screen" style="width: 248px; height: 186px; image-rendering: pixelated; display: block;">
+</div>
+<div style="position: absolute; left: 302px; top: 200px; width: 248px; height: 186px; border-radius: 5px; overflow: hidden; box-shadow: 0 8px 24px rgba(0,0,0,0.6);">
+<img src="/_blob/b133cf4b20706365c961cb8c476e4d22" alt="Bottom screen (touch)" style="width: 248px; height: 186px; image-rendering: pixelated; display: block;">
+<div style="position: absolute; left: 0; top: 0; width: 248px; height: 186px; box-sizing: border-box; border: 1.5px solid rgba(255,255,255,0.35); border-radius: 5px;"></div>
+</div>
+
+<div style="position: absolute; left: 0; top: 0; width: 852px; height: 393px; opacity: {{opacity}};">
+
+<a href="DSMenu.dc.html" aria-label="Open the overrrrhere menu" style="position: absolute; left: 136px; top: 12px; width: 76px; height: 30px; box-sizing: border-box; border-radius: 999px; background: rgba(10,10,12,0.45); border: 1.5px solid rgba(255,255,255,0.4); display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 6px; text-decoration: none; box-shadow: 0 2px 8px rgba(0,0,0,0.35);">
+<svg width="16" height="16" viewBox="0 0 100 100" aria-hidden="true"><rect width="100" height="100" rx="22.4" fill="#FF5A1F"></rect><g transform="translate(50 52) scale(0.74) translate(-50 -51)"><path d="M20 34 C20 26 26 22 34 22 H66 C74 22 80 26 80 34 L86 64 C88 74 82 80 74 80 C68 80 64 76 61 70 L58 64 H42 L39 70 C36 76 32 80 26 80 C18 80 12 74 14 64 Z" fill="#FFFFFF"></path><rect x="53" y="34" width="6" height="13" rx="3" fill="#FF5A1F"></rect><rect x="63" y="34" width="6" height="13" rx="3" fill="#FF5A1F"></rect></g></svg>
+<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg>
+</a>
+
+<sc-for list="{{buttons}}" as="b" hint-placeholder-count="8">
+<button type="button" aria-label="{{b.name}}" onClick="{{b.press}}" style="position: absolute; left: {{b.x}}px; top: {{b.y}}px; width: {{b.w}}px; height: {{b.h}}px; box-sizing: border-box; padding: 0; border: 1.5px solid rgba(255,255,255,0.55); border-radius: {{b.r}}px; background: {{b.bg}}; color: {{b.fg}}; font-family: 'Figtree', system-ui, sans-serif; font-size: {{b.fs}}px; font-weight: 800; letter-spacing: {{b.ls}}; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(0,0,0,0.35); cursor: pointer; transition: background 100ms ease;">{{b.text}}</button>
+</sc-for>
+
+<div aria-label="D-pad" style="position: absolute; left: 126px; top: 146px; width: 102px; height: 102px;">
+<div style="position: absolute; left: 34px; top: 0; width: 34px; height: 102px; box-sizing: border-box; border-radius: 8px; border: 1.5px solid rgba(255,255,255,0.55); background: rgba(255,255,255,0.14); box-shadow: 0 2px 8px rgba(0,0,0,0.35);"></div>
+<div style="position: absolute; left: 0; top: 34px; width: 102px; height: 34px; box-sizing: border-box; border-radius: 8px; border: 1.5px solid rgba(255,255,255,0.55); background: rgba(255,255,255,0.14);"></div>
+<div style="position: absolute; left: 35.5px; top: 35.5px; width: 31px; height: 31px; background: rgba(255,255,255,0.14);"></div>
+</div>
+
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"opacity":{"editor":"enum","options":["Low","Medium","High"],"default":"Medium"},"$preview":{"width":852,"height":393}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { lit: 'A' };
+  }
+  renderVals() {
+    const op = { Low: 0.5, Medium: 0.8, High: 1 }[this.props.opacity ?? 'Medium'] || 0.8;
+    const lit = this.state.lit;
+    const defs = [
+      { k: 'L', x: 56, y: 12, w: 72, h: 30, r: 10, t: 'L', fs: 13, ls: '0' },
+      { k: 'R', x: 724, y: 12, w: 72, h: 30, r: 10, t: 'R', fs: 13, ls: '0' },
+      { k: 'X', x: 654, y: 128, w: 46, h: 46, r: 999, t: 'X', fs: 15, ls: '0' },
+      { k: 'Y', x: 606, y: 174, w: 46, h: 46, r: 999, t: 'Y', fs: 15, ls: '0' },
+      { k: 'A', x: 702, y: 174, w: 46, h: 46, r: 999, t: 'A', fs: 15, ls: '0' },
+      { k: 'B', x: 654, y: 220, w: 46, h: 46, r: 999, t: 'B', fs: 15, ls: '0' },
+      { k: 'Select', x: 142, y: 330, w: 72, h: 28, r: 999, t: 'SELECT', fs: 10, ls: '0.06em' },
+      { k: 'Start', x: 640, y: 330, w: 72, h: 28, r: 999, t: 'START', fs: 10, ls: '0.06em' }
+    ];
+    const buttons = defs.map((d) => {
+      const on = lit === d.k;
+      return {
+        name: d.k, x: d.x, y: d.y, w: d.w, h: d.h, r: d.r, text: d.t, fs: d.fs, ls: d.ls,
+        bg: on ? 'rgba(255,255,255,0.92)' : 'rgba(255,255,255,0.14)',
+        fg: on ? '#0A0A0C' : '#FFFFFF',
+        press: () => this.setState({ lit: on ? '' : d.k })
+      };
+    });
+    return { buttons: buttons, opacity: op };
+  }
+}
+</script>
+</body>
+</html>

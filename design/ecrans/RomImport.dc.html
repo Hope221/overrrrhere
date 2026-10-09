@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Add a ROM</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#0A0A0C}
+a{color:#FFFFFF}a:hover{color:#FFFFFF}
+</style>
+</helmet>
+<div style="position: relative; width: 852px; height: 393px; overflow: hidden; background: #0A0A0C; font-family: 'Figtree', system-ui, sans-serif; color: #FFFFFF;">
+
+<img src="/_blob/ecc70d5e7d1b9a8007cfadb6542235d5" alt="" style="position: absolute; left: -40px; top: -40px; width: 932px; height: 473px; object-fit: cover; image-rendering: pixelated; filter: blur(28px) brightness(0.3);">
+
+<sc-if value="{{ok}}" hint-placeholder-val="{{ true }}">
+<div style="position: absolute; left: 0; top: 0; width: 852px; height: 393px; box-sizing: border-box; padding: 22px 56px 20px 56px; display: flex; flex-direction: column;">
+<h1 style="margin: 0; font-size: 26px; line-height: 32px; font-weight: 800; letter-spacing: -0.01em;">Add this game?</h1>
+<div style="font-size: 13px; line-height: 18px; color: rgba(255,255,255,0.74);">Imported from Files</div>
+
+<div style="margin-top: 20px; display: flex; flex-direction: row; gap: 28px;">
+<div style="width: 240px; flex-shrink: 0; display: flex; flex-direction: column; gap: 8px;">
+<div style="position: relative; width: 240px; height: 135px; border-radius: 12px; overflow: hidden; box-shadow: 0 0 0 2px #0A0A0C, 0 0 0 4px #FFFFFF, 0 14px 32px rgba(0,0,0,0.5);">
+<img src="/_blob/ecc70d5e7d1b9a8007cfadb6542235d5" alt="Cover preview" style="width: 240px; height: 135px; object-fit: cover; image-rendering: pixelated;">
+<span style="position: absolute; left: 8px; bottom: 8px; height: 18px; padding: 0 7px; border-radius: 5px; background: rgba(10,10,12,0.78); font-size: 10px; font-weight: 800; letter-spacing: 0.06em; line-height: 18px;">GBA</span>
+</div>
+<div style="display: flex; flex-direction: row; align-items: center; gap: 6px; font-size: 12px; line-height: 16px; color: rgba(255,255,255,0.7);">
+<span style="width: 6px; height: 6px; border-radius: 999px; background: #7CE3A6;"></span>
+<span>Cover found</span>
+</div>
+</div>
+
+<div style="flex-grow: 1; display: flex; flex-direction: column;">
+<div style="height: 44px; box-sizing: border-box; display: flex; flex-direction: row; align-items: center; justify-content: space-between; padding: 0 12px; border-bottom: 1px solid rgba(255,255,255,0.08);">
+<span style="font-size: 14px; color: rgba(255,255,255,0.7);">File</span>
+<span style="font-size: 14px; font-weight: 600;">[file-name].gba · 16 MB</span>
+</div>
+<div style="height: 44px; box-sizing: border-box; display: flex; flex-direction: row; align-items: center; justify-content: space-between; padding: 0 12px; border-bottom: 1px solid rgba(255,255,255,0.08);">
+<span style="font-size: 14px; color: rgba(255,255,255,0.7);">System</span>
+<span style="display: flex; flex-direction: row; align-items: center; gap: 8px; font-size: 14px; font-weight: 600;">Game Boy Advance <span style="font-size: 12px; font-weight: 500; color: #7CE3A6;">Detected</span></span>
+</div>
+<div style="height: 44px; box-sizing: border-box; display: flex; flex-direction: row; align-items: center; justify-content: space-between; padding: 0 12px; border-radius: 10px; background: rgba(255,255,255,0.1);">
+<span style="font-size: 14px; color: rgba(255,255,255,0.7);">Name</span>
+<span style="display: flex; flex-direction: row; align-items: center; gap: 8px; font-size: 14px; font-weight: 600;">[Game title] <span style="font-size: 12px; font-weight: 500; color: rgba(255,255,255,0.55);">Edit with touch</span></span>
+</div>
+<div style="height: 44px; box-sizing: border-box; display: flex; flex-direction: row; align-items: center; justify-content: space-between; padding: 0 12px;">
+<span style="font-size: 14px; color: rgba(255,255,255,0.7);">Cover</span>
+<span style="font-size: 14px; font-weight: 600;">Change from Photos</span>
+</div>
+</div>
+</div>
+
+<div style="flex-grow: 1;"></div>
+
+<div style="display: flex; flex-direction: row; align-items: center; gap: 12px;">
+<a href="RetroLibrary.dc.html" style="height: 44px; box-sizing: border-box; display: flex; flex-direction: row; align-items: center; gap: 10px; padding: 0 22px 0 10px; border-radius: 999px; background: #FFFFFF; color: #0A0A0C; text-decoration: none; font-size: 15px; font-weight: 700;">
+<span style="width: 26px; height: 26px; border-radius: 999px; background: #0A0A0C; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700;">A</span>
+<span>Add to library</span>
+</a>
+<a href="RetroLibrary.dc.html" style="height: 44px; box-sizing: border-box; display: flex; flex-direction: row; align-items: center; gap: 10px; padding: 0 22px 0 10px; border-radius: 999px; border: 1.5px solid rgba(255,255,255,0.3); color: #FFFFFF; text-decoration: none; font-size: 15px; font-weight: 600;">
+<span style="width: 26px; height: 26px; box-sizing: border-box; border-radius: 999px; border: 1.5px solid rgba(255,255,255,0.7); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700;">B</span>
+<span>Cancel</span>
+</a>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{many}}" hint-placeholder-val="{{ false }}">
+<div style="position: absolute; left: 0; top: 0; width: 852px; height: 393px; box-sizing: border-box; padding: 22px 56px 20px 56px; display: flex; flex-direction: column;">
+<h1 style="margin: 0; font-size: 26px; line-height: 32px; font-weight: 800; letter-spacing: -0.01em;">Add these games?</h1>
+<div style="display: flex; flex-direction: row; align-items: center; gap: 14px; font-size: 13px; line-height: 18px; color: rgba(255,255,255,0.74);">
+<span>12 files imported from Files</span>
+<span style="display: flex; flex-direction: row; align-items: center; gap: 6px;"><span style="width: 6px; height: 6px; border-radius: 999px; background: #7CE3A6;"></span>11 ready</span>
+<span style="display: flex; flex-direction: row; align-items: center; gap: 6px;"><span style="width: 6px; height: 6px; border-radius: 999px; background: #FF8A73;"></span>1 not supported</span>
+</div>
+
+<div style="margin-top: 14px; display: flex; flex-direction: column;">
+<sc-for list="{{batch}}" as="r" hint-placeholder-count="5">
+<div style="height: 40px; box-sizing: border-box; display: flex; flex-direction: row; align-items: center; gap: 12px; padding: 0 12px; border-bottom: 1px solid rgba(255,255,255,0.07); opacity: {{r.opacity}};">
+<sc-if value="{{r.ok}}" hint-placeholder-val="{{ true }}">
+<img src="{{r.art}}" alt="" style="width: 48px; height: 27px; border-radius: 4px; object-fit: cover; image-rendering: pixelated;">
+</sc-if>
+<sc-if value="{{r.bad}}" hint-placeholder-val="{{ false }}">
+<span style="width: 48px; height: 27px; box-sizing: border-box; border-radius: 4px; border: 1px dashed rgba(255,255,255,0.3); display: flex; align-items: center; justify-content: center;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"></path><path d="M14 3v5h5"></path></svg></span>
+</sc-if>
+<span style="flex-grow: 1; font-size: 14px; font-weight: 600;">{{r.name}}</span>
+<span style="width: 150px; font-size: 13px; color: {{r.sysColor}};">{{r.sys}}</span>
+<span style="width: 56px; text-align: right; font-size: 13px; color: rgba(255,255,255,0.55); font-variant-numeric: tabular-nums;">{{r.size}}</span>
+</div>
+</sc-for>
+<div style="padding: 8px 12px 0 12px; font-size: 12px; line-height: 16px; color: rgba(255,255,255,0.55);">and 7 more games</div>
+</div>
+
+<div style="flex-grow: 1;"></div>
+
+<div style="display: flex; flex-direction: row; align-items: center; gap: 12px;">
+<a href="RetroLibrary.dc.html" style="height: 44px; box-sizing: border-box; display: flex; flex-direction: row; align-items: center; gap: 10px; padding: 0 22px 0 10px; border-radius: 999px; background: #FFFFFF; color: #0A0A0C; text-decoration: none; font-size: 15px; font-weight: 700;">
+<span style="width: 26px; height: 26px; border-radius: 999px; background: #0A0A0C; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700;">A</span>
+<span>Add 11 games</span>
+</a>
+<a href="RetroLibrary.dc.html" style="height: 44px; box-sizing: border-box; display: flex; flex-direction: row; align-items: center; gap: 10px; padding: 0 22px 0 10px; border-radius: 999px; border: 1.5px solid rgba(255,255,255,0.3); color: #FFFFFF; text-decoration: none; font-size: 15px; font-weight: 600;">
+<span style="width: 26px; height: 26px; box-sizing: border-box; border-radius: 999px; border: 1.5px solid rgba(255,255,255,0.7); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700;">B</span>
+<span>Cancel</span>
+</a>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{bad}}" hint-placeholder-val="{{ false }}">
+<div style="position: absolute; left: 0; top: 0; width: 852px; height: 393px; box-sizing: border-box; padding: 20px 56px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;">
+<div style="width: 56px; height: 56px; border-radius: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.12); display: flex; align-items: center; justify-content: center;">
+<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"></path><path d="M14 3v5h5"></path><path d="M10 12l4 4M14 12l-4 4"></path></svg>
+</div>
+<h1 style="margin: 18px 0 0 0; font-size: 24px; line-height: 30px; font-weight: 800; letter-spacing: -0.01em;">This file isn't supported</h1>
+<p style="margin: 6px 0 0 0; width: 470px; font-size: 14px; line-height: 20px; color: rgba(255,255,255,0.74);">overrrrhere plays NES, SNES, Game Boy, GBA, Mega Drive, N64, PSP, DS, 3DS, GameCube and Wii games. For GameCube and Wii, use .iso, .rvz or .wbfs files.</p>
+<div style="margin-top: 22px; display: flex; flex-direction: row; align-items: center; gap: 12px;">
+<a href="RomImport.dc.html" style="height: 44px; box-sizing: border-box; display: flex; flex-direction: row; align-items: center; gap: 10px; padding: 0 22px 0 10px; border-radius: 999px; background: #FFFFFF; color: #0A0A0C; text-decoration: none; font-size: 15px; font-weight: 700;">
+<span style="width: 26px; height: 26px; border-radius: 999px; background: #0A0A0C; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700;">A</span>
+<span>Choose another file</span>
+</a>
+<a href="RetroLibrary.dc.html" style="height: 44px; box-sizing: border-box; display: flex; flex-direction: row; align-items: center; gap: 10px; padding: 0 22px 0 10px; border-radius: 999px; border: 1.5px solid rgba(255,255,255,0.3); color: #FFFFFF; text-decoration: none; font-size: 15px; font-weight: 600;">
+<span style="width: 26px; height: 26px; box-sizing: border-box; border-radius: 999px; border: 1.5px solid rgba(255,255,255,0.7); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700;">B</span>
+<span>Cancel</span>
+</a>
+</div>
+</div>
+</sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"result":{"editor":"enum","options":["One file","Several files","Not supported"],"default":"One file"},"$preview":{"width":852,"height":393}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const r = this.props.result ?? 'One file';
+    const rows = [
+      { ok: true, art: '/_blob/b6710dba22a40bd1307ca4aaac39dffb', name: '[Game title]', sys: 'Super Nintendo', size: '4 MB' },
+      { ok: true, art: '/_blob/ecc70d5e7d1b9a8007cfadb6542235d5', name: '[Game title]', sys: 'Game Boy Advance', size: '16 MB' },
+      { ok: true, art: '/_blob/91693db175bfb2720b3fe34c83295db7', name: '[Game title]', sys: 'NES', size: '256 KB' },
+      { ok: true, art: '/_blob/218aba517cbaf218d2599ec575ea324c', name: '[Game title]', sys: 'Mega Drive', size: '2 MB' },
+      { ok: false, art: '', name: '[file-name].zip', sys: 'Not supported', size: '48 MB' }
+    ];
+    const batch = rows.map((x) => ({
+      ok: x.ok, bad: !x.ok, art: x.art, name: x.name, sys: x.sys, size: x.size,
+      sysColor: x.ok ? 'rgba(255,255,255,0.74)' : '#FF8A73',
+      opacity: x.ok ? 1 : 0.8
+    }));
+    return { ok: r === 'One file', many: r === 'Several files', bad: r === 'Not supported', batch: batch };
+  }
+}
+</script>
+</body>
+</html>

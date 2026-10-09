@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Test buttons</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#0A0A0C}
+a{color:rgba(255,255,255,0.74)}a:hover{color:#FFFFFF}
+</style>
+</helmet>
+<div style="position: relative; width: 852px; height: 393px; overflow: hidden; background: #0A0A0C; font-family: 'Figtree', system-ui, sans-serif; color: #FFFFFF;">
+
+<div style="position: absolute; left: 0; top: 0; width: 852px; height: 393px; filter: blur(28px) brightness(0.3); pointer-events: none; transform: scale(1.1);" aria-hidden="true">
+<dc-import name="Main" hint-size="852px,393px"></dc-import>
+</div>
+
+<div style="position: absolute; left: 0; top: 0; width: 852px; height: 393px; box-sizing: border-box; padding: 18px 56px 16px 56px; display: flex; flex-direction: column;">
+
+<div style="display: flex; flex-direction: column;">
+<h1 style="margin: 0; font-size: 24px; line-height: 30px; font-weight: 800; letter-spacing: -0.01em;">Test buttons</h1>
+<div style="font-size: 13px; line-height: 18px; color: rgba(255,255,255,0.74);">Press any button.</div>
+</div>
+
+<div style="flex-grow: 1; display: flex; align-items: center; justify-content: center;">
+<div style="position: relative; width: 540px; height: 200px;">
+<svg width="540" height="200" viewBox="0 0 540 200" fill="none" stroke="rgba(255,255,255,0.55)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="position: absolute; left: 0; top: 0;">
+<path d="M130 36 H62 C32 36 14 54 12 82 L8 146 C6 172 24 190 46 190 C66 190 78 178 88 162 L130 118 Z"></path>
+<path d="M410 36 H478 C508 36 526 54 528 82 L532 146 C534 172 516 190 494 190 C474 190 462 178 452 162 L410 118 Z"></path>
+<rect x="130" y="30" width="280" height="148" rx="14" stroke="rgba(255,255,255,0.8)"></rect>
+<rect x="142" y="42" width="256" height="124" rx="6" opacity="0.3"></rect>
+</svg>
+<div style="position: absolute; left: 142px; top: 42px; width: 256px; height: 124px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;">
+<div style="font-size: 12px; line-height: 16px; color: rgba(255,255,255,0.66);">Last pressed</div>
+<div style="font-size: 30px; line-height: 36px; font-weight: 800;">{{last}}</div>
+</div>
+<sc-for list="{{buttons}}" as="b" hint-placeholder-count="16">
+<button type="button" aria-label="{{b.name}}" aria-pressed="{{b.pressed}}" onClick="{{b.press}}" style="position: absolute; left: {{b.x}}px; top: {{b.y}}px; width: {{b.w}}px; height: {{b.h}}px; box-sizing: border-box; padding: 0; border: 1.5px solid rgba(255,255,255,0.6); border-radius: {{b.r}}px; background: {{b.bg}}; color: {{b.fg}}; font-family: 'Figtree', system-ui, sans-serif; font-size: 10px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 120ms ease;">{{b.text}}</button>
+</sc-for>
+</div>
+</div>
+
+<div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center;">
+<button type="button" onClick="{{reset}}" style="height: 32px; padding: 0; border: 0; background: transparent; color: rgba(255,255,255,0.74); font-family: 'Figtree', system-ui, sans-serif; font-size: 12px; text-decoration: underline; text-underline-offset: 3px; cursor: pointer;">Clear</button>
+<a href="Settings.dc.html" style="display: flex; flex-direction: row; align-items: center; gap: 7px; height: 32px; font-size: 12px; color: rgba(255,255,255,0.74); text-decoration: none;">
+<span style="width: 18px; height: 18px; box-sizing: border-box; border-radius: 999px; border: 1.5px solid rgba(255,255,255,0.7); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; color: #FFFFFF;">B</span>
+<span>Hold to exit</span>
+</a>
+</div>
+
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":852,"height":393}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { lit: { A: true, LS: true }, last: 'A' };
+  }
+  renderVals() {
+    const defs = [
+      { k: 'LT', name: 'Left trigger', x: 18, y: 0, w: 46, h: 22, r: 8, t: 'LT' },
+      { k: 'LB', name: 'Left bumper', x: 70, y: 0, w: 46, h: 22, r: 8, t: 'LB' },
+      { k: 'RB', name: 'Right bumper', x: 424, y: 0, w: 46, h: 22, r: 8, t: 'RB' },
+      { k: 'RT', name: 'Right trigger', x: 476, y: 0, w: 46, h: 22, r: 8, t: 'RT' },
+      { k: 'LS', name: 'Left stick', x: 34, y: 54, w: 44, h: 44, r: 999, t: 'LS' },
+      { k: 'Up', name: 'D-pad up', x: 55, y: 112, w: 22, h: 22, r: 5, t: '' },
+      { k: 'Down', name: 'D-pad down', x: 55, y: 154, w: 22, h: 22, r: 5, t: '' },
+      { k: 'Left', name: 'D-pad left', x: 34, y: 133, w: 22, h: 22, r: 5, t: '' },
+      { k: 'Right', name: 'D-pad right', x: 76, y: 133, w: 22, h: 22, r: 5, t: '' },
+      { k: 'View', name: 'View', x: 100, y: 96, w: 22, h: 16, r: 999, t: '' },
+      { k: 'Menu', name: 'Menu', x: 418, y: 96, w: 22, h: 16, r: 999, t: '' },
+      { k: 'Y', name: 'Y', x: 463, y: 48, w: 22, h: 22, r: 999, t: 'Y' },
+      { k: 'X', name: 'X', x: 441, y: 70, w: 22, h: 22, r: 999, t: 'X' },
+      { k: 'B', name: 'B', x: 485, y: 70, w: 22, h: 22, r: 999, t: 'B' },
+      { k: 'A', name: 'A', x: 463, y: 92, w: 22, h: 22, r: 999, t: 'A' },
+      { k: 'RS', name: 'Right stick', x: 444, y: 128, w: 44, h: 44, r: 999, t: 'RS' }
+    ];
+    const lit = this.state.lit;
+    const buttons = defs.map((d) => {
+      const on = !!lit[d.k];
+      return {
+        name: d.name, x: d.x, y: d.y, w: d.w, h: d.h, r: d.r, text: d.t,
+        pressed: on ? 'true' : 'false',
+        bg: on ? '#FFFFFF' : 'rgba(255,255,255,0.06)',
+        fg: on ? '#0A0A0C' : '#FFFFFF',
+        press: () => {
+          const next = Object.assign({}, this.state.lit);
+          next[d.k] = !next[d.k];
+          this.setState({ lit: next, last: d.name });
+        }
+      };
+    });
+    return {
+      buttons: buttons,
+      last: this.state.last,
+      reset: () => this.setState({ lit: {}, last: '—' })
+    };
+  }
+}
+</script>
+</body>
+</html>

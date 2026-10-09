@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Wii controls</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#0A0A0C}
+a{color:#FFFFFF}a:hover{color:#FFFFFF}
+</style>
+</helmet>
+<div style="position: relative; width: 852px; height: 393px; overflow: hidden; background: #0A0A0C; font-family: 'Figtree', system-ui, sans-serif; color: #FFFFFF;">
+
+<img src="/_blob/4451805e6e8ca1d9dd1b2285cc560b82" alt="" style="position: absolute; left: -40px; top: -40px; width: 932px; height: 473px; object-fit: cover; image-rendering: pixelated; filter: blur(30px) brightness(0.25);">
+
+<div style="position: absolute; left: 0; top: 0; width: 852px; height: 393px; box-sizing: border-box; padding: 18px 56px 16px 56px; display: flex; flex-direction: column;">
+
+<div style="display: flex; flex-direction: row; justify-content: space-between; align-items: flex-end;">
+<div style="display: flex; flex-direction: column;">
+<h1 style="margin: 0; font-size: 24px; line-height: 30px; font-weight: 800; letter-spacing: -0.01em;">Wii controls</h1>
+<div style="font-size: 13px; line-height: 18px; color: rgba(255,255,255,0.72);">{{profileHint}}</div>
+</div>
+<div style="display: flex; flex-direction: row; align-items: center; gap: 8px;">
+<span style="height: 20px; padding: 0 6px; box-sizing: border-box; border-radius: 5px; border: 1.5px solid rgba(255,255,255,0.6); display: flex; align-items: center; font-size: 10px; font-weight: 800; color: rgba(255,255,255,0.85);">LB</span>
+<sc-for list="{{tabs}}" as="t" hint-placeholder-count="3">
+<button type="button" onClick="{{t.pick}}" aria-pressed="{{t.on}}" style="height: 30px; padding: 0 12px; border: 0; border-radius: 999px; background: {{t.bg}}; color: {{t.fg}}; font-family: 'Figtree', system-ui, sans-serif; font-size: 12px; font-weight: 600; cursor: pointer; white-space: nowrap;">{{t.label}}</button>
+</sc-for>
+<span style="height: 20px; padding: 0 6px; box-sizing: border-box; border-radius: 5px; border: 1.5px solid rgba(255,255,255,0.6); display: flex; align-items: center; font-size: 10px; font-weight: 800; color: rgba(255,255,255,0.85);">RB</span>
+</div>
+</div>
+
+<div style="margin-top: 14px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 28px; row-gap: 0;">
+<sc-for list="{{rows}}" as="r" hint-placeholder-count="14">
+<div style="height: 36px; box-sizing: border-box; display: flex; flex-direction: row; align-items: center; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.07);">
+<span style="height: 22px; box-sizing: border-box; padding: 0 8px; border-radius: 6px; border: 1.5px solid rgba(255,255,255,0.55); display: flex; align-items: center; font-size: 11px; font-weight: 800; letter-spacing: 0.02em; white-space: nowrap;">{{r.xbox}}</span>
+<span style="font-size: 14px; font-weight: 600; color: {{r.color}}; white-space: nowrap;">{{r.wii}}</span>
+</div>
+</sc-for>
+</div>
+
+<div style="flex-grow: 1;"></div>
+
+<div style="display: flex; flex-direction: row; justify-content: flex-end;">
+<a href="WiiMenu.dc.html" style="display: flex; flex-direction: row; align-items: center; gap: 7px; height: 32px; font-size: 12px; color: rgba(255,255,255,0.74); text-decoration: none;">
+<span style="width: 18px; height: 18px; box-sizing: border-box; border-radius: 999px; border: 1.5px solid rgba(255,255,255,0.7); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; color: #FFFFFF;">B</span>
+<span>Back</span>
+</a>
+</div>
+
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":852,"height":393}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { profile: 'Remote + Nunchuk' };
+  }
+  renderVals() {
+    const maps = {
+      'Remote + Nunchuk': [
+        ['Left stick', 'Nunchuk stick'], ['A', 'A'],
+        ['Right stick', 'Pointer'], ['RT', 'B (trigger)'],
+        ['Right stick click', 'Recenter pointer'], ['X', '1'],
+        ['LB', 'C'], ['Y', '2'],
+        ['LT', 'Z'], ['D-pad', 'D-pad'],
+        ['RB', 'Shake'], ['View', '−'],
+        ['View + Menu', 'overrrrhere menu', true], ['Menu', '+']
+      ],
+      'Sideways Remote': [
+        ['D-pad or left stick', 'D-pad'], ['RB', 'Shake'],
+        ['A', '2'], ['View', '−'],
+        ['X', '1'], ['Menu', '+'],
+        ['Right stick', 'Pointer'], ['View + Menu', 'overrrrhere menu', true]
+      ],
+      'Classic Controller': [
+        ['Left stick', 'Left stick'], ['A', 'b'],
+        ['Right stick', 'Right stick'], ['B', 'a'],
+        ['LT', 'L'], ['X', 'y'],
+        ['RT', 'R'], ['Y', 'x'],
+        ['LB', 'ZL'], ['D-pad', 'D-pad'],
+        ['RB', 'ZR'], ['View', '−'],
+        ['View + Menu', 'overrrrhere menu', true], ['Menu', '+']
+      ],
+      'GameCube Controller': [
+        ['Left stick', 'Control stick'], ['A', 'A'],
+        ['Right stick', 'C-stick'], ['X', 'B'],
+        ['LT', 'L'], ['B', 'X'],
+        ['RT', 'R'], ['Y', 'Y'],
+        ['RB', 'Z'], ['D-pad', 'D-pad'],
+        ['Menu', 'Start'], ['View + Menu', 'overrrrhere menu', true]
+      ]
+    };
+    const short = { 'Remote + Nunchuk': 'Nunchuk', 'Sideways Remote': 'Sideways', 'Classic Controller': 'Classic', 'GameCube Controller': 'GameCube' };
+    const hintsByProfile = {
+      'Remote + Nunchuk': 'Remote + Nunchuk · Used by most Wii games.',
+      'Sideways Remote': 'Sideways Remote · For games held sideways.',
+      'Classic Controller': 'Classic Controller · Supported games only. No pointer.',
+      'GameCube Controller': 'GameCube Controller · Smash Bros. Brawl, Mario Kart Wii and more.'
+    };
+    const p = this.state.profile;
+    const rows = maps[p].map((m) => ({ xbox: m[0], wii: m[1], color: m[2] ? '#FF5A1F' : '#FFFFFF' }));
+    const tabs = Object.keys(maps).map((n) => {
+      const on = n === p;
+      return {
+        label: short[n], on: on ? 'true' : 'false',
+        bg: on ? '#FFFFFF' : 'rgba(255,255,255,0.1)',
+        fg: on ? '#0A0A0C' : 'rgba(255,255,255,0.8)',
+        pick: () => this.setState({ profile: n })
+      };
+    });
+    return { rows: rows, tabs: tabs, profileHint: hintsByProfile[p] };
+  }
+}
+</script>
+</body>
+</html>
