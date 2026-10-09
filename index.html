@@ -1,0 +1,1583 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>overrrrhere</title>
+<meta name="description" content="Free iPhone app: stream your own Xbox and play your own retro games, NES to Wii, all with a controller. No ads, no tracking.">
+<meta name="theme-color" content="#0A0A0C">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; media-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<link rel="canonical" href="https://hope221.github.io/overrrrhere/">
+<link rel="icon" type="image/svg+xml" href="assets/icon.svg">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="overrrrhere">
+<meta property="og:title" content="overrrrhere · Your games, over here.">
+<meta property="og:description" content="Free iPhone app: stream your own Xbox and play your own retro games, NES to Wii, all with a controller. No ads, no tracking.">
+<meta property="og:url" content="https://hope221.github.io/overrrrhere/">
+<meta property="og:image" content="https://hope221.github.io/overrrrhere/assets/og-card.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="An iPhone in a mobile controller, running overrrrhere">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:creator" content="@DoctorHope__">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@800&family=Figtree:wght@400;500;600;700;800&display=swap">
+<style>
+:root {
+  /* Mise en page : la manette en majesté ; son écran allumé éclaire la pièce (le fond suit le jeu sélectionné),
+     puis on plonge dans l'écran : stream, rétro, gratuit. Un seul monde, sombre, celui de l'app. */
+  --ink: #0A0A0C;
+  --ink-2: #131317;
+  --white: #FFFFFF;
+  --text-2: rgba(255,255,255,0.76);
+  --text-3: rgba(255,255,255,0.6);
+  --line: rgba(255,255,255,0.1);
+  --panel: rgba(22,22,26,0.86);
+  --orange: #FF5A1F;
+  /* les quatre r du mot-symbole : l'orange à 100, 75, 50 et 30 % sur l'encre, en couleurs pleines */
+  --r1: #FF5A1F; --r2: #C2461A; --r3: #843216; --r4: #542212;
+  --ready: #7CE3A6;
+  --sky: #5C94EC;
+  --f-brand: 'Bricolage Grotesque', 'Figtree', system-ui, sans-serif;
+  --f-ui: 'Figtree', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --ring: 0 0 0 2px var(--ink), 0 0 0 4px var(--white);
+  --gutter: clamp(16px, 4vw, 56px);
+  --top: calc(env(safe-area-inset-top, 0px) + 64px);
+  --dev-w: clamp(min(92vw, 560px), calc((100svh - 372px) * 2.815), min(92vw, 1500px));
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html { background: var(--ink); -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--ink); color: var(--white); font: 400 16px/1.5 var(--f-ui); -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+img, canvas, svg { display: block; max-width: 100%; }
+a { color: inherit; }
+button { font: inherit; color: inherit; background: none; border: 0; margin: 0; padding: 0; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+:focus { outline: none; }
+a:focus-visible, button:focus-visible, [tabindex]:focus-visible { box-shadow: var(--ring); }
+.sr { position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+
+/* Anneau de focus de l'app, à la manette et au clavier */
+html[data-input="keys"] .is-focus, html[data-input="pad"] .is-focus { box-shadow: var(--ring), 0 10px 26px rgba(0,0,0,0.4); }
+html .screen.is-focus, html .game.is-focus { box-shadow: none; }
+
+/* ---------- Fond : la lumière de l'écran ---------- */
+.ambient { position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: 0; transition: opacity 1.6s ease; overflow: hidden; }
+.ambient.on { opacity: 1; }
+.amb { position: absolute; inset: -14%; background-size: 100% 165%; background-position: 50% 0%; filter: blur(46px) saturate(1.6) brightness(1.06); opacity: 0; transition: opacity 0.8s ease; }
+.amb.on { opacity: 1; }
+.amb-veil { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(10,10,12,0.4) 0%, rgba(10,10,12,0.08) 30%, rgba(10,10,12,0.3) 58%, rgba(10,10,12,0.86) 100%); transition: background 0.4s ease; }
+html[data-page="support"] .amb-veil, html[data-page="privacy"] .amb-veil { background: rgba(10,10,12,0.66); }
+
+/* ---------- Barre du haut ---------- */
+.topbar { position: fixed; z-index: 40; left: 0; right: 0; top: 0; height: var(--top); padding: env(safe-area-inset-top, 0px) var(--gutter) 0; display: flex; align-items: center; justify-content: space-between; gap: 12px; pointer-events: none; }
+.topbar > * { pointer-events: auto; }
+.topbar::before { content: ''; position: absolute; inset: 0 0 -36px; z-index: -1; pointer-events: none; background: linear-gradient(180deg, rgba(10,10,12,0.66) 0%, rgba(10,10,12,0.32) 55%, rgba(10,10,12,0) 100%); }
+.brand { display: inline-flex; align-items: center; gap: 10px; height: 40px; padding: 0 10px 0 6px; margin-left: -6px; border-radius: 12px; text-decoration: none; }
+.brand svg { width: 28px; height: 28px; flex: none; }
+.wordmark { font: 800 21px/1 var(--f-brand); letter-spacing: -0.035em; white-space: nowrap; }
+.wordmark i, .mark-r { font-style: normal; color: var(--r1); }
+.wordmark i:nth-of-type(2), .mark-r:nth-of-type(2) { color: var(--r2); }
+.wordmark i:nth-of-type(3), .mark-r:nth-of-type(3) { color: var(--r3); }
+.wordmark i:nth-of-type(4), .mark-r:nth-of-type(4) { color: var(--r4); }
+.nav { display: flex; align-items: center; gap: 2px; }
+.nav a { display: inline-flex; align-items: center; height: 36px; padding: 0 14px; border-radius: 999px; font-size: 15px; font-weight: 600; color: var(--text-2); text-decoration: none; white-space: nowrap; transition: color 0.15s, background 0.15s; }
+.nav a:hover { color: var(--white); }
+.nav a[aria-current="page"] { color: var(--white); background: rgba(255,255,255,0.13); }
+.lbrb { display: none; height: 20px; padding: 0 6px; border-radius: 5px; border: 1.5px solid rgba(255,255,255,0.6); align-items: center; font-size: 10px; font-weight: 800; color: rgba(255,255,255,0.85); margin: 0 4px; }
+html[data-pad="1"] .lbrb { display: inline-flex; }
+.tool { width: 36px; height: 36px; margin-left: 8px; border-radius: 999px; display: grid; place-items: center; color: var(--text-2); background: rgba(255,255,255,0.09); transition: color 0.15s, background 0.15s; }
+.tool:hover { color: var(--white); background: rgba(255,255,255,0.16); }
+.tool svg { width: 18px; height: 18px; }
+.tool .off { display: none; }
+.tool[aria-pressed="false"] .on { display: none; }
+.tool[aria-pressed="false"] .off { display: block; }
+.pad-chip { display: none; align-items: center; gap: 7px; height: 28px; padding: 0 11px; margin-left: 8px; border-radius: 999px; background: rgba(255,255,255,0.1); font-size: 12px; font-weight: 600; white-space: nowrap; }
+.pad-chip::before { content: ''; width: 6px; height: 6px; border-radius: 999px; background: var(--ready); }
+html[data-pad="1"] .pad-chip { display: inline-flex; }
+
+body { min-height: 100svh; display: flex; flex-direction: column; }
+main { position: relative; z-index: 1; flex: 1 0 auto; }
+
+/* ---------- Accueil : la manette ---------- */
+.dive { position: relative; }
+.dive-sticky { position: relative; }
+.hero { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-rows: auto auto minmax(24px, 14svh) auto; align-content: center;
+  grid-template-areas: "dev dev" "pad pad" "gap gap" "h1 side"; justify-items: center; align-items: end; gap: 18px 48px;
+  padding: calc(var(--top) + 12px) max(var(--gutter), calc((100% - var(--dev-w)) / 2)) clamp(28px, 5svh, 48px); }
+.hero > .device { grid-area: dev; }
+.hero > .cap-live { grid-area: cap; }
+.hero > .pad { grid-area: pad; }
+.caption { display: contents; }
+.caption .h1 { grid-area: h1; justify-self: start; }
+.caption .caption-side { grid-area: side; justify-self: end; }
+.js-dive .dive-sticky { position: sticky; top: 0; height: 100svh; overflow: hidden; }
+.js-dive .hero { height: 100%; }
+
+.device { position: relative; width: var(--dev-w); aspect-ratio: 2494 / 886; flex: none; isolation: isolate; }
+.device-img { position: absolute; inset: 0; width: 100%; height: 100%; user-select: none; -webkit-user-drag: none; }
+.device-shadow { position: absolute; left: 10%; right: 10%; bottom: -7%; height: 18%; border-radius: 50%; background: rgba(0,0,0,0.6); filter: blur(24px); z-index: -1; }
+.diving .device { will-change: transform; }
+
+/* Écran du téléphone, mesuré sur la photo (2494 × 886) */
+.screen { position: absolute; left: 23.135%; top: 15.01%; width: 53.77%; height: 71.9%; border-radius: 5.82% / 10.36%; overflow: hidden; background: #000; z-index: 2; touch-action: pan-y; cursor: pointer; }
+.island { position: absolute; left: 1.27%; top: 37.5%; width: 1.49%; height: 18.7%; border-radius: 999px; background: #000; z-index: 8; }
+.island::before { content: ''; position: absolute; left: 50%; top: 9%; width: 62%; aspect-ratio: 1; transform: translateX(-50%); border-radius: 50%; background: radial-gradient(circle at 40% 35%, #2A3550 0%, #0B0E16 60%); }
+.glass { position: absolute; inset: 0; z-index: 9; pointer-events: none; background: linear-gradient(118deg, rgba(255,255,255,0.075) 0%, rgba(255,255,255,0.02) 30%, rgba(255,255,255,0) 46%); }
+
+/* Boutons de la photo : ils s'allument quand on appuie (clavier, manette, toucher) */
+.hot { position: absolute; z-index: 3; border-radius: 999px; touch-action: manipulation; transition: box-shadow 0.12s ease, background 0.12s ease; }
+.hot.sq { border-radius: 26%; }
+.hot.pill { border-radius: 999px; }
+.hot:hover { box-shadow: 0 0 0 2px rgba(255,255,255,0.28); }
+.hot.is-down { box-shadow: var(--ring); background: radial-gradient(closest-side, rgba(0,0,0,0.34), rgba(0,0,0,0.08) 80%, rgba(0,0,0,0)); }
+.hot[data-hot="a"].is-down { background: radial-gradient(closest-side, rgba(255,140,90,0.55), rgba(255,90,31,0) 100%); }
+
+/* ---------- L'app, dans l'écran (taille logique de l'iPhone : 852 de large) ---------- */
+.ui { position: absolute; left: 0; top: 0; width: 852px; height: 408px; transform-origin: 0 0; transform: scale(var(--s, 0.5)); font-family: var(--f-ui); color: #FFFFFF; background: #0A0A0C; overflow: hidden; }
+.layer { position: absolute; inset: 0; opacity: 0; visibility: hidden; transition: opacity 0.32s ease, visibility 0s linear 0.32s; }
+.ui[data-state="splash"] .l-splash, .ui[data-state="home"] .l-home, .ui[data-state="launch"] .l-launch,
+.ui[data-state="stream"] .l-stream, .ui[data-state="library"] .l-library, .ui[data-state="play"] .l-play { opacity: 1; visibility: visible; transition: opacity 0.32s ease, visibility 0s; }
+.l-dive { opacity: var(--scr, 0); visibility: visible; transition: none; z-index: 6; pointer-events: none; }
+.l-dive img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 60% 30%; }
+
+/* démarrage */
+.l-splash { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px; background: #0A0A0C; }
+.l-splash .logo { width: 104px; height: 104px; transform: scale(0.86); opacity: 0; transition: transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.4s ease; }
+.ui[data-state="splash"] .l-splash .logo { transform: scale(1); opacity: 1; }
+.ui[data-state="splash"] .l-splash .eyes { animation: glance 2.4s ease-in-out 0.5s infinite; }
+@keyframes glance { 0%, 18% { transform: translateX(0); } 30%, 52% { transform: translateX(-9px); } 64%, 100% { transform: translateX(0); } }
+.l-splash .wm { font: 800 34px/40px var(--f-brand); letter-spacing: -0.035em; opacity: 0; transition: opacity 0.4s ease 0.25s; }
+.ui[data-state="splash"] .l-splash .wm { opacity: 1; }
+.l-splash .wm i { font-style: normal; color: var(--orange); opacity: 0; }
+.ui[data-state="splash"] .l-splash .wm i { animation: rIn 0.42s ease forwards; }
+.ui[data-state="splash"] .l-splash .wm i:nth-of-type(1) { --o: 1; animation-delay: 0.6s; }
+.ui[data-state="splash"] .l-splash .wm i:nth-of-type(2) { --o: 0.75; animation-delay: 0.78s; }
+.ui[data-state="splash"] .l-splash .wm i:nth-of-type(3) { --o: 0.5; animation-delay: 0.96s; }
+.ui[data-state="splash"] .l-splash .wm i:nth-of-type(4) { --o: 0.3; animation-delay: 1.14s; }
+@keyframes rIn { 0% { opacity: 0; transform: translateY(6px); } 60% { opacity: 1; } 100% { opacity: var(--o); transform: none; } }
+
+/* accueil (Main.dc.html) */
+.art { position: absolute; inset: 0; }
+.art img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 0.45s ease; }
+.art img.on { opacity: 1; }
+.art img.px { image-rendering: pixelated; }
+.art .lib-bg { position: absolute; inset: 0; background: linear-gradient(160deg, #1C1D24 0%, #0C0C0F 70%); opacity: 0; transition: opacity 0.45s ease; }
+.art .lib-bg.on { opacity: 1; }
+.intro .art img.on { animation: artIn 1.1s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+@keyframes artIn { from { opacity: 0; transform: scale(1.06); } to { opacity: 1; transform: none; } }
+.shade-l { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(8,8,10,0.88) 0%, rgba(8,8,10,0.55) 38%, rgba(8,8,10,0) 64%); }
+.shade-b { position: absolute; inset: 0; background: linear-gradient(0deg, rgba(8,8,10,0.92) 0%, rgba(8,8,10,0.45) 34%, rgba(8,8,10,0) 58%); }
+.shade-t { position: absolute; left: 0; right: 0; top: 0; height: 96px; background: linear-gradient(180deg, rgba(8,8,10,0.72) 0%, rgba(8,8,10,0.42) 45%, rgba(8,8,10,0) 100%); }
+.home-in { position: absolute; inset: 0; padding: 14px 56px 18px; display: flex; flex-direction: column; }
+.u-top { height: 32px; display: flex; align-items: center; justify-content: space-between; }
+.u-top-l, .u-top-r { display: flex; align-items: center; }
+.u-top-l { gap: 10px; }
+.u-top-r { gap: 16px; color: rgba(255,255,255,0.9); }
+.u-div { width: 1px; height: 18px; background: rgba(255,255,255,0.2); }
+.u-avatar { width: 28px; height: 28px; border-radius: 999px; overflow: hidden; background: linear-gradient(160deg, #3A3B44 0%, #1C1D22 100%); box-shadow: inset 0 0 0 1.5px rgba(255,255,255,0.22); display: flex; align-items: flex-end; justify-content: center; }
+.u-tag { font-size: 14px; font-weight: 600; letter-spacing: 0.01em; }
+.u-chip { display: flex; align-items: center; gap: 7px; height: 26px; padding: 0 10px; border-radius: 999px; background: rgba(255,255,255,0.1); font-size: 12px; font-weight: 600; }
+.u-chip::before { content: ''; width: 6px; height: 6px; border-radius: 999px; background: var(--ready); }
+.u-bat { display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 500; font-variant-numeric: tabular-nums; }
+.u-time { font-size: 14px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.u-grow { flex: 1; }
+.u-rowwrap { height: 92px; }
+.u-row { display: flex; align-items: flex-end; gap: 14px; height: 92px; transition: transform 0.22s ease; }
+.tile { position: relative; flex: none; width: 128px; height: 72px; border-radius: 10px; overflow: hidden; background: #141416; box-shadow: 0 6px 16px rgba(0,0,0,0.35); transition: width 0.18s ease, height 0.18s ease, box-shadow 0.18s ease; }
+.tile.on { width: 160px; height: 90px; box-shadow: 0 14px 32px rgba(0,0,0,0.55); }
+.phone-focus .tile.on { box-shadow: 0 0 0 2px #0A0A0C, 0 0 0 4px #FFFFFF, 0 14px 32px rgba(0,0,0,0.55); }
+.tile img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.tile img.px, .lib-tile img, .l-play img { image-rendering: pixelated; }
+.chip { position: absolute; left: 6px; bottom: 6px; height: 16px; padding: 0 6px; border-radius: 5px; background: rgba(10,10,12,0.78); color: #FFFFFF; font-size: 10px; font-weight: 800; letter-spacing: 0.05em; line-height: 16px; white-space: nowrap; }
+.tile-library { background: rgba(255,255,255,0.07); box-shadow: inset 0 0 0 1px rgba(255,255,255,0.18), 0 6px 16px rgba(0,0,0,0.35); display: grid; place-items: center; color: rgba(255,255,255,0.85); }
+.intro .tile { animation: tileIn 0.55s cubic-bezier(0.2, 0.8, 0.2, 1) both; animation-delay: calc(var(--i) * 55ms + 160ms); }
+@keyframes tileIn { from { opacity: 0; transform: translateX(46px); } to { opacity: 1; transform: none; } }
+.u-info { margin-top: 16px; }
+.u-title { margin: 0; font-size: 24px; line-height: 28px; font-weight: 800; letter-spacing: -0.01em; white-space: nowrap; }
+.u-meta { margin-top: 3px; font-size: 13px; line-height: 18px; color: rgba(255,255,255,0.74); white-space: nowrap; }
+.intro .u-info, .intro .u-actions, .intro .u-top { animation: fadeUp 0.6s ease 0.45s both; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+.u-actions { margin-top: 12px; display: flex; align-items: center; justify-content: space-between; }
+.u-pill { height: 44px; display: flex; align-items: center; gap: 10px; padding: 0 22px 0 10px; border-radius: 999px; background: #FFFFFF; color: #0A0A0C; font-size: 15px; font-weight: 700; }
+.u-g { width: 26px; height: 26px; border-radius: 999px; background: #0A0A0C; color: #FFFFFF; display: grid; place-items: center; font-size: 12px; font-weight: 700; }
+.u-hints { display: flex; align-items: center; gap: 18px; font-size: 12px; color: rgba(255,255,255,0.74); }
+.u-hint { display: flex; align-items: center; gap: 7px; }
+.u-hg { width: 18px; height: 18px; border-radius: 999px; border: 1.5px solid rgba(255,255,255,0.7); display: grid; place-items: center; font-size: 10px; font-weight: 700; color: #FFFFFF; }
+
+/* lancement (Launch.dc.html) puis stream */
+.l-launch img, .l-stream img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.ui[data-state="launch"] .l-launch img { animation: launchZoom 1.6s ease-out both; }
+@keyframes launchZoom { from { transform: scale(1.08); } to { transform: none; } }
+.launch-dim { position: absolute; inset: 0; background: rgba(8,8,10,0.32); }
+.launch-copy { position: absolute; left: 56px; bottom: 26px; width: 400px; }
+.launch-title { font-size: 28px; line-height: 34px; font-weight: 800; letter-spacing: -0.01em; }
+.launch-meta { margin-top: 4px; font-size: 13px; line-height: 18px; color: rgba(255,255,255,0.78); }
+.steps-l { list-style: none; margin: 14px 0 0; padding: 0; display: flex; flex-direction: column; gap: 8px; font-size: 13px; line-height: 18px; }
+.steps-l li { display: flex; align-items: center; gap: 10px; color: rgba(255,255,255,0.55); }
+.steps-l li.doing { color: #FFFFFF; font-weight: 600; }
+.steps-l li.done { color: rgba(255,255,255,0.78); }
+.st { width: 18px; height: 18px; border-radius: 999px; border: 1.5px solid rgba(255,255,255,0.3); flex: none; display: grid; place-items: center; }
+.doing .st { border: 2px solid rgba(255,255,255,0.25); border-top-color: #FFFFFF; animation: spin 0.9s linear infinite; }
+.done .st { border: 0; background: var(--ready); color: #0A0A0C; }
+.done .st::after { content: ''; width: 8px; height: 4px; border-left: 2.4px solid #0A0A0C; border-bottom: 2.4px solid #0A0A0C; transform: translateY(-1px) rotate(-45deg); }
+@keyframes spin { to { transform: rotate(360deg); } }
+.u-back { position: absolute; right: 56px; bottom: 26px; display: flex; align-items: center; gap: 7px; font-size: 12px; color: rgba(255,255,255,0.8); }
+.ui[data-state="stream"] .l-stream img { animation: drift 16s ease-in-out infinite alternate; }
+@keyframes drift { from { transform: scale(1.02) translateX(0); } to { transform: scale(1.1) translateX(-2%); } }
+.stream-b { opacity: 0; transition: opacity 0.4s ease 0.8s; text-shadow: 0 1px 6px rgba(0,0,0,0.6); }
+.ui[data-state="stream"] .stream-b { opacity: 1; }
+
+/* bibliothèque rétro (RetroLibrary.dc.html) */
+.l-library .lib-blur { position: absolute; left: -40px; top: -40px; width: 932px; height: 488px; object-fit: cover; image-rendering: pixelated; filter: blur(26px) brightness(0.3) saturate(1.1); }
+.lib-head { position: absolute; left: 0; top: 0; width: 852px; height: 104px; background: rgba(10,10,12,0.94); }
+.lib-titles { position: absolute; left: 56px; top: 18px; }
+.lib-titles h3 { margin: 0; font-size: 26px; line-height: 32px; font-weight: 800; letter-spacing: -0.01em; }
+.lib-count { font-size: 13px; line-height: 18px; color: rgba(255,255,255,0.74); }
+.lib-where { position: absolute; right: 56px; top: 32px; display: flex; align-items: center; gap: 6px; font-size: 12px; color: rgba(255,255,255,0.66); }
+.lib-gridwrap { position: absolute; left: 0; top: 104px; width: 852px; height: 216px; overflow: hidden; }
+.lib-grid { padding: 16px 56px; display: grid; grid-template-columns: repeat(5, 138px); gap: 12px; transition: transform 0.22s ease; }
+.lib-tile { position: relative; width: 138px; height: 78px; border-radius: 9px; overflow: hidden; background: #17181C; }
+.lib-tile.on { box-shadow: 0 0 0 2px #0A0A0C, 0 0 0 4px #FFFFFF; }
+.lib-tile img { width: 100%; height: 100%; object-fit: cover; }
+.lib-foot { position: absolute; left: 0; top: 320px; width: 852px; height: 88px; background: rgba(10,10,12,0.96); }
+.lib-cur { position: absolute; left: 56px; top: 22px; width: 520px; }
+.lib-cur b { display: block; font-size: 17px; line-height: 22px; font-weight: 700; }
+.lib-cur span { font-size: 12px; line-height: 17px; color: rgba(255,255,255,0.72); }
+.lib-foot .u-hints { position: absolute; right: 56px; top: 30px; }
+
+/* jeu rétro (RetroPlay / TouchRetro) */
+.l-play { background: #000; }
+.l-play .play-blur { position: absolute; left: -40px; top: -40px; width: 932px; height: 488px; object-fit: cover; filter: blur(30px) brightness(0.3); }
+.l-play .play-game { position: absolute; left: 186px; top: 24px; width: 480px; height: 360px; object-fit: fill; box-shadow: 0 0 40px rgba(0,0,0,0.6); }
+.touch-ui { position: absolute; inset: 0; opacity: 0; transition: opacity 0.3s ease; }
+.show-touch .touch-ui { opacity: 0.8; }
+.t-btn { position: absolute; border-radius: 999px; border: 1.5px solid rgba(255,255,255,0.55); background: rgba(255,255,255,0.14); box-shadow: 0 2px 8px rgba(0,0,0,0.35); display: grid; place-items: center; font-size: 14px; font-weight: 800; color: #FFFFFF; }
+.t-pad { position: absolute; left: 70px; top: 153px; width: 102px; height: 102px; }
+.t-pad::before, .t-pad::after { content: ''; position: absolute; border-radius: 8px; border: 1.5px solid rgba(255,255,255,0.55); background: rgba(255,255,255,0.14); }
+.t-pad::before { left: 34px; top: 0; width: 34px; height: 102px; }
+.t-pad::after { left: 0; top: 34px; width: 102px; height: 34px; }
+.play-b { position: absolute; right: 18px; bottom: 14px; display: flex; align-items: center; gap: 7px; font-size: 12px; color: rgba(255,255,255,0.74); }
+
+/* ---------- Sous la manette : commandes et légende ---------- */
+.pad { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 8px 22px; min-height: 32px; padding: 6px 18px 6px 8px; border-radius: 999px; background: rgba(10,10,12,0.46); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); font-size: 14px; color: var(--text-2); }
+.pad-group { display: inline-flex; align-items: center; gap: 8px; }
+.pad-btn { width: 30px; height: 30px; flex: none; border-radius: 999px; border: 1.5px solid rgba(255,255,255,0.72); display: grid; place-items: center; font-size: 12px; font-weight: 800; color: var(--white); background: rgba(10,10,12,0.3); transition: background 0.1s, color 0.1s, border-color 0.1s; touch-action: manipulation; user-select: none; -webkit-user-select: none; }
+.pad-btn svg { width: 14px; height: 14px; }
+.pad-btn:hover { border-color: var(--white); }
+.pad-btn.is-down { background: var(--white); color: var(--ink); border-color: var(--white); }
+.pad-keys { font-size: 12px; color: var(--text-3); white-space: nowrap; }
+html[data-input="touch"] .pad { gap: 10px 16px; padding: 0; background: none; -webkit-backdrop-filter: none; backdrop-filter: none; }
+html[data-input="touch"] .pad-btn { width: 50px; height: 50px; font-size: 16px; background: rgba(255,255,255,0.14); border-color: rgba(255,255,255,0.55); box-shadow: 0 2px 8px rgba(0,0,0,0.35); }
+html[data-input="touch"] .pad-btn svg { width: 18px; height: 18px; }
+html[data-input="touch"] .pad-btn.is-down { background: rgba(255,255,255,0.92); color: var(--ink); }
+html[data-input="touch"] .pad-keys, html[data-input="pad"] .pad-keys { display: none; }
+.cap-live { display: none; text-align: center; }
+.cap-live b { display: block; font-size: 16px; line-height: 22px; font-weight: 700; }
+.cap-live span { display: block; font-size: 13px; line-height: 18px; color: var(--text-2); }
+
+.h1 { margin: 0; font: 800 clamp(46px, 6vw, 86px)/0.92 var(--f-brand); min-width: 0; letter-spacing: -0.045em; text-wrap: balance; }
+.h1 .o { color: var(--orange); }
+.caption-side { display: flex; flex-direction: column; align-items: flex-start; gap: 16px; padding-bottom: 4px; }
+.kw { margin: 0; font-size: 15px; line-height: 1.55; font-weight: 500; color: var(--text-2); }
+.btn { display: inline-flex; align-items: center; gap: 10px; height: 48px; padding: 0 22px 0 10px; border-radius: 999px; font-size: 16px; font-weight: 700; text-decoration: none; white-space: nowrap; transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease; }
+.btn:hover { transform: translateY(-1px); }
+.btn-a { background: var(--white); color: var(--ink); }
+.btn-a .g { width: 28px; height: 28px; border-radius: 999px; background: var(--ink); color: var(--white); display: grid; place-items: center; font-size: 12px; font-weight: 800; }
+.btn.soon { padding: 0 22px; cursor: default; }
+.btn.soon:hover { transform: none; }
+.btn-2 { padding: 0 20px 0 14px; background: rgba(255,255,255,0.08); color: var(--white); box-shadow: inset 0 0 0 1.5px rgba(255,255,255,0.32); }
+.btn-2:hover { background: rgba(255,255,255,0.14); }
+.btn-2 svg { width: 20px; height: 20px; }
+html[data-input="keys"] .btn.is-focus, html[data-input="pad"] .btn.is-focus { box-shadow: var(--ring), 0 10px 26px rgba(0,0,0,0.4); }
+
+/* ---------- Fin de la plongée : le stream ---------- */
+.stream { position: relative; min-height: 86svh; display: flex; align-items: flex-end; overflow: hidden; background: #1A0F0A; }
+.stream-art { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 60% 30%; }
+.stream::after { content: ''; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(8,8,10,0.86) 0%, rgba(8,8,10,0.4) 32%, rgba(8,8,10,0) 58%), linear-gradient(90deg, rgba(8,8,10,0.5) 0%, rgba(8,8,10,0) 50%); }
+.stream-copy { position: relative; z-index: 1; width: 100%; padding: 0 var(--gutter) clamp(36px, 8svh, 80px); display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 20px 40px; }
+.h2 { margin: 0; font: 800 clamp(44px, 7.4vw, 120px)/0.9 var(--f-brand); letter-spacing: -0.045em; text-wrap: balance; }
+.stream-side { display: flex; flex-direction: column; align-items: flex-start; gap: 14px; padding-bottom: 6px; }
+.link { display: inline-flex; align-items: center; gap: 6px; height: 36px; padding: 0 14px 0 12px; margin-left: -12px; border-radius: 999px; font-size: 15px; font-weight: 700; text-decoration: none; }
+.link:hover { background: rgba(255,255,255,0.1); }
+.link svg { width: 16px; height: 16px; }
+.js-dive .stream { position: absolute; inset: 0; min-height: 0; background: transparent; pointer-events: none; }
+.js-dive .stream-art { inset: auto; max-width: none; opacity: var(--cover, 0); }
+.js-dive .stream::after { opacity: var(--copy, 0); }
+.js-dive .stream-copy { opacity: var(--copy, 0); transform: translateY(calc((1 - var(--copy, 0)) * 24px)); }
+.js-dive .stream.live { pointer-events: auto; }
+.js-dive .device { visibility: var(--devvis, visible); }
+.js-dive .pad, .js-dive .cap-live, .js-dive .h1, .js-dive .caption-side { opacity: var(--cap, 1); }
+.js-dive.diving .pad, .js-dive.diving .caption-side { pointer-events: none; }
+
+/* ---------- Rétro : la scène en pixels, jouable ---------- */
+.retro { position: relative; z-index: 1; overflow: hidden; background: var(--sky); color: var(--white); min-height: clamp(600px, 100svh, 1000px); display: flex; flex-direction: column; }
+.game { position: absolute; left: 0; right: 0; bottom: 0; width: 100%; aspect-ratio: 48 / 36; image-rendering: pixelated; image-rendering: crisp-edges; cursor: pointer; touch-action: manipulation; }
+.game canvas { width: 100%; height: 100%; image-rendering: pixelated; }
+.retro-copy { position: relative; z-index: 2; padding: calc(var(--top) + clamp(16px, 4svh, 40px)) var(--gutter) 0; max-width: min(1040px, 60%); pointer-events: none; }
+.retro-copy * { pointer-events: auto; }
+.retro .h2 { color: var(--white); text-shadow: 0 0.05em 0 rgba(10,10,12,0.42); }
+.systems { list-style: none; margin: 22px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; max-width: 760px; }
+.systems li { height: 26px; padding: 0 9px; border-radius: 6px; background: rgba(10,10,12,0.3); color: var(--white); font-size: 12px; font-weight: 800; letter-spacing: 0.05em; line-height: 26px; white-space: nowrap; }
+.retro-line { margin-top: 18px; display: flex; flex-wrap: wrap; align-items: center; gap: 12px 16px; }
+.retro-kw { margin: 0; font-size: 19px; line-height: 1.45; font-weight: 700; color: var(--white); text-shadow: 0 2px 0 rgba(10,10,12,0.4); }
+.nogames { display: inline-flex; align-items: center; gap: 8px; margin: 0; height: 32px; padding: 0 14px; border-radius: 999px; background: var(--white); color: var(--ink); font-size: 14px; font-weight: 800; }
+.hud { position: absolute; z-index: 2; right: var(--gutter); top: calc(var(--top) + 18px); margin: 0; padding: 8px 16px 10px; border-radius: 999px; background: rgba(10,10,12,0.42); font: 800 24px/1 var(--f-brand); letter-spacing: -0.035em; color: var(--white); }
+.hud i { font-style: normal; color: transparent; -webkit-text-stroke: 1.5px rgba(255,255,255,0.75); text-shadow: none; transition: color 0.3s ease, -webkit-text-stroke-color 0.3s ease; }
+.hud i.got { color: var(--orange); -webkit-text-stroke-color: transparent; }
+.hud i.got:nth-of-type(2) { color: rgba(255,90,31,0.75); }
+.hud i.got:nth-of-type(3) { color: rgba(255,90,31,0.5); }
+.hud i.got:nth-of-type(4) { color: rgba(255,90,31,0.3); }
+.hud.full { animation: hudPop 0.6s ease; }
+@keyframes hudPop { 40% { transform: scale(1.12); } }
+.retro-ctrl { position: absolute; z-index: 3; left: 0; right: 0; bottom: 0; padding: 0 var(--gutter) clamp(18px, 4svh, 40px); display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; pointer-events: none; }
+.retro-ctrl > * { pointer-events: auto; }
+.tc { border-radius: 999px; border: 1.5px solid rgba(255,255,255,0.6); background: rgba(255,255,255,0.16); box-shadow: 0 2px 10px rgba(0,0,0,0.3); display: grid; place-items: center; color: var(--white); font-size: 17px; font-weight: 800; touch-action: none; user-select: none; -webkit-user-select: none; transition: background 0.08s, color 0.08s; }
+.tc.is-down { background: rgba(255,255,255,0.92); color: var(--ink); }
+.tc-pad { position: relative; width: 132px; height: 132px; }
+.tc-pad::before { content: ''; position: absolute; left: 44px; top: 44px; width: 44px; height: 44px; background: rgba(255,255,255,0.16); }
+.tc-pad .tc { position: absolute; width: 44px; height: 44px; box-shadow: none; }
+.tc-pad .tc svg { width: 18px; height: 18px; }
+.tc-pad [data-act="up"] { left: 44px; top: 0; border-radius: 10px 10px 0 0; border-bottom: 0; }
+.tc-pad [data-act="down"] { left: 44px; bottom: 0; border-radius: 0 0 10px 10px; border-top: 0; }
+.tc-pad [data-act="left"] { left: 0; top: 44px; border-radius: 10px 0 0 10px; border-right: 0; }
+.tc-pad [data-act="right"] { right: 0; top: 44px; border-radius: 0 10px 10px 0; border-left: 0; }
+.tc-ab { position: relative; width: 132px; height: 112px; }
+.tc-ab .tc { position: absolute; width: 58px; height: 58px; }
+.tc-ab [data-act="a"] { right: 0; top: 0; }
+.tc-ab [data-act="b"] { left: 0; bottom: 0; }
+.retro-hints { align-self: center; display: flex; gap: 18px; padding: 8px 14px; border-radius: 999px; background: rgba(10,10,12,0.55); color: rgba(255,255,255,0.9); font-size: 13px; font-weight: 600; }
+.retro-hints .u-hint { gap: 8px; }
+.retro-hints .u-hg { width: 20px; height: 20px; }
+
+/* ---------- Fin : gratuit ---------- */
+.outro { position: relative; z-index: 1; background: var(--ink); padding: clamp(80px, 13svh, 150px) var(--gutter) clamp(48px, 9svh, 96px); overflow: hidden; }
+.outro-mark { margin: 0; font: 800 17.4vw/0.8 var(--f-brand); letter-spacing: -0.055em; white-space: nowrap; margin-left: -0.045em; }
+.outro-mark .mark-r { display: inline-block; }
+.outro.seen .mark-r { animation: sig 1.1s ease-in-out both; }
+.outro.seen .mark-r:nth-of-type(2) { animation-delay: 0.14s; }
+.outro.seen .mark-r:nth-of-type(3) { animation-delay: 0.28s; }
+.outro.seen .mark-r:nth-of-type(4) { animation-delay: 0.42s; }
+@keyframes sig { 0%, 100% { color: var(--rc); } 35% { color: var(--r1); transform: translateY(-0.04em); } }
+.mark-r { --rc: var(--r1); }
+.mark-r:nth-of-type(2) { --rc: var(--r2); }
+.mark-r:nth-of-type(3) { --rc: var(--r3); }
+.mark-r:nth-of-type(4) { --rc: var(--r4); }
+.outro-row { margin-top: clamp(32px, 6svh, 64px); display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 28px 48px; }
+.outro-lead { margin: 0; font: 800 clamp(28px, 2.8vw, 40px)/1.08 var(--f-brand); letter-spacing: -0.03em; }
+.outro-lead span { color: var(--text-3); }
+.actions { display: flex; flex-wrap: wrap; gap: 12px; }
+
+.foot { position: relative; z-index: 1; background: var(--ink); border-top: 1px solid var(--line); padding: 22px var(--gutter) calc(28px + env(safe-area-inset-bottom, 0px)); display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 28px; font-size: 13px; line-height: 1.5; color: var(--text-3); }
+.foot nav { display: flex; gap: 4px; margin-right: -10px; }
+.foot .credits { order: 3; flex-basis: 100%; font-size: 12px; color: rgba(255,255,255,0.5); }
+.foot .credits a { display: inline; height: auto; padding: 0; color: rgba(255,255,255,0.7); text-decoration: underline; text-underline-offset: 2px; font-weight: 500; }
+.foot a { display: inline-flex; align-items: center; height: 32px; padding: 0 10px; border-radius: 999px; color: var(--text-2); text-decoration: none; font-weight: 600; }
+.foot a:hover { color: var(--white); }
+
+/* ---------- Support et Privacy : l'écran Settings de l'app ---------- */
+.page { position: relative; padding: calc(var(--top) + clamp(20px, 5svh, 48px)) var(--gutter) 72px; }
+.page-in { max-width: 1120px; margin: 0 auto; }
+.page-title { margin: 0; font: 800 clamp(44px, 5.6vw, 76px)/0.95 var(--f-brand); letter-spacing: -0.04em; }
+.page-sub { margin: 10px 0 0; font-size: 16px; color: var(--text-2); }
+.sys { margin-top: clamp(24px, 4svh, 40px); display: grid; grid-template-columns: 290px minmax(0, 1fr); gap: 28px; align-items: start; }
+.sys-list { display: flex; flex-direction: column; gap: 2px; position: sticky; top: calc(var(--top) + 16px); }
+.sys-tab { height: 46px; padding: 0 14px; border-radius: 12px; display: flex; align-items: center; justify-content: space-between; gap: 10px; text-align: left; font-size: 16px; font-weight: 600; color: var(--text-2); transition: background 0.12s, color 0.12s; }
+.sys-tab:hover { color: var(--white); background: rgba(255,255,255,0.08); }
+.sys-tab[aria-selected="true"] { background: var(--white); color: var(--ink); }
+.sys-tab svg { width: 16px; height: 16px; opacity: 0.5; flex: none; }
+.sys-hints { display: flex; gap: 18px; padding: 16px 14px 0; font-size: 12px; color: var(--text-2); }
+.panel { min-width: 0; border-radius: 22px; background: var(--panel); -webkit-backdrop-filter: blur(24px); backdrop-filter: blur(24px); border: 1px solid rgba(255,255,255,0.08); padding: clamp(20px, 3vw, 32px); }
+.tabpanel { min-height: 330px; }
+.tabpanel h2 { margin: 0; font-size: 24px; line-height: 30px; font-weight: 800; letter-spacing: -0.01em; }
+.tabpanel p { margin: 10px 0 0; font-size: 16px; line-height: 1.6; color: var(--text-2); max-width: 62ch; }
+.tabpanel p b { color: var(--white); font-weight: 700; }
+.path { color: var(--white); font-weight: 600; }
+.steps { margin-top: 22px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.step { border-radius: 16px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.07); padding: 18px; }
+.step-n { width: 26px; height: 26px; border-radius: 999px; border: 1.5px solid rgba(255,255,255,0.4); display: grid; place-items: center; font-size: 12px; font-weight: 800; color: var(--text-2); }
+.step b { display: block; margin-top: 16px; font-size: 17px; line-height: 22px; font-weight: 700; }
+.step .step-path { display: block; margin-top: 4px; font-size: 14px; line-height: 20px; color: var(--text-2); }
+.formats { margin: 18px 0 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 24px; }
+.formats div { display: flex; justify-content: space-between; gap: 12px; padding: 11px 0; border-bottom: 1px solid var(--line); font-size: 15px; }
+.formats dt { font-weight: 600; }
+.formats dd { margin: 0; color: var(--text-2); text-align: right; font-variant-numeric: tabular-nums; }
+.tabpanel .btn { margin-top: 22px; }
+
+.doc { max-width: 780px; margin: 0 auto; }
+.eff { margin: 10px 0 0; font-size: 14px; color: var(--text-3); }
+.ph { color: var(--white); border-bottom: 1px dashed rgba(255,255,255,0.5); }
+.none { margin-top: 28px; }
+.doc .none-lead { margin: 0; color: var(--white); font: 800 clamp(24px, 3vw, 32px)/1.15 var(--f-brand); letter-spacing: -0.025em; }
+.rows { margin: 16px 0 0; }
+.rows div { height: 46px; display: flex; align-items: center; justify-content: space-between; padding: 0 2px; border-top: 1px solid var(--line); font-size: 15px; }
+.rows dt { font-weight: 500; }
+.rows dd { margin: 0; font-weight: 700; }
+.doc section { margin-top: 30px; }
+.doc h2 { margin: 0; font-size: 18px; line-height: 24px; font-weight: 800; }
+.doc p { margin: 8px 0 0; font-size: 16px; line-height: 1.6; color: var(--text-2); }
+.doc p a { color: var(--white); font-weight: 600; text-underline-offset: 3px; }
+
+.view.enter { animation: viewIn 0.34s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+@keyframes viewIn { from { opacity: 0; transform: scale(0.985); filter: blur(4px); } to { opacity: 1; transform: none; filter: none; } }
+
+/* ---------- Petits écrans ---------- */
+@media (max-width: 860px) {
+  .sys { grid-template-columns: minmax(0, 1fr); }
+  .sys-list, .sys-hints { display: none; }
+  .tabpanel { display: block !important; min-height: 0; }
+  .tabpanel + .tabpanel { margin-top: 12px; }
+  .steps { grid-template-columns: minmax(0, 1fr); }
+  .formats { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 720px), (max-aspect-ratio: 4/5) {
+  .cap-live { display: block; }
+  .hero { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto; grid-template-areas: "h1" "dev" "cap" "pad" "side"; align-content: space-evenly; gap: 20px; }
+  .caption .caption-side { justify-self: start; }
+  .h1 { font-size: clamp(44px, 13vw, 104px); }
+}
+@media (max-width: 720px) {
+  .nav .hide-s, .lbrb { display: none !important; }
+  .nav a { padding: 0 10px; font-size: 14px; }
+  .wordmark { font-size: 19px; }
+  .retro { min-height: 0; }
+  .retro-copy { order: 1; padding-bottom: 20px; max-width: none; }
+  .hud { position: static; order: 2; align-self: flex-end; margin: 0 var(--gutter) 10px; font-size: 22px; }
+  .game { position: relative; order: 3; }
+  .retro-ctrl { position: relative; order: 4; background: #B06838; padding: 14px var(--gutter) calc(26px + env(safe-area-inset-bottom, 0px)); }
+  .u-hints { display: none; }
+  .retro-hints { display: none; }
+  .tc-pad { width: 114px; height: 114px; }
+  .tc-pad::before { left: 38px; top: 38px; width: 38px; height: 38px; }
+  .tc-pad .tc { width: 38px; height: 38px; }
+  .tc-pad [data-act="up"], .tc-pad [data-act="down"] { left: 38px; }
+  .tc-pad [data-act="left"], .tc-pad [data-act="right"] { top: 38px; }
+  .tc-ab { width: 112px; height: 96px; }
+  .tc-ab .tc { width: 52px; height: 52px; }
+}
+@media (max-width: 359px) {
+  .brand .wordmark { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+}
+</style>
+
+</head>
+<body>
+<div class="ambient" id="ambient" aria-hidden="true"><div class="amb"></div><div class="amb"></div><div class="amb-veil"></div></div>
+
+<header class="topbar">
+  <a class="brand" href="#" data-nav data-row="0" aria-label="overrrrhere, home">
+    <svg viewBox="0 0 100 100" aria-hidden="true"><rect width="100" height="100" rx="22.4" fill="#FF5A1F"/><g transform="translate(50 52) scale(0.74) translate(-50 -51)"><path d="M20 34 C20 26 26 22 34 22 H66 C74 22 80 26 80 34 L86 64 C88 74 82 80 74 80 C68 80 64 76 61 70 L58 64 H42 L39 70 C36 76 32 80 26 80 C18 80 12 74 14 64 Z" fill="#FFFFFF"/><rect x="53" y="34" width="6" height="13" rx="3" fill="#FF5A1F"/><rect x="63" y="34" width="6" height="13" rx="3" fill="#FF5A1F"/></g></svg>
+    <span class="wordmark">ove<i>r</i><i>r</i><i>r</i><i>r</i>here</span>
+  </a>
+  <nav class="nav" aria-label="Main">
+    <span class="lbrb" aria-hidden="true">LB</span>
+    <a href="#support" data-to="support" data-nav data-row="0">Support</a>
+    <a href="#privacy" data-to="privacy" data-nav data-row="0">Privacy</a>
+    <a class="hide-s" href="https://github.com/Hope221/overrrrhere" target="_blank" rel="noopener" data-nav data-row="0">Source code</a>
+    <span class="lbrb" aria-hidden="true">RB</span>
+    <span class="pad-chip" role="status">Controller connected</span>
+    <button class="tool" id="sound" type="button" aria-pressed="true" aria-label="Menu sounds" data-nav data-row="0">
+      <svg class="on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11"/></svg>
+      <svg class="off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path d="M16 9.5l5 5M21 9.5l-5 5"/></svg>
+    </button>
+  </nav>
+</header>
+
+<main id="main">
+
+<!-- ===================== ACCUEIL ===================== -->
+<div class="view" data-view="home" id="home">
+
+<section class="dive" aria-label="overrrrhere">
+  <div class="dive-sticky" id="sticky">
+    <div class="hero">
+      <div class="device" id="device">
+        <div class="device-shadow" aria-hidden="true"></div>
+        <img class="device-img" src="assets/manette-2400.webp" srcset="assets/manette-1200.webp 1200w, assets/manette-2400.webp 2400w" sizes="(max-width: 720px) 100vw, 1500px" alt="An iPhone clipped into a mobile controller, running overrrrhere" width="2400" height="853" fetchpriority="high">
+
+        <div class="screen" id="screen" tabindex="0" data-nav data-row="1" role="group" aria-roledescription="app preview" aria-label="overrrrhere on the iPhone. Use the arrow keys or a controller.">
+          <div class="ui" id="ui" data-state="off">
+
+            <div class="layer l-splash" aria-hidden="true">
+              <svg class="logo" viewBox="0 0 100 100"><rect width="100" height="100" rx="22.4" fill="#FF5A1F"/><g transform="translate(50 52) scale(0.74) translate(-50 -51)"><path d="M20 34 C20 26 26 22 34 22 H66 C74 22 80 26 80 34 L86 64 C88 74 82 80 74 80 C68 80 64 76 61 70 L58 64 H42 L39 70 C36 76 32 80 26 80 C18 80 12 74 14 64 Z" fill="#FFFFFF"/><g class="eyes"><rect x="53" y="34" width="6" height="13" rx="3" fill="#FF5A1F"/><rect x="63" y="34" width="6" height="13" rx="3" fill="#FF5A1F"/></g></g></svg>
+              <div class="wm">ove<i>r</i><i>r</i><i>r</i><i>r</i>here</div>
+            </div>
+
+            <div class="layer l-home" id="l-home">
+              <div class="art" id="art"><div class="lib-bg"></div><img alt=""><img alt=""></div>
+              <div class="shade-l"></div><div class="shade-b"></div><div class="shade-t"></div>
+              <div class="home-in">
+                <div class="u-top">
+                  <div class="u-top-l">
+                    <svg width="24" height="24" viewBox="0 0 100 100" aria-hidden="true"><rect width="100" height="100" rx="22.4" fill="#FF5A1F"/><g transform="translate(50 52) scale(0.74) translate(-50 -51)"><path d="M20 34 C20 26 26 22 34 22 H66 C74 22 80 26 80 34 L86 64 C88 74 82 80 74 80 C68 80 64 76 61 70 L58 64 H42 L39 70 C36 76 32 80 26 80 C18 80 12 74 14 64 Z" fill="#FFFFFF"/><rect x="53" y="34" width="6" height="13" rx="3" fill="#FF5A1F"/><rect x="63" y="34" width="6" height="13" rx="3" fill="#FF5A1F"/></g></svg>
+                    <div class="u-div"></div>
+                    <div class="u-avatar"><svg width="22" height="22" viewBox="0 0 24 24" fill="rgba(255,255,255,0.55)" aria-hidden="true"><circle cx="12" cy="9" r="4.2"/><path d="M3.5 24a8.5 8 0 0 1 17 0z"/></svg></div>
+                    <div class="u-tag">Player 1</div>
+                  </div>
+                  <div class="u-top-r">
+                    <div class="u-chip">Xbox Series X</div>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 6h11A3.5 3.5 0 0 1 21 9.5l.8 5.6a2.4 2.4 0 0 1-4.2 1.9L15 14H9l-2.6 3a2.4 2.4 0 0 1-4.2-1.9L3 9.5A3.5 3.5 0 0 1 6.5 6z"/><path d="M7.5 10h3M9 8.5v3"/><path d="M15.5 9.5h.01M17.5 11.5h.01"/></svg>
+                    <div class="u-bat"><svg width="26" height="12" viewBox="0 0 26 12" aria-hidden="true"><rect x="0.75" y="0.75" width="21.5" height="10.5" rx="3" fill="none" stroke="currentColor" stroke-width="1.2" opacity="0.6"/><rect x="2.5" y="2.5" width="13.5" height="7" rx="1.5" fill="currentColor"/><rect x="23.5" y="4" width="1.8" height="4" rx="0.9" fill="currentColor" opacity="0.6"/></svg>78%</div>
+                    <div class="u-time" id="clock">21:04</div>
+                  </div>
+                </div>
+                <div class="u-grow"></div>
+                <div class="u-rowwrap"><div class="u-row" id="row"></div></div>
+                <div class="u-info"><p class="u-title" id="u-title"></p><div class="u-meta" id="u-meta"></div></div>
+                <div class="u-actions">
+                  <div class="u-pill" id="u-pill"><span class="u-g">A</span><span id="u-act">Play</span></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="layer l-launch" aria-hidden="true">
+              <img alt="" id="launch-art">
+              <div class="launch-dim"></div><div class="shade-b"></div>
+              <div class="launch-copy">
+                <div class="launch-title" id="launch-title"></div>
+                <div class="launch-meta">Starting on Xbox Series X</div>
+                <ul class="steps-l" id="steps-l">
+                  <li><span class="st"></span>Console awake</li>
+                  <li><span class="st"></span>Launching the game on your console</li>
+                  <li><span class="st"></span>Connecting the stream</li>
+                </ul>
+              </div>
+              <div class="u-back"><span class="u-hg">B</span>Cancel</div>
+            </div>
+
+            <div class="layer l-stream" aria-hidden="true">
+              <img alt="" id="stream-img">
+              <div class="u-back stream-b"><span class="u-hg">B</span>Back</div>
+            </div>
+
+            <div class="layer l-library" aria-hidden="true">
+              <img class="lib-blur" alt="" src="assets/hb-ucity-play.png">
+              <div class="lib-gridwrap"><div class="lib-grid" id="lib-grid"></div></div>
+              <div class="lib-head"></div>
+              <div class="lib-titles"><h3>Retro</h3><div class="lib-count">3 games · 12 systems</div></div>
+              <div class="lib-where"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 18a4.5 4.5 0 0 1-.6-8.96A6 6 0 0 1 18 8.5a4 4 0 0 1 0 8H7z"/></svg>iCloud Drive › Retro Games</div>
+              <div class="lib-foot">
+                <div class="lib-cur"><b id="lib-title"></b><span id="lib-meta"></span></div>
+                <div class="u-hints"><span class="u-hint"><span class="u-hg">A</span>Play</span><span class="u-hint"><span class="u-hg">B</span>Back</span></div>
+              </div>
+            </div>
+
+            <div class="layer l-play" aria-hidden="true">
+              <img class="play-blur" alt="" id="play-blur">
+              <img class="play-game" alt="" id="play-game">
+              <div class="touch-ui">
+                <div class="t-btn" style="left:56px;top:19px;width:72px;height:30px;border-radius:10px;font-size:13px">L</div>
+                <div class="t-btn" style="left:724px;top:19px;width:72px;height:30px;border-radius:10px;font-size:13px">R</div>
+                <div class="t-pad"></div>
+                <div class="t-btn" style="left:710px;top:137px;width:42px;height:42px">X</div>
+                <div class="t-btn" style="left:668px;top:179px;width:42px;height:42px">Y</div>
+                <div class="t-btn" style="left:752px;top:179px;width:42px;height:42px">A</div>
+                <div class="t-btn" style="left:710px;top:221px;width:42px;height:42px">B</div>
+                <div class="t-btn" style="left:72px;top:331px;width:70px;height:28px;font-size:10px;letter-spacing:0.06em">SELECT</div>
+                <div class="t-btn" style="left:710px;top:331px;width:70px;height:28px;font-size:10px;letter-spacing:0.06em">START</div>
+              </div>
+              <div class="play-b"><span class="u-hg">B</span>Back</div>
+            </div>
+
+            <div class="layer l-dive" aria-hidden="true"><img alt="" src="assets/scene-dusk.jpg" loading="lazy"></div>
+          </div>
+          <div class="island" aria-hidden="true"></div>
+          <div class="glass" aria-hidden="true"></div>
+        </div>
+        <div id="hots"></div>
+      </div>
+
+      <div class="cap-live" aria-hidden="true"><b id="cap-title"></b><span id="cap-meta"></span></div>
+
+      <div class="pad" id="pad" role="group" aria-label="Controls for the app preview">
+        <span class="pad-group">
+          <button class="pad-btn" type="button" tabindex="-1" data-act="left" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+          <button class="pad-btn" type="button" tabindex="-1" data-act="right" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+          <span>Move</span>
+        </span>
+        <span class="pad-group"><button class="pad-btn" type="button" tabindex="-1" data-act="a" aria-label="Select">A</button><span id="pad-a">Play</span></span>
+        <span class="pad-group"><button class="pad-btn" type="button" tabindex="-1" data-act="b" aria-label="Back">B</button><span>Back</span></span>
+        <span class="pad-keys" id="pad-keys">Arrow keys · Enter · Esc</span>
+      </div>
+
+      <div class="caption">
+        <h1 class="h1">Your games,<br>over <span class="o">here</span>.</h1>
+        <div class="caption-side">
+          <p class="kw">Xbox Series X|S · Xbox One<br>NES to Wii · Your own games</p>
+          <span class="btn btn-a soon">Coming soon to the App Store</span>
+        </div>
+      </div>
+    </div>
+
+    <section class="stream" id="stream" aria-labelledby="stream-title">
+      <img class="stream-art" id="stream-art" src="assets/scene-dusk.jpg" alt="" loading="lazy">
+      <div class="stream-copy">
+        <h2 class="h2" id="stream-title">Your Xbox.<br>From any room.</h2>
+        <div class="stream-side">
+          <p class="kw">Streamed in the app, not a browser<br>Your console wakes up, the game starts</p>
+          <a class="link" href="#support" data-nav data-row="3" data-reveal="dive-end">Before you start<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></a>
+        </div>
+      </div>
+    </section>
+  </div>
+</section>
+
+<section class="retro" id="retro" aria-labelledby="retro-title">
+  <div class="game" id="game" tabindex="0" data-nav data-row="4" role="group" aria-roledescription="mini game" aria-label="A small pixel game. Left and right to run, A or up to jump.">
+    <canvas id="game-canvas" width="48" height="36"></canvas>
+  </div>
+  <div class="retro-copy">
+    <h2 class="h2" id="retro-title">NES to Wii.</h2>
+    <ul class="systems" aria-label="Systems">
+      <li>NES</li><li>SNES</li><li>GAME BOY</li><li>GAME BOY COLOR</li><li>GBA</li><li>MEGA DRIVE</li><li>N64</li><li>PSP</li><li>DS</li><li>3DS</li><li>GAMECUBE</li><li>WII</li>
+    </ul>
+    <div class="retro-line"><p class="retro-kw">Your own games · Files or iCloud Drive · Plays offline</p><p class="nogames">No games included</p></div>
+  </div>
+  <p class="hud" id="hud" aria-live="polite"><span class="sr">Collected: </span>ove<i>r</i><i>r</i><i>r</i><i>r</i>here</p>
+  <div class="retro-ctrl" aria-label="Touch controls">
+    <div class="tc-pad">
+      <button class="tc" type="button" tabindex="-1" data-act="up" aria-label="Jump"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 15l7-7 7 7"/></svg></button>
+      <button class="tc" type="button" tabindex="-1" data-act="left" aria-label="Run left"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+      <button class="tc" type="button" tabindex="-1" data-act="right" aria-label="Run right"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+      <button class="tc" type="button" tabindex="-1" data-act="down" aria-label="Down"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 9l7 7 7-7"/></svg></button>
+    </div>
+    <div class="retro-hints" aria-hidden="true"><span class="u-hint"><span class="u-hg">A</span>Jump</span><span class="u-hint"><span class="u-hg">B</span>Back</span></div>
+    <div class="tc-ab">
+      <button class="tc" type="button" tabindex="-1" data-act="a" aria-label="Jump">A</button>
+      <button class="tc" type="button" tabindex="-1" data-act="b" aria-label="Back">B</button>
+    </div>
+  </div>
+</section>
+
+<section class="outro" id="outro" aria-labelledby="outro-title">
+  <p class="outro-mark" aria-hidden="true">ove<span class="mark-r">r</span><span class="mark-r">r</span><span class="mark-r">r</span><span class="mark-r">r</span>here</p>
+  <div class="outro-row">
+    <h2 class="outro-lead" id="outro-title">Free.<br><span>No ads, no account, no tracking.</span></h2>
+    <div class="actions">
+      <span class="btn btn-a soon">Coming soon to the App Store</span>
+      <a class="btn btn-2" href="https://buymeacoffee.com/doctorhope__" target="_blank" rel="noopener" data-nav data-row="5"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 9h11v4.5A5.5 5.5 0 0 1 10.5 19h0A5.5 5.5 0 0 1 5 13.5z"/><path d="M16 10.5h1.25a2.25 2.25 0 0 1 0 4.5H16"/><path d="M8.5 3.5c-.6.8-.6 1.7 0 2.5M12 3.5c-.6.8-.6 1.7 0 2.5"/></svg>Buy me a coffee</a>
+      <a class="btn btn-2" href="https://github.com/Hope221/overrrrhere" target="_blank" rel="noopener" data-nav data-row="5"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 7l-5 5 5 5M15 7l5 5-5 5"/></svg>Source code · GPL v3</a>
+    </div>
+  </div>
+</section>
+
+</div>
+
+<!-- ===================== SUPPORT ===================== -->
+<div class="view" data-view="support" id="support">
+  <section class="page" aria-labelledby="support-title">
+    <div class="page-in">
+      <h1 class="page-title" id="support-title">Support</h1>
+      <p class="page-sub">Setup and quick fixes.</p>
+      <div class="sys">
+        <div>
+          <div class="sys-list" role="tablist" aria-orientation="vertical" aria-label="Topics" id="tabs"></div>
+          <div class="sys-hints" aria-hidden="true"><span class="u-hint"><span class="u-hg">A</span>Select</span><span class="u-hint"><span class="u-hg">B</span>Back</span></div>
+        </div>
+        <div class="panel" id="panels">
+
+          <div class="tabpanel" role="tabpanel" id="p-start" data-tab="Before you start">
+            <h2>Before you start</h2>
+            <p>On your Xbox, once.</p>
+            <div class="steps">
+              <div class="step"><span class="step-n">1</span><b>Remote features on</b><span class="step-path">Settings › Devices &amp; connections › Remote features</span></div>
+              <div class="step"><span class="step-n">2</span><b>Power mode: Sleep</b><span class="step-path">Settings › General › Power options</span></div>
+              <div class="step"><span class="step-n">3</span><b>Same Wi-Fi</b><span class="step-path">Your Xbox and your iPhone</span></div>
+            </div>
+          </div>
+
+          <div class="tabpanel" role="tabpanel" id="p-list" data-tab="Xbox not listed">
+            <h2>Xbox not listed</h2>
+            <p>Turn on Remote features on your Xbox: <span class="path">Settings › Devices &amp; connections › Remote features</span>.</p>
+            <p>Sign in to overrrrhere with the Microsoft account you use on your Xbox.</p>
+          </div>
+
+          <div class="tabpanel" role="tabpanel" id="p-stream" data-tab="Stream won't start">
+            <h2>Stream won't start</h2>
+            <p>Put your Xbox and your iPhone on the <b>same Wi-Fi</b>.</p>
+            <p>Set the power mode to <b>Sleep</b>, so your Xbox can wake up: <span class="path">Settings › General › Power options</span>.</p>
+            <p>Still stuck? Restart your Xbox.</p>
+          </div>
+
+          <div class="tabpanel" role="tabpanel" id="p-games" data-tab="Add your games">
+            <h2>Add your games</h2>
+            <p><b>Files:</b> pick your ROM files. <b>iCloud Drive:</b> choose one folder, every game in it shows up. overrrrhere includes no games.</p>
+            <dl class="formats">
+              <div><dt>NES</dt><dd>.nes</dd></div>
+              <div><dt>Super Nintendo</dt><dd>.sfc .smc .swc .fig</dd></div>
+              <div><dt>Game Boy, Color</dt><dd>.gb .gbc</dd></div>
+              <div><dt>Game Boy Advance</dt><dd>.gba</dd></div>
+              <div><dt>Mega Drive</dt><dd>.md .bin .gen .smd</dd></div>
+              <div><dt>Nintendo 64</dt><dd>.z64 .n64 .v64</dd></div>
+              <div><dt>PSP</dt><dd>.iso .cso</dd></div>
+              <div><dt>Nintendo DS</dt><dd>.nds</dd></div>
+              <div><dt>Nintendo 3DS</dt><dd>.3ds .cci .cxi .3dsx</dd></div>
+              <div><dt>GameCube</dt><dd>.iso .gcm .rvz .gcz .ciso</dd></div>
+              <div><dt>Wii</dt><dd>.wbfs .iso .rvz</dd></div>
+            </dl>
+          </div>
+
+          <div class="tabpanel" role="tabpanel" id="p-saves" data-tab="Your saves">
+            <h2>Your saves</h2>
+            <p>Saved on your iPhone, automatically. With an iCloud Drive folder, they are also copied into it, in <span class="path">overrrrhere saves</span>.</p>
+          </div>
+
+          <div class="tabpanel" role="tabpanel" id="p-away" data-tab="Away from home">
+            <h2>Away from home</h2>
+            <p>Retro games work anywhere, even offline. Xbox streaming is made for your home Wi-Fi.</p>
+          </div>
+
+          <div class="tabpanel" role="tabpanel" id="p-report" data-tab="Report a problem">
+            <h2>Report a problem</h2>
+            <p>Open an issue on GitHub. Say which iPhone and which controller you use, and what happened.</p>
+            <a class="btn btn-a" href="https://github.com/Hope221/overrrrhere/issues/new" target="_blank" rel="noopener" data-nav data-row="t6"><span class="g">A</span>Open an issue</a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ===================== PRIVACY ===================== -->
+<div class="view" data-view="privacy" id="privacy">
+  <section class="page" aria-labelledby="privacy-title">
+    <div class="doc">
+      <h1 class="page-title" id="privacy-title">Privacy</h1>
+      <p class="eff">Effective October 9, 2026</p>
+      <div class="panel none">
+        <p class="none-lead">overrrrhere collects no data.</p>
+        <dl class="rows">
+          <div><dt>Account to create</dt><dd>None</dd></div>
+          <div><dt>Analytics</dt><dd>None</dd></div>
+          <div><dt>Ads</dt><dd>None</dd></div>
+          <div><dt>Tracking</dt><dd>None</dd></div>
+          <div><dt>Our servers</dt><dd>None</dd></div>
+        </dl>
+      </div>
+      <section><h2>On your iPhone</h2><p>Settings, pinned games, play time, retro games and saves stay on your iPhone. Settings › About › Reset overrrrhere erases all of it.</p></section>
+      <section><h2>Microsoft sign-in</h2><p>You sign in on Microsoft's own page. The sign-in is kept in your iPhone's Keychain and only sent to Microsoft and Xbox services, to list your consoles and games and to stream them.</p></section>
+      <section><h2>Game covers</h2><p>To find a cover, the app asks the public libretro thumbnails library (thumbnails.libretro.com) for it, by the game's name. No account or personal data is sent.</p></section>
+      <section><h2>iCloud Drive</h2><p>If you choose a ROM folder in iCloud Drive, the app reads your games there and copies your saves into it. The folder stays in your iCloud account.</p></section>
+      <section><h2>Permissions</h2><p>Local network: to find and reach your Xbox at home. Photos: only when you pick a custom image. Camera and microphone: never used.</p></section>
+      <section><h2>Changes</h2><p>If this policy changes, the new version is posted here with a new date.</p></section>
+      <section><h2>Contact</h2><p>Questions: open an issue on <a href="https://github.com/Hope221/overrrrhere/issues" target="_blank" rel="noopener" data-nav data-row="2">github.com/Hope221/overrrrhere</a>. Developer: Doctor Hope (<a href="https://x.com/DoctorHope__" target="_blank" rel="noopener" data-nav data-row="2">@DoctorHope__</a> on X).</p></section>
+    </div>
+  </section>
+</div>
+
+</main>
+
+<footer class="foot">
+  <span>Not affiliated with Microsoft. Xbox is a trademark of Microsoft. No games included.</span>
+  <span class="credits">Homebrew games shown, cropped screenshots: <a href="https://github.com/sgadrat/super-tilt-bro" target="_blank" rel="noopener">Super Tilt Bro.</a> by Sylvain Gadrat (WTFPL; Pepper by David Revoy, CC BY 4.0) · <a href="https://github.com/SimonLarsen/tobutobugirl" target="_blank" rel="noopener">Tobu Tobu Girl</a> by Tangram Games (CC BY 4.0) · <a href="https://github.com/AntonioND/ucity" target="_blank" rel="noopener">µCity</a> by Antonio Niño Díaz (CC BY-SA 4.0)</span>
+  <nav aria-label="Footer">
+    <a href="#support" data-nav data-row="9">Support</a>
+    <a href="#privacy" data-nav data-row="9">Privacy</a>
+    <a href="https://github.com/Hope221/overrrrhere" target="_blank" rel="noopener" data-nav data-row="9">Source code</a>
+    <a href="https://x.com/DoctorHope__" target="_blank" rel="noopener" data-nav data-row="9" aria-label="Doctor Hope on X">@DoctorHope__</a>
+  </nav>
+</footer>
+
+<div class="sr" id="live" aria-live="polite"></div>
+
+<script>
+(() => {
+  'use strict';
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+  const root = document.documentElement;
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+  const ease = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+  const store = {
+    get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
+    set(k, v) { try { localStorage.setItem(k, v); } catch (e) { /* stockage indisponible */ } },
+  };
+  root.classList.add('js');
+
+  // ---------- Sons du menu (CC0, les mêmes que dans l'app) ----------
+  const Sound = {
+    ctx: null, buffers: {}, on: store.get('ovr-sound') !== 'off',
+    unlock() {
+      if (this.ctx) { if (this.ctx.state === 'suspended') this.ctx.resume().catch(() => {}); return; }
+      const AC = window.AudioContext || window.webkitAudioContext;
+      if (!AC) return;
+      try { this.ctx = new AC(); } catch (e) { return; }
+      ['move', 'select', 'back', 'ready'].forEach(async (n) => {
+        try {
+          const r = await fetch('assets/' + n + '.wav');
+          this.buffers[n] = await this.ctx.decodeAudioData(await r.arrayBuffer());
+        } catch (e) { /* son absent : on continue sans */ }
+      });
+    },
+    play(n, vol) {
+      if (!this.on || !this.ctx || !this.buffers[n]) return;
+      try {
+        const s = this.ctx.createBufferSource(); s.buffer = this.buffers[n];
+        const g = this.ctx.createGain(); g.gain.value = vol == null ? 0.6 : vol;
+        s.connect(g); g.connect(this.ctx.destination); s.start();
+      } catch (e) { /* rien */ }
+    },
+  };
+  const soundBtn = $('#sound');
+  soundBtn.setAttribute('aria-pressed', String(Sound.on));
+  soundBtn.addEventListener('click', () => {
+    Sound.on = !Sound.on; store.set('ovr-sound', Sound.on ? 'on' : 'off');
+    soundBtn.setAttribute('aria-pressed', String(Sound.on));
+    Sound.unlock(); Sound.play('select');
+  });
+
+  const Live = { el: $('#live'), t: 0, say(s) { clearTimeout(this.t); this.t = setTimeout(() => { this.el.textContent = s; }, 250); } };
+
+  // ---------- Ce que montre l'écran ----------
+  const TILES = [
+    { kind: 'xbox', art: 'assets/scene-morning.jpg', thumb: 'assets/scene-morning-400.jpg', glow: 'assets/glow-morning.png', pos: '50% 50%', title: 'Your Xbox games', meta: 'Streamed from your console · Home Wi-Fi', action: 'Play' },
+    { kind: 'xbox', art: 'assets/scene-dusk.jpg', thumb: 'assets/scene-dusk-400.jpg', glow: 'assets/glow-dusk.png', pos: '60% 30%', title: 'Your Xbox wakes up', meta: 'The game starts on your console, then streams here', action: 'Play' },
+    // Vrais jeux homebrew, libres de droits (crédits en bas de page) : jamais de jeu du commerce
+    { kind: 'retro', px: 'assets/hb-stb-tile.png', play: 'assets/hb-stb-play.png', ratio: 4 / 3, chip: 'NES', title: 'Super Tilt Bro.', meta: 'NES · Your own games, NES to Wii', action: 'Continue' },
+    { kind: 'retro', px: 'assets/hb-tobu-tile.png', play: 'assets/hb-tobu-play.png', ratio: 10 / 9, chip: 'GAME BOY', title: 'Tobu Tobu Girl', meta: 'Game Boy · Auto-save and save slots', action: 'Continue' },
+    { kind: 'retro', px: 'assets/hb-ucity-tile.png', play: 'assets/hb-ucity-play.png', ratio: 10 / 9, chip: 'GAME BOY COLOR', title: 'µCity', meta: 'Game Boy Color · Touch controls without a controller', action: 'Continue', touch: true },
+    { kind: 'library', glow: 'assets/hb-ucity-tile.png', title: 'Retro', meta: '12 systems · Files or iCloud Drive', action: 'Open' },
+  ];
+  const LIB = [
+    { tile: 'hb-stb-tile', play: 'hb-stb-play', ratio: 4 / 3, chip: 'NES', title: 'Super Tilt Bro.', meta: 'NES · Free homebrew game' },
+    { tile: 'hb-tobu-tile', play: 'hb-tobu-play', ratio: 10 / 9, chip: 'GAME BOY', title: 'Tobu Tobu Girl', meta: 'Game Boy · Free homebrew game' },
+    { tile: 'hb-ucity-tile', play: 'hb-ucity-play', ratio: 10 / 9, chip: 'GAME BOY COLOR', title: 'µCity', meta: 'Game Boy Color · Free homebrew game' },
+  ];
+  const CART = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12v13l-2 2v3H8v-3l-2-2z"/><rect x="9" y="6" width="6" height="5" rx="1"/><path d="M10 18v3M14 18v3"/></svg>';
+
+  // ---------- Le fond : la lumière de l'écran ----------
+  const Ambient = {
+    el: $('#ambient'), layers: $$('#ambient .amb'), cur: 0, src: '',
+    set(src) {
+      if (!src || src === this.src) return;
+      this.src = src;
+      const next = this.layers[1 - this.cur];
+      next.style.backgroundImage = 'url("' + src + '")';
+      next.classList.add('on');
+      this.layers[this.cur].classList.remove('on');
+      this.cur = 1 - this.cur;
+    },
+    light() { this.el.classList.add('on'); },
+  };
+
+  // ---------- L'app, dans l'écran ----------
+  const ui = $('#ui');
+  const Phone = {
+    el: $('#screen'), state: 'off', sel: 0, lib: 0, tiles: [], libTiles: [], from: 'home', timers: [], artOn: 0,
+    build() {
+      const row = $('#row');
+      TILES.forEach((t, i) => {
+        const b = document.createElement('div');
+        b.className = 'tile' + (t.kind === 'library' ? ' tile-library' : '');
+        b.style.setProperty('--i', i);
+        b.dataset.i = i;
+        if (t.kind === 'xbox') b.innerHTML = '<img src="' + t.thumb + '" alt="" style="object-position:' + t.pos + '">';
+        else if (t.kind === 'retro') b.innerHTML = '<img class="px" src="' + t.px + '" alt=""><span class="chip">' + t.chip + '</span>';
+        else b.innerHTML = CART;
+        row.appendChild(b); this.tiles.push(b);
+      });
+      const grid = $('#lib-grid');
+      LIB.forEach((g) => {
+        const d = document.createElement('div');
+        d.className = 'lib-tile';
+        d.innerHTML = '<img src="assets/' + g.tile + '.png" alt=""><span class="chip">' + g.chip + '</span>';
+        grid.appendChild(d); this.libTiles.push(d);
+      });
+      // Toucher et souris : toucher une tuile la sélectionne, la toucher encore la lance ; glisser change de tuile.
+      let sx = 0, sy = 0, moved = false;
+      this.el.addEventListener('pointerdown', (e) => { sx = e.clientX; sy = e.clientY; moved = false; });
+      this.el.addEventListener('pointermove', (e) => { if (Math.abs(e.clientX - sx) > 12) moved = true; });
+      this.el.addEventListener('pointerup', (e) => {
+        input(e.pointerType === 'touch' ? 'touch' : 'pointer');
+        Focus.set(this.el, { scroll: false });
+        const dx = e.clientX - sx;
+        if (moved && Math.abs(dx) > 28 && Math.abs(dx) > Math.abs(e.clientY - sy)) { dispatch(dx < 0 ? 'right' : 'left', true); return; }
+        if (Boot.skip()) return;
+        const tile = e.target.closest('.tile, .lib-tile, .u-pill, .u-back, .play-b');
+        if (this.state === 'home' && tile && tile.classList.contains('tile')) {
+          const i = +tile.dataset.i;
+          if (i === this.sel) this.a(); else this.select(i, true);
+        } else if (this.state === 'home' && tile && tile.classList.contains('u-pill')) this.a();
+        else if (this.state === 'library' && tile && tile.classList.contains('lib-tile')) {
+          const i = this.libTiles.indexOf(tile);
+          if (i === this.lib) this.a(); else this.libSelect(i, true);
+        } else if (this.state !== 'home') this.b();
+      });
+      this.clock();
+    },
+    clock() {
+      const tick = () => { const d = new Date(); $('#clock').textContent = d.getHours() + ':' + String(d.getMinutes()).padStart(2, '0'); };
+      tick(); setInterval(tick, 20000);
+    },
+    setState(s, opts) {
+      this.state = s; ui.dataset.state = s;
+      ui.classList.toggle('intro', !!(opts && opts.intro));
+      if (opts && opts.intro) setTimeout(() => ui.classList.remove('intro'), 1600);
+      Pad.update();
+    },
+    after(ms, f) { this.timers.push(setTimeout(f, ms)); },
+    clear() { this.timers.forEach(clearTimeout); this.timers = []; },
+    select(i, sound) {
+      i = clamp(i, 0, TILES.length - 1);
+      if (i === this.sel && this.drawn) return false;
+      this.sel = i; this.render(sound);
+      if (sound) Sound.play('move');
+      return true;
+    },
+    render(user) {
+      this.drawn = true;
+      const t = TILES[this.sel];
+      this.tiles.forEach((b, i) => b.classList.toggle('on', i === this.sel));
+      const right = this.sel * (128 + 14) + 160;
+      $('#row').style.transform = 'translateX(' + -Math.max(0, right - 740 + 8) + 'px)';
+      $('#u-title').textContent = t.title;
+      $('#u-meta').textContent = t.meta;
+      $('#u-act').textContent = t.action;
+      $('#cap-title').textContent = t.title;
+      $('#cap-meta').textContent = t.meta;
+      // image du jeu sélectionné, en fondu
+      const imgs = $$('#art img'), lib = $('#art .lib-bg');
+      if (t.kind === 'library') { imgs.forEach((im) => im.classList.remove('on')); lib.classList.add('on'); }
+      else {
+        lib.classList.remove('on');
+        const next = imgs[1 - this.artOn];
+        next.className = t.kind === 'retro' ? 'px' : '';
+        next.src = t.kind === 'retro' ? t.px : t.art;
+        next.style.objectPosition = t.pos || '50% 60%';
+        next.classList.add('on');
+        imgs[this.artOn].classList.remove('on');
+        this.artOn = 1 - this.artOn;
+      }
+      Ambient.set(t.glow || t.px);
+      if (user) Live.say(t.title + '. ' + t.meta + '.');
+      Pad.update();
+    },
+    libSelect(i, sound) {
+      i = clamp(i, 0, LIB.length - 1);
+      this.lib = i;
+      this.libTiles.forEach((d, k) => d.classList.toggle('on', k === i));
+      const rowI = Math.floor(i / 5);
+      $('#lib-grid').style.transform = 'translateY(' + -Math.max(0, rowI - 1) * 90 + 'px)';
+      $('#lib-title').textContent = LIB[i].title;
+      $('#lib-meta').textContent = LIB[i].meta;
+      Live.say(LIB[i].title + '. ' + LIB[i].meta);
+      if (sound) Sound.play('move');
+    },
+    handle(dir) {
+      if (this.state === 'home') {
+        if (dir === 'left' || dir === 'right') { this.select(this.sel + (dir === 'right' ? 1 : -1), true); return true; }
+        return false;
+      }
+      if (this.state === 'library') {
+        const step = { left: -1, right: 1, up: -5, down: 5 }[dir];
+        const n = this.lib + step;
+        if (n >= 0 && n < LIB.length && !((dir === 'left' || dir === 'right') && Math.floor(n / 5) !== Math.floor(this.lib / 5))) this.libSelect(n, true);
+        return true;
+      }
+      return true;
+    },
+    a() {
+      if (this.state === 'home') {
+        const t = TILES[this.sel];
+        Sound.play('select');
+        if (t.kind === 'xbox') this.launch(t);
+        else if (t.kind === 'retro') this.play(t.play, t.ratio, 'home', !!t.touch);
+        else { this.libSelect(this.lib, false); this.setState('library'); Ambient.set('assets/hb-ucity-tile.png'); }
+      } else if (this.state === 'library') {
+        Sound.play('select');
+        const g = LIB[this.lib];
+        this.play('assets/' + g.play + '.png', g.ratio, 'library', false);
+      }
+    },
+    b() {
+      if (this.state === 'home' || this.state === 'off' || this.state === 'splash') return false;
+      this.clear();
+      Sound.play('back');
+      if (this.state === 'play' && this.from === 'library') { this.setState('library'); Ambient.set('assets/hb-ucity-tile.png'); return true; }
+      this.setState('home'); this.render();
+      return true;
+    },
+    launch(t) {
+      $('#launch-art').src = t.art; $('#launch-art').style.objectPosition = t.pos;
+      $('#launch-title').textContent = t.title;
+      $('#stream-img').src = t.art; $('#stream-img').style.objectPosition = t.pos;
+      const li = $$('#steps-l li');
+      const step = (k) => li.forEach((el, j) => { el.className = j < k ? 'done' : j === k ? 'doing' : ''; });
+      step(0); this.setState('launch');
+      this.after(650, () => step(1));
+      this.after(1300, () => step(2));
+      this.after(1950, () => { step(3); this.setState('stream'); Sound.play('ready', 0.5); Live.say('Streaming.'); });
+    },
+    play(src, ratio, from, touch) {
+      this.from = from;
+      const game = $('#play-game'), w = Math.round(360 * ratio);
+      game.src = src; $('#play-blur').src = src;
+      game.style.width = w + 'px'; game.style.left = Math.round((852 - w) / 2) + 'px';
+      ui.classList.toggle('show-touch', touch || root.dataset.input === 'touch');
+      this.setState('play');
+      Ambient.set(src);
+    },
+    resize() {
+      const w = this.el.clientWidth, h = this.el.clientHeight;
+      if (!w) return;
+      const s = w / 852;
+      ui.style.setProperty('--s', s);
+      ui.style.height = (h / s) + 'px';
+    },
+  };
+
+  // ---------- Démarrage : l'écran s'allume, le logo, les quatre r ----------
+  const Boot = {
+    running: false, timers: [],
+    start() {
+      if (reduced) { this.finish(true); return; }
+      this.running = true;
+      this.timers.push(setTimeout(() => Phone.setState('splash'), 380));
+      this.timers.push(setTimeout(() => this.finish(false), 2300));
+    },
+    skip() { if (!this.running) return false; this.finish(false); return true; },
+    finish(instant) {
+      this.timers.forEach(clearTimeout); this.timers = [];
+      const wasRunning = this.running;
+      this.running = false;
+      Phone.setState('home', { intro: !instant });
+      Phone.render();
+      Ambient.light();
+      if (wasRunning) Sound.play('ready', 0.45);
+      Attract.start();
+    },
+  };
+
+  // Mode démo : sans action du visiteur, l'écran fait le tour des tuiles une fois, puis s'arrête.
+  const Attract = {
+    timer: 0, on: false,
+    start() { if (reduced || this.done) return; this.on = true; this.next(); },
+    next() { clearTimeout(this.timer); this.timer = setTimeout(() => this.tick(), 3400); },
+    tick() {
+      if (!this.on) return;
+      if (Dive.p > 0.02 || document.hidden || Views.current !== 'home' || Phone.state !== 'home') { this.next(); return; }
+      if (Phone.sel + 1 >= TILES.length) { Phone.select(0); this.stop(); return; }
+      Phone.select(Phone.sel + 1);
+      this.next();
+    },
+    stop() { this.on = false; this.done = true; clearTimeout(this.timer); },
+  };
+
+  // ---------- Navigation : la même qu'à la manette dans l'app ----------
+  const rect = (el) => el.getBoundingClientRect();
+  const cx = (el) => { const r = rect(el); return r.left + r.width / 2; };
+  const Focus = {
+    el: null,
+    items() {
+      const v = Views.current;
+      return $$('[data-nav]').filter((e) => {
+        const view = e.closest('[data-view]');
+        if (view && view.dataset.view !== v) return false;
+        return e.getClientRects().length > 0;
+      });
+    },
+    set(el, opts) {
+      if (!el) return;
+      opts = opts || {};
+      if (this.el && this.el !== el) this.el.classList.remove('is-focus');
+      this.el = el;
+      el.classList.add('is-focus');
+      root.classList.toggle('phone-focus', el === Phone.el);
+      if (document.activeElement !== el && typeof el.focus === 'function') el.focus({ preventScroll: true });
+      if (el.getAttribute('role') === 'tab') Tabs.select(el, false);
+      if (opts.scroll !== false) reveal(el);
+      if (opts.sound) Sound.play('move');
+    },
+    inView(el) { const r = rect(el); return r.bottom > 40 && r.top < innerHeight - 40; },
+    move(dir) {
+      const items = this.items();
+      if (!this.el || !items.includes(this.el) || !this.inView(this.el)) {
+        // le focus était hors de l'écran : on reprend l'élément visible le plus central
+        const vis = items.filter((e) => this.inView(e));
+        const mid = innerHeight / 2;
+        const best = vis.sort((a, b) => Math.abs(rect(a).top + rect(a).height / 2 - mid) - Math.abs(rect(b).top + rect(b).height / 2 - mid))[0];
+        if (best && best !== this.el) { this.set(best, { sound: true, scroll: false }); return; }
+      }
+      if (this.el === Phone.el && Phone.handle(dir)) return;
+      if (this.el === Game.el && Game.handle(dir)) return;
+      const row = this.el.dataset.row;
+      const rows = Array.from(new Set(items.map((e) => e.dataset.row))).sort((a, b) => rowKey(a) - rowKey(b));
+      if (dir === 'left' || dir === 'right') {
+        const same = items.filter((e) => e.dataset.row === row).sort((a, b) => cx(a) - cx(b));
+        const n = same[same.indexOf(this.el) + (dir === 'right' ? 1 : -1)];
+        if (n) this.set(n, { sound: true });
+        return;
+      }
+      // Pages de texte : si rien n'est à portée, haut et bas font défiler (comme le lecteur de licences de l'app)
+      const scrollStep = () => window.scrollBy({ top: (dir === 'down' ? 1 : -1) * innerHeight * 0.45, behavior: reduced ? 'auto' : 'smooth' });
+      const k = rows.indexOf(row) + (dir === 'down' ? 1 : -1);
+      if (k < 0 || k >= rows.length) { if (Views.current !== 'home') scrollStep(); return; }
+      const x = cx(this.el);
+      const cand = items.filter((e) => e.dataset.row === rows[k]).sort((a, b) => Math.abs(cx(a) - x) - Math.abs(cx(b) - x));
+      if (!cand[0]) return;
+      const r = rect(cand[0]);
+      if (Views.current !== 'home' && (r.top > innerHeight * 1.05 || r.bottom < -innerHeight * 0.05)) { scrollStep(); return; }
+      this.set(cand[0], { sound: true });
+    },
+    first() {
+      if (Views.current === 'home') return Phone.el;
+      const seen = $$('[data-view="' + Views.current + '"] [data-nav]').filter((e) => e.getClientRects().length && this.inView(e));
+      return seen[0] || $('.nav a[aria-current="page"]') || $('.brand');
+    },
+    a() {
+      const el = this.el;
+      if (!el) return;
+      if (el === Phone.el) { Phone.a(); return; }
+      if (el === Game.el) { Game.jump(); return; }
+      Sound.play('select');
+      el.click();
+    },
+    b() {
+      if (this.el === Phone.el && Phone.b()) return;
+      Sound.play('back');
+      if (Views.current !== 'home') { Views.go('home'); return; }
+      window.scrollTo({ top: 0, behavior: reduced ? 'auto' : 'smooth' });
+      this.set(Phone.el, { scroll: false });
+    },
+  };
+  // ordre des rangées : nombres, puis onglets du Support (t0, t1…) rangés à leur place
+  const rowKey = (r) => (r[0] === 't' ? 1 + (+r.slice(1) + 1) / 100 : +r);
+
+  function reveal(el) {
+    if (el.closest('.hero')) { if (scrollY > 2) window.scrollTo({ top: 0, behavior: reduced ? 'auto' : 'smooth' }); return; }
+    if (el.dataset.reveal === 'dive-end' && Dive.on) { window.scrollTo({ top: Dive.endY(), behavior: reduced ? 'auto' : 'smooth' }); return; }
+    if (el === Game.el) { window.scrollTo({ top: scrollY + rect($('#retro')).top, behavior: reduced ? 'auto' : 'smooth' }); return; }
+    const r = rect(el), top = 90, bottom = innerHeight - 30;
+    if (r.top >= top && r.bottom <= bottom) return;
+    window.scrollTo({ top: scrollY + r.top - Math.max(top, (innerHeight - r.height) / 2), behavior: reduced ? 'auto' : 'smooth' });
+  }
+
+  // ---------- Entrées : clavier, manette, toucher, souris ----------
+  const Pad = {
+    keysLabel: $('#pad-keys'), aLabel: $('#pad-a'),
+    update() {
+      const s = Phone.state;
+      const a = s === 'home' ? TILES[Phone.sel].action : s === 'library' ? 'Play' : '';
+      this.aLabel.textContent = a;
+      this.aLabel.parentElement.hidden = !a;
+    },
+  };
+  function input(m) {
+    if (root.dataset.input === m) return;
+    root.dataset.input = m;
+    if (Phone.state === 'play') ui.classList.toggle('show-touch', m === 'touch' || (TILES[Phone.sel] && TILES[Phone.sel].touch && Phone.from === 'home'));
+  }
+  input(matchMedia('(pointer: coarse)').matches ? 'touch' : 'pointer');
+
+  // Lumière sur les boutons : photo de la manette, commandes sous l'écran, commandes tactiles du jeu
+  function press(a, down) {
+    $$('[data-hot="' + a + '"], .pad-btn[data-act="' + a + '"], .tc[data-act="' + a + '"]').forEach((el) => el.classList.toggle('is-down', down));
+    Game.key(a, down);
+  }
+
+  function dispatch(a, toPhone) {
+    Sound.unlock();
+    Attract.stop();
+    if (Boot.skip()) return;
+    if (toPhone && Focus.el !== Phone.el) Focus.set(Phone.el, { scroll: false });
+    if (a === 'left' || a === 'right' || a === 'up' || a === 'down') Focus.move(a);
+    else if (a === 'a') Focus.a();
+    else if (a === 'b') Focus.b();
+    else if (a === 'lb' || a === 'rb') Views.step(a === 'rb' ? 1 : -1);
+  }
+
+  const KEYS = { ArrowLeft: 'left', ArrowRight: 'right', ArrowUp: 'up', ArrowDown: 'down', Enter: 'a', Escape: 'b', Backspace: 'b' };
+  const held = new Set();
+  addEventListener('keydown', (e) => {
+    if (e.altKey || e.ctrlKey || e.metaKey) return;
+    const a = KEYS[e.key];
+    if (!a) return;
+    e.preventDefault();
+    input('keys');
+    if (!held.has(a)) { held.add(a); press(a, true); }
+    if (e.repeat && (a === 'a' || a === 'b')) return;
+    dispatch(a);
+  });
+  addEventListener('keyup', (e) => { const a = KEYS[e.key]; if (!a) return; held.delete(a); press(a, false); });
+  addEventListener('blur', () => { held.clear(); $$('.is-down').forEach((el) => el.classList.remove('is-down')); Game.release(); });
+  addEventListener('focusin', (e) => {
+    const t = e.target.closest && e.target.closest('[data-nav]');
+    if (t && t !== Focus.el) { if (Focus.el) Focus.el.classList.remove('is-focus'); Focus.el = t; t.classList.add('is-focus'); root.classList.toggle('phone-focus', t === Phone.el); }
+  });
+  addEventListener('pointerdown', (e) => { if (!e.target.closest('.pad-btn, .hot, .tc, .screen')) input(e.pointerType === 'touch' ? 'touch' : 'pointer'); }, true);
+
+  // Manette (Gamepad API) : croix ou stick gauche pour se déplacer, A, B, LB/RB pour changer de page, stick droit pour défiler
+  const GP = {
+    raf: 0, prev: {}, rep: {}, last: 0,
+    map: { 0: 'a', 1: 'b', 2: 'x', 3: 'y', 4: 'lb', 5: 'rb', 8: 'view', 9: 'menu', 12: 'up', 13: 'down', 14: 'left', 15: 'right' },
+    start() { if (!this.raf) { this.last = performance.now(); this.raf = requestAnimationFrame((t) => this.loop(t)); } },
+    loop(t) {
+      let pads = [];
+      try { pads = navigator.getGamepads ? Array.from(navigator.getGamepads()) : []; } catch (e) { pads = []; }
+      const gp = pads.find((p) => p && p.connected);
+      if (!gp) { this.raf = 0; root.dataset.pad = '0'; return; }
+      root.dataset.pad = '1';
+      const dt = Math.min(50, t - this.last); this.last = t;
+      const now = {};
+      Object.keys(this.map).forEach((i) => { const b = gp.buttons[i]; if (b && (b.pressed || b.value > 0.5)) now[this.map[i]] = true; });
+      const ax = gp.axes[0] || 0, ay = gp.axes[1] || 0;
+      if (Math.abs(ax) > 0.55 || Math.abs(ay) > 0.55) {
+        if (Math.abs(ax) > Math.abs(ay)) now[ax > 0 ? 'right' : 'left'] = true; else now[ay > 0 ? 'down' : 'up'] = true;
+        now.ls = true;
+      }
+      const ry = gp.axes[3] || 0;
+      if (Math.abs(ry) > 0.2) { window.scrollBy(0, ry * 1.1 * dt); now.rs = true; }
+      const all = new Set(Object.keys(now).concat(Object.keys(this.prev)));
+      all.forEach((a) => {
+        const was = !!this.prev[a], is = !!now[a];
+        if (is && !was) {
+          input('pad'); press(a, true);
+          if (['left', 'right', 'up', 'down', 'a', 'b', 'lb', 'rb'].includes(a)) dispatch(a);
+          this.rep[a] = t + 380;
+        } else if (!is && was) { press(a, false); delete this.rep[a]; }
+        else if (is && this.rep[a] && t >= this.rep[a] && ['left', 'right', 'up', 'down'].includes(a)) { dispatch(a); this.rep[a] = t + 110; }
+      });
+      this.prev = now;
+      this.raf = requestAnimationFrame((tt) => this.loop(tt));
+    },
+  };
+  addEventListener('gamepadconnected', () => { input('pad'); GP.start(); });
+  addEventListener('gamepaddisconnected', () => { GP.start(); });
+
+  // Boutons de la photo (positions mesurées sur l'image, en pixels de l'image)
+  const HOTS = [
+    ['up', 301, 478, 78, 78, 'sq'], ['down', 301, 628, 78, 78, 'sq'], ['left', 226, 553, 78, 78, 'sq'], ['right', 376, 553, 78, 78, 'sq'],
+    ['menu', 399, 402, 62, 62], ['ls', 256, 256, 196, 196],
+    ['y', 2245, 175, 86, 86], ['x', 2155, 266, 86, 86], ['b', 2335, 266, 86, 86], ['a', 2244, 353, 86, 86],
+    ['rs', 2213, 542, 196, 196], ['lb', 390, 42, 400, 50, 'pill'], ['rb', 2104, 42, 400, 50, 'pill'],
+  ];
+  const hots = $('#hots');
+  HOTS.forEach(([a, x, y, w, h, shape]) => {
+    const b = document.createElement('button');
+    b.type = 'button'; b.className = 'hot' + (shape ? ' ' + shape : ''); b.dataset.hot = a; b.tabIndex = -1;
+    b.setAttribute('aria-hidden', 'true');
+    Object.assign(b.style, { left: ((x - w / 2) / 2494 * 100) + '%', top: ((y - h / 2) / 886 * 100) + '%', width: (w / 2494 * 100) + '%', height: (h / 886 * 100) + '%' });
+    hots.appendChild(b);
+  });
+  // Commandes sous l'écran et boutons de la photo : ils pilotent l'app dans l'écran
+  function bindPress(el, a, toPhone) {
+    el.addEventListener('pointerdown', (e) => {
+      e.preventDefault();
+      input(e.pointerType === 'touch' ? 'touch' : 'pointer');
+      press(a, true);
+      if (['left', 'right', 'up', 'down', 'a', 'b', 'lb', 'rb'].includes(a)) dispatch(a, toPhone);
+      try { el.setPointerCapture(e.pointerId); } catch (err) { /* rien */ }
+    });
+    const up = () => press(a, false);
+    el.addEventListener('pointerup', up); el.addEventListener('pointercancel', up); el.addEventListener('lostpointercapture', up);
+    el.addEventListener('click', (e) => e.preventDefault());
+  }
+  $$('.hot').forEach((el) => bindPress(el, el.dataset.hot, true));
+  $$('.pad-btn').forEach((el) => bindPress(el, el.dataset.act, true));
+
+  // ---------- La plongée dans l'écran ----------
+  const sticky = $('#sticky'), device = $('#device');
+  const Dive = {
+    el: $('.dive'), on: false, p: 0, T: null, raf: 0,
+    init() {
+      this.on = !reduced;
+      root.classList.toggle('js-dive', this.on);
+      if (!this.on) return;
+      addEventListener('scroll', () => this.queue(), { passive: true });
+      this.measure();
+    },
+    queue() { if (!this.raf) this.raf = requestAnimationFrame(() => { this.raf = 0; this.update(); }); },
+    endY() { return this.el.offsetTop + this.el.offsetHeight - innerHeight; },
+    measure() {
+      if (!this.on || Views.current !== 'home') return;
+      const vh = sticky.clientHeight || innerHeight;
+      this.el.style.height = Math.round(vh * 2.7) + 'px';
+      device.style.transform = 'none';
+      const st = rect(sticky), d = rect(device), s = rect(Phone.el);
+      const fx = innerWidth < vh ? 0.36 : 0.5; // en hauteur : le voyageur, pas le centre
+      const sx = s.left + s.width * fx, sy = s.top - st.top + s.height / 2;
+      const S = Math.max(innerWidth / (s.width * Math.min(fx, 1 - fx) * 2), vh / s.height) * 1.003;
+      this.T = { tx: innerWidth / 2 - sx, ty: vh / 2 - sy, S };
+      device.style.transformOrigin = (sx - d.left) + 'px ' + (s.top - d.top + s.height / 2) + 'px';
+      // image finale : exactement le cadrage de l'écran agrandi, mais nette
+      const fw = s.width * S, fh = s.height * S;
+      Object.assign($('#stream-art').style, { left: (innerWidth / 2 - fw * fx) + 'px', top: (vh - fh) / 2 + 'px', width: fw + 'px', height: fh + 'px' });
+      this.update();
+    },
+    update() {
+      if (!this.on || !this.T || Views.current !== 'home') return;
+      const r = rect(this.el), total = r.height - sticky.clientHeight;
+      const p = clamp(-r.top / total, 0, 1);
+      this.p = p;
+      const z = ease(clamp((p - 0.03) / 0.55, 0, 1));
+      const T = this.T, s = 1 + (T.S - 1) * z;
+      const cover = clamp((p - 0.5) / 0.08, 0, 1);
+      device.style.transform = z > 0 ? 'translate(' + (T.tx * z) + 'px,' + (T.ty * z) + 'px) scale(' + s + ')' : '';
+      sticky.style.setProperty('--cap', String(1 - clamp(p / 0.08, 0, 1)));
+      ui.style.setProperty('--scr', String(clamp((p - 0.05) / 0.16, 0, 1)));
+      sticky.style.setProperty('--cover', String(cover));
+      sticky.style.setProperty('--devvis', cover >= 1 ? 'hidden' : 'visible');
+      const copy = clamp((p - 0.6) / 0.14, 0, 1);
+      sticky.style.setProperty('--copy', String(copy));
+      $('#stream').classList.toggle('live', copy > 0.5);
+      root.classList.toggle('diving', p > 0.005);
+    },
+  };
+
+  // ---------- Le mini-jeu : la scène rétro, jouable ----------
+  const Game = {
+    el: $('#game'), cv: $('#game-canvas'), ctx: null, ready: false, running: false, visible: false,
+    keys: {}, x: 12, y: 19, vx: 0, vy: 0, face: 1, ground: true, step: 0, bump: 0, got: 0, pops: [], cloud: 0, last: 0,
+    async init() {
+      this.ctx = this.cv.getContext('2d');
+      const img = new Image(); img.src = 'assets/px-play-43.png';
+      try { await img.decode(); } catch (e) { return; }
+      const c = document.createElement('canvas'); c.width = 48; c.height = 36;
+      const g = c.getContext('2d'); g.drawImage(img, 0, 0);
+      const d = g.getImageData(0, 0, 48, 36);
+      const at = (x, y) => (y * 48 + x) * 4;
+      const hex = (x, y) => { const i = at(x, y); return (d.data[i] << 16) | (d.data[i + 1] << 8) | d.data[i + 2]; };
+      const SKY = { 0x5c94ec: 1, 0x6ca4f4: 1, 0x7cb4f8: 1 };
+      const bandSky = (y) => (y < 9 ? 0x5c94ec : y < 18 ? 0x6ca4f4 : 0x7cb4f8);
+      const sky = g.createImageData(48, 36), clouds = g.createImageData(48, 36), land = g.createImageData(48, 36);
+      const put = (im, x, y, rgb) => { const i = at(x, y); im.data[i] = rgb >> 16; im.data[i + 1] = (rgb >> 8) & 255; im.data[i + 2] = rgb & 255; im.data[i + 3] = 255; };
+      // personnage (x 12–17, y 19–27) et bloc (x 32–39, y 15–18) : retirés du décor, gardés comme sprites
+      const inHero = (x, y) => x >= 12 && x <= 17 && y >= 19 && y <= 27;
+      const inBlock = (x, y) => x >= 32 && x <= 39 && y >= 15 && y <= 18;
+      this.hero = [];
+      for (let y = 19; y <= 27; y++) for (let x = 12; x <= 17; x++) {
+        const v = hex(x, y);
+        if (v === 0xe65a3c || v === 0xfae6c8 || v === 0x14141e || v === 0x2896a0 || v === 0x282832) this.hero.push([x - 12, y - 19, v]);
+      }
+      for (let y = 0; y < 36; y++) for (let x = 0; x < 48; x++) {
+        put(sky, x, y, bandSky(y));
+        let v = hex(x, y);
+        if (inHero(x, y)) v = y >= 23 || (y === 22 && x >= 16) ? 0x28883c : bandSky(y);
+        if (inBlock(x, y)) v = bandSky(y);
+        if (v === 0xffffff) { if (!(x <= 5 && y >= 4 && y <= 7)) put(clouds, x, y, v); } // nuage du bord gauche retiré : il était coupé par le haut de la section
+        else if (!SKY[v]) put(land, x, y, v);
+      }
+      const toCanvas = (im) => { const k = document.createElement('canvas'); k.width = 48; k.height = 36; k.getContext('2d').putImageData(im, 0, 0); return k; };
+      this.sky = toCanvas(sky); this.clouds = toCanvas(clouds); this.land = toCanvas(land);
+      this.ready = true;
+      this.draw();
+      new IntersectionObserver((en) => { this.visible = en[0].isIntersecting; if (this.visible) this.start(); }, { threshold: 0.05 }).observe($('#retro'));
+      this.el.addEventListener('pointerdown', (e) => { input(e.pointerType === 'touch' ? 'touch' : 'pointer'); Sound.unlock(); Attract.stop(); Focus.set(this.el, { scroll: false }); });
+      $$('.retro .tc').forEach((el) => {
+        const a = el.dataset.act;
+        el.addEventListener('pointerdown', (e) => {
+          e.preventDefault(); input('touch'); Sound.unlock(); Attract.stop();
+          if (a === 'b') { press('b', true); dispatch('b'); return; }
+          Focus.set(this.el, { scroll: false });
+          press(a, true);
+          if (a === 'a' || a === 'up') this.jump();
+          try { el.setPointerCapture(e.pointerId); } catch (err) { /* rien */ }
+        });
+        const up = () => press(a, false);
+        el.addEventListener('pointerup', up); el.addEventListener('pointercancel', up); el.addEventListener('lostpointercapture', up);
+      });
+    },
+    active() { return Focus.el === this.el; },
+    key(a, down) {
+      if (a !== 'left' && a !== 'right') return;
+      if (down && !this.active()) return;
+      this.keys[a] = down;
+      if (down) this.start();
+    },
+    release() { this.keys = {}; },
+    handle(dir) {
+      if (dir === 'left' || dir === 'right') return true;
+      if (dir === 'up') { this.jump(); return true; }
+      return false;
+    },
+    jump() { if (!this.ready) return; if (this.ground) { this.vy = -0.98; this.ground = false; Sound.play('move', 0.35); } this.start(); },
+    start() { if (!this.ready || this.running) return; this.running = true; this.last = performance.now(); requestAnimationFrame((t) => this.loop(t)); },
+    loop(t) {
+      const dt = Math.min(3, (t - this.last) / 16.67); this.last = t;
+      const dir = (this.keys.right ? 1 : 0) - (this.keys.left ? 1 : 0);
+      this.vx = dir * 0.3;
+      if (dir) this.face = dir;
+      this.x += this.vx * dt;
+      if (this.x > 48) this.x = -6; if (this.x < -6) this.x = 48;
+      if (!this.ground) {
+        const top0 = this.y;
+        this.vy += 0.075 * dt; this.y += this.vy * dt;
+        const over = this.x + 6 > 32 && this.x < 40;
+        if (this.vy < 0 && over && top0 >= 19 - 0.01 && this.y < 19) { this.y = 19; this.vy = 0.35; this.hit(); }
+        if (this.y >= 19) { this.y = 19; this.vy = 0; this.ground = true; }
+      }
+      this.step = dir && this.ground ? this.step + dt * 0.18 : 0;
+      if (this.bump > 0) this.bump -= dt;
+      this.pops = this.pops.filter((p) => (p.t += dt) < 46);
+      this.draw();
+      const busy = dir || !this.ground || this.bump > 0 || this.pops.length;
+      if (this.visible && Views.current === 'home') requestAnimationFrame((tt) => this.loop(tt));
+      else this.running = false;
+      if (!busy && !this.visible) this.running = false;
+    },
+    hit() {
+      this.bump = 8;
+      Sound.play('select', 0.4);
+      if (this.got < 4) {
+        this.pops.push({ x: 34, t: 0, k: this.got });
+        const i = this.got; this.got++;
+        setTimeout(() => {
+          const r = $$('#hud i')[i]; if (r) r.classList.add('got');
+          if (this.got === 4) { $('#hud').classList.add('full'); Sound.play('ready', 0.45); }
+        }, 420);
+      }
+    },
+    draw() {
+      if (!this.ready) return;
+      const g = this.ctx;
+      g.clearRect(0, 0, 48, 36);
+      g.drawImage(this.sky, 0, 0);
+      const o = Math.round(this.cloud);
+      g.drawImage(this.clouds, -o, 0); g.drawImage(this.clouds, 48 - o, 0);
+      g.drawImage(this.land, 0, 0);
+      // le bloc aux yeux (comme le logo), qui regarde le personnage
+      const by = this.bump > 0 ? 14 : 15;
+      g.fillStyle = '#e8a830'; g.fillRect(32, by, 8, 4);
+      const look = this.x + 3 < 33 ? -1 : this.x + 3 > 39 ? 1 : 0;
+      g.fillStyle = '#784614'; g.fillRect(33 + look + 1 - 1, by + 1, 1, 1); g.fillRect(37 + look, by + 1, 1, 1);
+      // les r qui sortent du bloc
+      this.pops.forEach((p) => {
+        const y = Math.round(by - 5 - Math.min(6, p.t * 0.32));
+        g.globalAlpha = p.t > 30 ? Math.max(0, 1 - (p.t - 30) / 16) : 1;
+        g.fillStyle = '#FF5A1F';
+        const R = [[0, 0], [2, 0], [3, 0], [0, 1], [1, 1], [0, 2], [0, 3]];
+        R.forEach(([rx, ry]) => g.fillRect(p.x + rx + 1, y + ry, 1, 1));
+        g.globalAlpha = 1;
+      });
+      // le personnage
+      const hx = Math.round(this.x), hy = Math.round(this.y);
+      const walk = Math.floor(this.step) % 2 === 1;
+      this.hero.forEach(([px, py, v]) => {
+        if (walk && py === 8 && (px === 2 || px === 3)) return;
+        const fx = this.face < 0 ? 5 - px : px;
+        g.fillStyle = '#' + v.toString(16).padStart(6, '0');
+        g.fillRect(hx + fx, hy + py, 1, 1);
+      });
+    },
+  };
+
+  // ---------- Support : la liste à gauche, le détail à droite (comme Settings) ----------
+  const Tabs = {
+    list: $('#tabs'), panels: $$('#panels .tabpanel'), tabs: [],
+    build() {
+      this.panels.forEach((p, i) => {
+        const b = document.createElement('button');
+        b.type = 'button'; b.className = 'sys-tab'; b.id = 'tab-' + p.id; b.setAttribute('role', 'tab');
+        b.setAttribute('aria-controls', p.id); b.dataset.nav = ''; b.dataset.row = 't' + i;
+        b.innerHTML = '<span>' + p.dataset.tab + '</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>';
+        b.addEventListener('click', () => { this.select(b, true); });
+        p.setAttribute('aria-labelledby', b.id);
+        this.list.appendChild(b); this.tabs.push(b);
+      });
+      this.select(this.tabs[0], false);
+    },
+    select(b, sound) {
+      this.tabs.forEach((t) => {
+        const on = t === b;
+        t.setAttribute('aria-selected', String(on));
+        t.tabIndex = on ? 0 : -1;
+        const p = $('#' + t.getAttribute('aria-controls'));
+        p.hidden = !on;
+      });
+      if (sound) Sound.play('move');
+    },
+  };
+
+  // ---------- Pages : Accueil, Support, Privacy ----------
+  const Views = {
+    current: 'home', order: ['home', 'support', 'privacy'],
+    init() {
+      addEventListener('hashchange', () => this.fromHash(true));
+      addEventListener('popstate', () => this.fromHash(true));
+      // liens internes (#support, #privacy, #) : on change de page sans recharger
+      document.addEventListener('click', (e) => {
+        const a = e.target.closest && e.target.closest('a[href^="#"]');
+        if (!a) return;
+        const h = a.getAttribute('href').slice(1);
+        const v = h === '' ? 'home' : this.order.includes(h) ? h : null;
+        if (!v) return;
+        e.preventDefault();
+        this.go(v);
+      });
+      this.fromHash(false);
+    },
+    fromHash(animate) {
+      const h = location.hash.replace('#', '');
+      const v = this.order.includes(h) ? h : 'home';
+      this.show(v, animate);
+    },
+    go(v) {
+      try { history.pushState(null, '', v === 'home' ? location.pathname + location.search : '#' + v); } catch (e) { /* historique indisponible */ }
+      this.show(v, true);
+    },
+    step(d) {
+      const i = this.order.indexOf(this.current), v = this.order[clamp(i + d, 0, this.order.length - 1)];
+      if (v !== this.current) { Sound.play('move'); this.go(v); }
+    },
+    show(v, animate) {
+      const changed = v !== this.current;
+      this.current = v;
+      root.dataset.page = v;
+      $$('main > [data-view]').forEach((s) => {
+        const on = s.dataset.view === v;
+        s.hidden = !on;
+        if (on && animate && changed && !reduced) { s.classList.remove('enter'); void s.offsetWidth; s.classList.add('enter'); }
+      });
+      $$('.nav a[data-to]').forEach((a) => { if (a.dataset.to === v) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current'); });
+      document.title = v === 'home' ? 'overrrrhere' : (v === 'support' ? 'Support' : 'Privacy') + ' · overrrrhere';
+      window.scrollTo(0, 0);
+      if (v === 'home') { requestAnimationFrame(() => { Phone.resize(); Dive.measure(); }); }
+      if (changed || animate) Focus.set(v === 'home' ? Phone.el : Focus.first(), { scroll: false });
+    },
+  };
+
+  // App Store : « Coming soon » (sans lien) jusqu'à la publication ; ensuite, bouton A vers la fiche
+
+  // Rétro : le texte doit rester sur le ciel, au-dessus des collines (le bloc orange est à droite, hors de la colonne de texte)
+  const retroSec = $('#retro'), retroCopy = $('.retro-copy');
+  function fitRetro() {
+    if (matchMedia('(max-width: 720px)').matches) { retroSec.style.minHeight = ''; return; }
+    const cell = retroSec.clientWidth / 48;
+    const need = retroCopy.offsetTop + retroCopy.offsetHeight + 24 + cell * 18; // 18 rangées : le haut des collines
+    retroSec.style.minHeight = Math.ceil(Math.max(need, Math.min(Math.max(600, innerHeight), 1000))) + 'px';
+  }
+  new ResizeObserver(fitRetro).observe(retroCopy);
+  addEventListener('resize', fitRetro);
+
+  // L'outro : les quatre r clignotent une fois, comme au démarrage de l'app
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver((en, ob) => { if (en[0].isIntersecting) { $('#outro').classList.add('seen'); ob.disconnect(); } }, { threshold: 0.4 }).observe($('#outro'));
+  }
+
+  // ---------- Démarrage de la page ----------
+  Phone.build();
+  Tabs.build();
+  const ro = new ResizeObserver(() => { Phone.resize(); Dive.measure(); });
+  ro.observe(Phone.el);
+  addEventListener('resize', () => { Phone.resize(); Dive.measure(); });
+  Phone.resize();
+  Dive.init();
+  Views.init();
+  Game.init();
+  Focus.set(Views.current === 'home' ? Phone.el : Focus.first(), { scroll: false });
+  if (Views.current === 'home') Boot.start(); else Boot.finish(true);
+  try { if (navigator.getGamepads && Array.from(navigator.getGamepads()).some(Boolean)) GP.start(); } catch (e) { /* manette non autorisée ici */ }
+})();
+</script>
+
+</body>
+</html>
