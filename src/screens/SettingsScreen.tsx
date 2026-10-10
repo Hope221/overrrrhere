@@ -3,12 +3,11 @@ import * as WebBrowser from 'expo-web-browser';
 import { ReactNode, useEffect, useRef, useState } from 'react';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 
-import { FocusColorName, RETRO_RESOLUTIONS, Settings, resetSettings, updateSettings, useFocusColor, useSettings } from '../settings';
-import { resetPlaytime } from '../playtime';
+import { resetApp } from '../reset';
+import { FocusColorName, RETRO_RESOLUTIONS, Settings, updateSettings, useFocusColor, useSettings } from '../settings';
 import { DS_LAYOUTS } from '../retro/dsLayout';
 import { RetroGame, chooseRomFolder, gameBytes, useRetroLibrary } from '../retro/library';
 import { formatSize } from '../retro/systems';
-import { resetTiles } from '../tiles';
 import { ConfirmDialog } from '../ui/ConfirmDialog';
 import { ButtonHint, PrimaryButton, Toggle, Wordmark } from '../ui/components';
 import { useController } from '../ui/device';
@@ -22,8 +21,9 @@ import { XboxConsole } from '../xbox/consoles';
 // Manette : haut / bas = sections ; droite ou A = entrer ; A = activer ; gauche / droite = choix ; B = retour.
 
 // Site de l'app (politique de confidentialité, aide, dons) : la ligne « Privacy & support » apparaît dès qu'il existe
-// (étape 4 de la publication).
-const SITE_URL: string | null = null;
+// (étape 4 de la publication). On ouvre directement la page Privacy : le bouton de dons n'est que sur l'accueil du site
+// (règle Apple 3.1.1 : aucun lien de paiement dans l'app).
+const SITE_URL: string | null = 'https://hope221.github.io/overrrrhere/#privacy';
 
 export const SECTIONS = ['Controller', 'Xbox & Remote Play', 'Retro', 'Appearance', 'Tiles', 'Sound', 'About'] as const;
 export type Section = (typeof SECTIONS)[number];
@@ -65,12 +65,13 @@ type Props = {
   onChangeConsole: () => void;
   onShowWelcome: () => void;
   onLicenses: () => void;
+  onReset: () => void; // après Reset overrrrhere : retour au Welcome
   onSignOut: () => void;
   onSignIn: () => void;
 };
 
 export function SettingsScreen(props: Props) {
-  const { initialSection = 'Controller', xbox, pinnedCount, onClose, onTestButtons, onManagePinned, onManageRoms, onChangeConsole, onShowWelcome, onLicenses, onSignOut, onSignIn } = props;
+  const { initialSection = 'Controller', xbox, pinnedCount, onClose, onTestButtons, onManagePinned, onManageRoms, onChangeConsole, onShowWelcome, onLicenses, onReset, onSignOut, onSignIn } = props;
   const settings = useSettings();
   const retro = useRetroLibrary();
   const focusColor = useFocusColor();
@@ -160,7 +161,7 @@ export function SettingsScreen(props: Props) {
         kind: 'link',
         label: 'Reset overrrrhere',
         destructive: true,
-        subtitle: 'Erases pinned games, play time and settings on this iPhone',
+        subtitle: 'Erases everything on this iPhone',
         onPress: () => setConfirmReset(true), // fenêtre de confirmation (maquette du 25/09)
       },
     ],
@@ -330,14 +331,13 @@ export function SettingsScreen(props: Props) {
       {confirmReset && (
         <ConfirmDialog
           title="Reset overrrrhere?"
-          message="This erases your pinned games, play time and settings on this iPhone. Your Xbox and your games are not affected."
+          message="Settings, Microsoft sign-in, retro games and their saves are erased from this iPhone. Your iCloud Drive folder and your Xbox are not affected."
           confirmLabel="Reset"
           onCancel={() => setConfirmReset(false)}
-          onConfirm={() => {
+          onConfirm={async () => {
             setConfirmReset(false);
-            resetSettings();
-            resetTiles(); // épinglages et images personnalisées
-            resetPlaytime(); // temps joué ici (« Played here »)
+            await resetApp(); // tout ce que l'app garde sur l'iPhone (décision du 09/10/2026), puis le Welcome
+            onReset();
           }}
         />
       )}

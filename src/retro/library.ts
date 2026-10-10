@@ -404,6 +404,29 @@ export function deleteGame(id: string) {
   forgetPlaytime(`retro:${id}`);
 }
 
+// Reset overrrrhere (décision d'Elhadji du 09/10/2026) : tous les jeux rétro de l'iPhone, leurs jaquettes et leurs
+// sauvegardes, les cartes mémoire GameCube et les sauvegardes Wii de Dolphin, et le lien vers le dossier iCloud.
+// Le dossier iCloud lui-même (ROM et sauvegardes copiées) n'est jamais touché.
+export function resetRetroLibrary() {
+  for (const directory of [root(), new Directory(Paths.document, 'saves'), new Directory(Paths.document, 'gamecube', 'GC'), new Directory(Paths.document, 'gamecube', 'Wii', 'title'), new Directory(Paths.cache, 'retro-covers')]) {
+    try {
+      if (directory.exists) directory.delete();
+    } catch {
+      // Déjà absent ou illisible : rien à effacer.
+    }
+  }
+  try {
+    Retro.forgetRomFolder();
+  } catch {
+    // Module natif plus ancien : le lien reste, sans dossier il ne sert à rien.
+  }
+  games = [];
+  folder = null;
+  download = null;
+  revision += 1;
+  emit();
+}
+
 // Place occupée sur l'iPhone par un jeu (ROM, sauvegardes, jaquette), pour Settings > Retro.
 // Jeu du dossier de ROM : sa ROM ne compte que si elle est téléchargée.
 export function gameBytes(game: RetroGame): number {

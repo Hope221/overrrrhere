@@ -24,7 +24,7 @@ const VOLUME = { Low: 0.3, Medium: 0.6, High: 1 };
 //   select ← confirm_style_5_004, back ← back_style_5_001 : ObsydianX, « Interface SFX Pack 1 »
 //   (obsydianx.itch.io/interface-sfx-pack-1).
 // Coupés à leur fin naturelle (-60 dB), fondu 10 ms (ready : 120 ms). Crêtes : move -9 dB, ready -3 dB,
-// select -10 dB et back -12 dB (baissés de 6 dB le 08/10 : « A et B trop forts » sur iPhone).
+// select -13 dB et back -15 dB (baissés de 6 dB le 08/10 puis de 3 dB le 09/10 : « A et B trop forts » sur iPhone).
 // Mettre un son à false ici le coupe sans toucher aux réglages.
 const ENABLED: Record<Sound, boolean> = {
   move: true,

@@ -71,10 +71,11 @@ type Props = {
   onPlayRetro: (gameId: string, slot: SlotId | null, fromLibrary: boolean) => void;
   initialOverlay?: 'retro'; // retour d'un jeu rétro lancé depuis la bibliothèque
   onSignOut: () => void;
+  onReset: () => void;
   onSignIn: () => void; // sans compte Microsoft : Console home et All games ouvrent Sign in
 };
 
-export function HomeScreen({ onPlay, onChangeConsole, onShowWelcome, onSignOut, onSignIn, onPlayRetro, initialOverlay }: Props) {
+export function HomeScreen({ onPlay, onChangeConsole, onShowWelcome, onSignOut, onReset, onSignIn, onPlayRetro, initialOverlay }: Props) {
   const settings = useSettings();
   const tileState = useTiles();
   const retro = useRetroLibrary();
@@ -347,6 +348,7 @@ export function HomeScreen({ onPlay, onChangeConsole, onShowWelcome, onSignOut, 
           onShowWelcome={onShowWelcome}
           onLicenses={() => setOverlay({ name: 'licenses' })}
           onSignOut={onSignOut}
+          onReset={onReset}
           onSignIn={onSignIn}
         />
       )}

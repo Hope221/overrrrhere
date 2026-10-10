@@ -142,6 +142,7 @@ export function Root() {
             onChangeConsole={() => setScreen({ name: 'consoles', from: 'settings' })}
             onSignIn={() => setScreen({ name: 'signIn' })}
             onShowWelcome={() => setScreen({ name: 'welcome' })}
+            onReset={() => setScreen({ name: 'welcome' })}
             initialOverlay={screen.reopen}
             onPlayRetro={async (gameId, slot, fromLibrary) => {
               // Jeu du dossier iCloud : téléchargé d'abord (B annule), puis lancé.

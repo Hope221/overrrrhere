@@ -15,12 +15,13 @@
       "bundleIdentifier": "com.elhadji.overrrrhere",
       "supportsTablet": false,
       "infoPlist": {
-        "ITSAppUsesNonExemptEncryption": false,
-        "NSLocalNetworkUsageDescription": "overrrrhere connects to your Xbox on your home network to stream your games."
+        "NSLocalNetworkUsageDescription": "overrrrhere connects to your Xbox on your home network to stream your games.",
+        "ITSAppUsesNonExemptEncryption": false
       },
       "entitlements": {
         "com.apple.developer.kernel.increased-memory-limit": true
-      }
+      },
+      "bitcode": false
     },
     "plugins": [
       [
